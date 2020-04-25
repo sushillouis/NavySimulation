@@ -1,5 +1,5 @@
 # NavySimulation
-A naval simulation with several ship types, simple ship physics using desired speed and desired heading, keyboard controls, AI controls for move, follow, and intercept with RTS style right mouse click commands
+A naval simulation for academic research. The simulation has several ship types, simple ship physics using desired speed and desired heading, keyboard controls, AI controls for move, follow, and intercept, with RTS style right mouse click commands
 Runs in and developed on Unity 2018.4.19, but should run on other versions with little trouble.
 Uses some assets from the deprecated Unity Standard Assets package. Ship Models were brought on the Unity asset store or from TurboSquid
 Ships assume constant acceleration and constant turn rate.
