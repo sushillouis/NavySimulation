@@ -1,0 +1,342 @@
+fileFormatVersion: 2
+guid: aa54c221fd2e74845aa92e6cb5bb948c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Bollard
+    100002: Bollard01
+    100004: Bollard02
+    100006: Bollard03
+    100008: Bollard04
+    100010: Bow rail
+    100012: bullhorn
+    100014: chair
+    100016: chair01
+    100018: chair02
+    100020: chair03
+    100022: chair04
+    100024: chair05
+    100026: chair06
+    100028: chair07
+    100030: chairs
+    100032: dashboard
+    100034: Deck fittings
+    100036: Fender
+    100038: GPS antenna
+    100040: Hull
+    100042: hull
+    100044: liferaft1
+    100046: liferaft2
+    100048: Lifering
+    100050: Mast fittings
+    100052: MOB ladder
+    100054: nav light 360RED
+    100056: nav light 360RED01
+    100058: nav light 360WHITE
+    100060: nav light 360WHITE01
+    100062: Nav light PORT
+    100064: Nav light STBD
+    100066: //RootNode
+    100068: Prop screw
+    100070: Prop screw01
+    100072: radar TP
+    100074: RF mast
+    100076: Rudder
+    100078: Rudder01
+    100080: Siderail
+    100082: spotlight
+    100084: spotlight01
+    100086: spotlight02
+    100088: spotlight03
+    100090: Sternrail1
+    100092: Sternrail2
+    100094: superstructure
+    100096: VHF antenna
+    100098: VHF antenna01
+    400000: Bollard
+    400002: Bollard01
+    400004: Bollard02
+    400006: Bollard03
+    400008: Bollard04
+    400010: Bow rail
+    400012: bullhorn
+    400014: chair
+    400016: chair01
+    400018: chair02
+    400020: chair03
+    400022: chair04
+    400024: chair05
+    400026: chair06
+    400028: chair07
+    400030: chairs
+    400032: dashboard
+    400034: Deck fittings
+    400036: Fender
+    400038: GPS antenna
+    400040: Hull
+    400042: hull
+    400044: liferaft1
+    400046: liferaft2
+    400048: Lifering
+    400050: Mast fittings
+    400052: MOB ladder
+    400054: nav light 360RED
+    400056: nav light 360RED01
+    400058: nav light 360WHITE
+    400060: nav light 360WHITE01
+    400062: Nav light PORT
+    400064: Nav light STBD
+    400066: //RootNode
+    400068: Prop screw
+    400070: Prop screw01
+    400072: radar TP
+    400074: RF mast
+    400076: Rudder
+    400078: Rudder01
+    400080: Siderail
+    400082: spotlight
+    400084: spotlight01
+    400086: spotlight02
+    400088: spotlight03
+    400090: Sternrail1
+    400092: Sternrail2
+    400094: superstructure
+    400096: VHF antenna
+    400098: VHF antenna01
+    2100000: superstructure texmap
+    2100002: steel
+    2100004: glass
+    2100006: grille
+    2100008: decklight glow
+    2100010: white plastic
+    2100012: orange
+    2100014: black plastic
+    2100016: nav red glow
+    2100018: nav white glow
+    2100020: nav green glow
+    2100022: worklight glow
+    2100024: deck texmap
+    2100026: fenders
+    2100028: hull texmap
+    2100030: chair
+    2300000: Bollard
+    2300002: Bollard01
+    2300004: Bollard02
+    2300006: Bollard03
+    2300008: Bollard04
+    2300010: Bow rail
+    2300012: bullhorn
+    2300014: chair
+    2300016: chair01
+    2300018: chair02
+    2300020: chair03
+    2300022: chair04
+    2300024: chair05
+    2300026: chair06
+    2300028: chair07
+    2300030: dashboard
+    2300032: Fender
+    2300034: GPS antenna
+    2300036: Hull
+    2300038: liferaft1
+    2300040: liferaft2
+    2300042: Lifering
+    2300044: MOB ladder
+    2300046: nav light 360RED
+    2300048: nav light 360RED01
+    2300050: nav light 360WHITE
+    2300052: nav light 360WHITE01
+    2300054: Nav light PORT
+    2300056: Nav light STBD
+    2300058: Prop screw
+    2300060: Prop screw01
+    2300062: radar TP
+    2300064: RF mast
+    2300066: Rudder
+    2300068: Rudder01
+    2300070: Siderail
+    2300072: spotlight
+    2300074: spotlight01
+    2300076: spotlight02
+    2300078: spotlight03
+    2300080: Sternrail1
+    2300082: Sternrail2
+    2300084: superstructure
+    2300086: VHF antenna
+    2300088: VHF antenna01
+    3300000: Bollard
+    3300002: Bollard01
+    3300004: Bollard02
+    3300006: Bollard03
+    3300008: Bollard04
+    3300010: Bow rail
+    3300012: bullhorn
+    3300014: chair
+    3300016: chair01
+    3300018: chair02
+    3300020: chair03
+    3300022: chair04
+    3300024: chair05
+    3300026: chair06
+    3300028: chair07
+    3300030: dashboard
+    3300032: Fender
+    3300034: GPS antenna
+    3300036: Hull
+    3300038: liferaft1
+    3300040: liferaft2
+    3300042: Lifering
+    3300044: MOB ladder
+    3300046: nav light 360RED
+    3300048: nav light 360RED01
+    3300050: nav light 360WHITE
+    3300052: nav light 360WHITE01
+    3300054: Nav light PORT
+    3300056: Nav light STBD
+    3300058: Prop screw
+    3300060: Prop screw01
+    3300062: radar TP
+    3300064: RF mast
+    3300066: Rudder
+    3300068: Rudder01
+    3300070: Siderail
+    3300072: spotlight
+    3300074: spotlight01
+    3300076: spotlight02
+    3300078: spotlight03
+    3300080: Sternrail1
+    3300082: Sternrail2
+    3300084: superstructure
+    3300086: VHF antenna
+    3300088: VHF antenna01
+    4300000: superstructure
+    4300002: liferaft1
+    4300004: liferaft2
+    4300006: MOB ladder
+    4300008: Lifering
+    4300010: Bollard
+    4300012: Bollard01
+    4300014: Bollard02
+    4300016: Bollard03
+    4300018: Bollard04
+    4300020: Bow rail
+    4300022: Siderail
+    4300024: Sternrail1
+    4300026: Sternrail2
+    4300028: bullhorn
+    4300030: GPS antenna
+    4300032: nav light 360RED
+    4300034: nav light 360RED01
+    4300036: nav light 360WHITE
+    4300038: nav light 360WHITE01
+    4300040: Nav light PORT
+    4300042: Nav light STBD
+    4300044: radar TP
+    4300046: RF mast
+    4300048: spotlight
+    4300050: spotlight01
+    4300052: spotlight02
+    4300054: spotlight03
+    4300056: VHF antenna
+    4300058: VHF antenna01
+    4300060: Fender
+    4300062: Hull
+    4300064: Prop screw
+    4300066: Prop screw01
+    4300068: Rudder
+    4300070: Rudder01
+    4300072: chair06
+    4300074: chair05
+    4300076: chair04
+    4300078: chair07
+    4300080: chair03
+    4300082: chair02
+    4300084: chair01
+    4300086: chair
+    4300088: dashboard
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
