@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class DHDS {
+    public float dh = 0;//degrees
+    public float ds = 0;//m/s
+    public DHDS(float h, float s)
+    {
+        dh = h;
+        ds = s;
+    }
+}
+
+
+
+
+[System.Serializable]
 public class Command 
 {
     public Entity381 entity;

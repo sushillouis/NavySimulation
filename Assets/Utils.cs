@@ -39,4 +39,15 @@ public static class Utils {
         return angleDegrees;
 
     }
+
+    public static float VectorToHeadingDegrees(Vector3 v)
+    {
+        return Mathf.Atan2(v.x, v.z) * Mathf.Rad2Deg;
+    }
+
+    public static void CPA(Entity381 e1, Entity381 e2)
+    {
+
+
+    }
 }

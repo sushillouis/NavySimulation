@@ -29,9 +29,8 @@ public class Follow : Move
     {
         offset = targetEntity.transform.TransformVector(relativeOffset);
         movePosition = targetEntity.transform.position + offset;
-        float dh = ComputeDH();
-        //float dh = ComputePredictiveDH(relativeOffset);
-        entity.desiredHeading = dh;
+        //entity.desiredHeading = ComputePredictiveDH(relativeOffset);
+        entity.desiredHeading = ComputeDHDS().dh;
         if (diff.sqrMagnitude < followThreshold) {
             entity.desiredSpeed = targetEntity.speed;
             entity.desiredHeading = targetEntity.heading;
@@ -72,7 +71,7 @@ public class Follow : Move
             predictedDiff = predictedMovePosition - entity.position;
             dh = Utils.Degrees360(Mathf.Atan2(predictedDiff.x, predictedDiff.z) * Mathf.Rad2Deg);
         } else {
-            dh = ComputeDH();
+            dh = ComputeDHDS().dh;
         }
         return dh;
     }

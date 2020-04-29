@@ -11,8 +11,10 @@ public class UnitAI : MonoBehaviour
         entity = GetComponentInParent<Entity381>();
         commands = new List<Command>();
         intercepts = new List<Intercept>();
+        moves = new List<Move>();
     }
 
+    public List<Move> moves;
     public List<Command> commands;
     public List<Intercept> intercepts;
 
@@ -50,6 +52,10 @@ public class UnitAI : MonoBehaviour
         commands.Add(c);
         if (c is Intercept)
             intercepts.Add(c as Intercept);
+        else if (c is Follow)
+            ;
+        else
+            moves.Add(c as Move);
     }
 
     public void SetCommand(Command c)
@@ -81,7 +87,7 @@ public class UnitAI : MonoBehaviour
             else
                 current.line.SetPosition(0, prior.line.GetPosition(1));
 
-             if (current is Intercept) { //Most specific
+            if (current is Intercept) { //Most specific
                 Intercept intercept = current as Intercept;
                 if (intercept.isRunning)// 
                     intercept.line.SetPosition(1, intercept.predictedMovePosition);
@@ -94,8 +100,21 @@ public class UnitAI : MonoBehaviour
                 f.line.SetPosition(1, f.targetEntity.position + f.offset);
                 f.line.SetPosition(2, f.targetEntity.position);
                 //f.line.SetPosition(1, f.predictedMovePosition);
-            } //Least specific
+            }
             //Moveposition never changes
+        }
+
+        //potential fields lines
+        if(!(current is Follow) && !(current is Intercept)){ 
+            Move m = current as Move;
+            m.potentialLine.SetPosition(0, entity.position);
+            Vector3 newpos = Vector3.zero;
+            newpos.x = Mathf.Sin(entity.desiredHeading * Mathf.Deg2Rad) * entity.desiredSpeed;
+            newpos.z = Mathf.Cos(entity.desiredHeading * Mathf.Deg2Rad) * entity.desiredSpeed;
+            newpos *= 20;
+            newpos.y = 1;
+            m.potentialLine.SetPosition(1, newpos);
+
         }
     }
 

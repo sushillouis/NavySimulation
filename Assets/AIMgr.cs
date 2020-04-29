@@ -15,6 +15,7 @@ public class AIMgr : MonoBehaviour
         layerMask = 1 << 9;// LayerMask.GetMask("Water");
     }
 
+    public bool isPotentialFieldsMovement = false;
     public RaycastHit hit;
     public int layerMask;
 
