@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2fd9069db7d894d8e8458779069765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSelected: 1
+  isSelected: 0
   position: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   speed: 0
@@ -93,6 +93,7 @@ MonoBehaviour:
   turnRate: 7
   maxSpeed: 30
   minSpeed: 0
+  mass: 1000
   entityType: 0
   cameraRig: {fileID: 2020023502900363850}
   selectionCircle: {fileID: 7167764133957489543}
@@ -149,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
+  moves: []
   commands: []
   intercepts: []
 --- !u!1 &2020023502900363850

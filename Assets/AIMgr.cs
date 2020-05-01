@@ -16,6 +16,13 @@ public class AIMgr : MonoBehaviour
     }
 
     public bool isPotentialFieldsMovement = false;
+    public float potentialDistanceThreshold = 1000;
+    public float attractionCoefficient = 500;
+    public float attractiveExponent = -1;
+    public float repulsiveCoefficient = 60000;
+    public float repulsiveExponent = -2.0f;
+
+
     public RaycastHit hit;
     public int layerMask;
 

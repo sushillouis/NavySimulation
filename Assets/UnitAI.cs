@@ -63,6 +63,8 @@ public class UnitAI : MonoBehaviour
         //print("Setting command: " + c.ToString());
         StopAndRemoveAllCommands();
         commands.Clear();
+        moves.Clear();
+        intercepts.Clear();
         AddCommand(c);
 
     }
@@ -105,7 +107,7 @@ public class UnitAI : MonoBehaviour
         }
 
         //potential fields lines
-        if(!(current is Follow) && !(current is Intercept)){ 
+        if(!(current is Follow) && !(current is Intercept) && AIMgr.inst.isPotentialFieldsMovement){ 
             Move m = current as Move;
             m.potentialLine.SetPosition(0, entity.position);
             Vector3 newpos = Vector3.zero;
@@ -113,9 +115,11 @@ public class UnitAI : MonoBehaviour
             newpos.z = Mathf.Cos(entity.desiredHeading * Mathf.Deg2Rad) * entity.desiredSpeed;
             newpos *= 20;
             newpos.y = 1;
-            m.potentialLine.SetPosition(1, newpos);
-
+            m.potentialLine.SetPosition(1, entity.position + newpos);
+            m.potentialLine.gameObject.SetActive(entity.isSelected);
         }
+
+
     }
 
 }

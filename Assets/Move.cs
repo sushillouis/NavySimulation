@@ -45,13 +45,7 @@ public class Move : Command
         return new DHDS(dhDegrees, entity.maxSpeed);
 
     }
-    
 
-    public float potentialDistanceThreshold = 1000;
-    public float attractionCoefficient = 500;
-    public float attractiveExponent = -1;
-    public float repulsiveCoefficient = 600000;
-    float repulsiveExponent = -2.0f;
     public DHDS ComputePotentialDHDS()
     {
         Potential p;
@@ -59,15 +53,21 @@ public class Move : Command
         foreach (Entity381 ent in EntityMgr.inst.entities) {
             if (ent == entity) continue;
             p = DistanceMgr.inst.GetPotential(entity, ent);
-            if(p.distance < potentialDistanceThreshold)
-                repulsivePotential += p.diff;
+            if (p.distance < AIMgr.inst.potentialDistanceThreshold) {
+                repulsivePotential += p.direction * entity.mass *
+                    AIMgr.inst.repulsiveCoefficient * Mathf.Pow(p.diff.magnitude, AIMgr.inst.repulsiveExponent);
+                //repulsivePotential += p.diff;
+            }
         }
-        repulsivePotential *= repulsiveCoefficient * Mathf.Pow(repulsivePotential.magnitude, repulsiveExponent);
+        //repulsivePotential *= repulsiveCoefficient * Mathf.Pow(repulsivePotential.magnitude, repulsiveExponent);
         attractivePotential = movePosition - entity.position;
-        diff = attractivePotential;
-        attractivePotential *= attractionCoefficient * Mathf.Pow(attractivePotential.magnitude, attractiveExponent);
+        Vector3 tmp = attractivePotential.normalized;
+        attractivePotential = tmp * 
+            AIMgr.inst.attractionCoefficient * Mathf.Pow(attractivePotential.magnitude, AIMgr.inst.attractiveExponent);
         potentialSum = attractivePotential - repulsivePotential;
+
         dh = Utils.Degrees360(Mathf.Rad2Deg * Mathf.Atan2(potentialSum.x, potentialSum.z));
+
         angleDiff = Utils.Degrees360(Utils.AngleDiffPosNeg(dh, entity.heading));
         cosValue = (Mathf.Cos(angleDiff * Mathf.Deg2Rad) + 1) / 2.0f; // makes it between 0 and 1
         ds = entity.maxSpeed * cosValue;
@@ -87,7 +87,8 @@ public class Move : Command
     public float doneDistanceSq = 1000;
     public override bool IsDone()
     {
-        return (diff.sqrMagnitude < doneDistanceSq);
+
+        return ((entity.position - movePosition).sqrMagnitude < doneDistanceSq);
     }
 
     public override void Stop()

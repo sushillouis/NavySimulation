@@ -20,9 +20,22 @@ public class GameMgr : MonoBehaviour
         }
     }
 
+    public Vector3 position;
+    public float spread = 20;
+    public float colNum = 10;
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.F12)) {
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    Entity381 ent = EntityMgr.inst.CreateEntity(EntityType.PilotVessel, position, Vector3.zero);
+                    position.z += spread;
+                }
+                position.x += spread;
+                position.z = 0;
+            }
+            DistanceMgr.inst.Initialize();
+        }
     }
 }

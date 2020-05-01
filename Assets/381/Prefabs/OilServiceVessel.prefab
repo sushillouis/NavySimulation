@@ -136,6 +136,7 @@ MonoBehaviour:
   turnRate: 10
   maxSpeed: 19
   minSpeed: 0
+  mass: 200
   entityType: 3
   cameraRig: {fileID: 852010691}
   selectionCircle: {fileID: 9183282936042578955}
@@ -152,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
+  moves: []
   commands: []
   intercepts: []
 --- !u!114 &1303395828

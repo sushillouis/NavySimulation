@@ -916,7 +916,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065ce964008046c4496f4bcaeaf31a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPotentialFieldsMovement: 0
+  isPotentialFieldsMovement: 1
+  potentialDistanceThreshold: 1000
+  attractionCoefficient: 20000
+  attractiveExponent: -1
+  repulsiveCoefficient: 1000
+  repulsiveExponent: -2
   layerMask: 0
   rClickRadiusSq: 10000
 --- !u!65 &639876784
@@ -1415,6 +1420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f307a68b0cd5d24da3eb78422925657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: -500, y: 0, z: 0}
+  spread: 50
+  colNum: 10
 --- !u!1001 &1142000933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3169,6 +3177,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PotentialLine
       objectReference: {fileID: 0}
+    - target: {fileID: 7190143859791935740, guid: bfa38735ac7725c44979a7084bcd30c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7190143859791935741, guid: bfa38735ac7725c44979a7084bcd30c6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3233,11 +3246,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 382953080}
     m_Modifications:
-    - target: {fileID: 1061575964593058050, guid: 4eadb14a1eece2a44a7ae893943f3d9f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2020023502598012820, guid: 4eadb14a1eece2a44a7ae893943f3d9f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3301,11 +3309,6 @@ PrefabInstance:
     - target: {fileID: 2020023502598012821, guid: 4eadb14a1eece2a44a7ae893943f3d9f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2020023502598012843, guid: 4eadb14a1eece2a44a7ae893943f3d9f,
-        type: 3}
-      propertyPath: isSelected
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

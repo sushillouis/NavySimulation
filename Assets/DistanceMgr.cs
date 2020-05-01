@@ -103,14 +103,14 @@ public class DistanceMgr : MonoBehaviour
     public bool isInitialized = false;
     public int i = 0;
     public int j = 0;
-    void Initialize()
+    public void Initialize()
     {
         isInitialized = true;
         potentialsDictionary = new Dictionary<Entity381, Dictionary<Entity381, Potential>>();
         potentialsList = new List<List<Potential>>();
         int n = EntityMgr.inst.entities.Count;
         potentials2D = new Potential[n, n];
-
+        i = 0;
         foreach (Entity381 ent1 in EntityMgr.inst.entities) {
             Dictionary<Entity381, Potential> ent1PotDictionary = new Dictionary<Entity381, Potential>();
             List<Potential> ent1PotList = new List<Potential>();
