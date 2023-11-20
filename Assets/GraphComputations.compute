@@ -1,0 +1,129 @@
+﻿#pragma kernel FunctionKernel
+
+//struct to hold individual ship data
+struct ShipData
+{
+    float mass;
+    float3 position;
+    float3 movePosition;
+    int commands;
+};
+
+//parameters
+int numShips; //total number of ships
+int entity; //index of the entity the graph is made for in EntityMgr.inst.entities
+float maxMag; //maximum magnitude of potentials to be represented on the graph
+
+//parameters for the fields from the AIMgr
+float attractiveExponent;
+float attractiveCoefficient;
+float repulsiveExponent;
+float repulsiveCoefficient;
+float threshold;
+
+RWStructuredBuffer<float3> positions; //buffer to hold mesh vertex positions
+StructuredBuffer<ShipData> ships; //buffer to hold indvidual ship data
+
+
+//Same as the Vector3.normalize method in unity
+float3 NormalizeVector(float3 vec)
+{
+    float mag = sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+    float3 newVec = float3(vec.x / mag, vec.y / mag, vec.z / mag);
+    return newVec;
+}
+
+//Same as the Vector3.magnitude method in unity
+float VectorMagnitude(float3 vec)
+{
+    return sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+}
+
+//some Mathf constants
+#define PI 3.14159265358979323846
+#define Deg2Rad (PI * 2) / 360.0
+#define Rad2Deg 360 / (PI * 2)
+
+//ensures that degree values are between 0 and 360
+float Degrees360(float angleDegrees)
+{
+    float ad = angleDegrees;
+    while (ad >= 360)
+    {
+        ad -= 360;
+    }
+    while (ad < 0)
+    {
+        ad += 360;
+    }
+    return ad;
+
+}
+
+//coverts a vector to head
+float VectorToHeadingDegrees(float3 v)
+{
+    return atan2(v.x, v.z) * Rad2Deg;
+}
+
+//gets difference between angles
+float AngleDiffPosNeg(float a, float b)
+{
+    float diff = a - b;
+    if (diff > 180)
+        return diff - 360;
+    if (diff < -180)
+        return diff + 360;
+    return diff;
+}
+
+/*calculates the potential value for a specific postion
+NOTE: this function reflects the ComputePotentialDHDS() method in Move.cs, if the code in that function is changed
+the code in this function should be changed to give an accurate representation of fields
+*/
+float CalculatePotential(float3 position, int entity)
+{
+    float3 attractivePotential = float3(0, 0, 0);
+    float magnitude;
+
+    if (ships[entity].commands != 0)
+    {
+        attractivePotential = ships[entity].movePosition - position;
+        float3 tmp = NormalizeVector(attractivePotential);
+        attractivePotential = tmp *
+                attractiveCoefficient * pow(VectorMagnitude(attractivePotential), attractiveExponent);
+    }
+
+    float3 repulsivePotential = float3(0, 0, 0);
+    for (int i = 0; i < numShips; i++)
+    {
+        if (i == entity)
+            continue;
+        
+        float3 diff = ships[i].position - position;
+        float dist = VectorMagnitude(diff);
+        float3 direc = NormalizeVector(diff);
+        
+        if(dist < threshold)
+            repulsivePotential += direc * ships[entity].mass * repulsiveCoefficient * pow(dist, repulsiveExponent);
+    }
+    
+    //a negative potential magnitude represents an attractive potential while a positve magnitude represents a repulsive potential 
+    float potentialMag = VectorMagnitude(repulsivePotential) - VectorMagnitude(attractivePotential);
+    
+    //clamps the magnitude between the maxMag variable so potentials can be more readable
+    magnitude = clamp(potentialMag, -maxMag, maxMag);
+    
+    return magnitude;
+}
+
+
+//function that calculates the potential at all points in the mesh and updates the buffer to be read back
+[numthreads(64, 1, 1)]
+void FunctionKernel(uint3 id : SV_DispatchThreadID)
+{
+    float3 pos = positions[id.x];
+    pos.y = 0;
+    float mag = (CalculatePotential(pos, entity) / maxMag) * 400;
+    positions[id.x] = float3(pos.x, mag, pos.z);
+}
