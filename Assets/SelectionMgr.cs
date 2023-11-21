@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class SelectionMgr : MonoBehaviour
 {
@@ -11,49 +13,57 @@ public class SelectionMgr : MonoBehaviour
         inst = this;
     }
 
+    private GameInputs input;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        input = new GameInputs();
+        input.Enable();
+        input.Entities.Cursor.canceled += OnCursorCanceled;
+        input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
+        input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
     }
     //----------------------------------------------------------------------------------------------------
     public bool isSelecting = false;
-    public Vector3 startMousePosition;
+    public Vector2 startMousePosition;
     public RectTransform SelectionBoxPanel;
     public RectTransform UICanvas;
+    private bool mouseUp;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Tab))
+        if (input.Entities.NextEntity.triggered)
             SelectNextEntity();
 
-        if (Input.GetMouseButtonDown(0)) { //start box selecting
+        if (input.Entities.Cursor.triggered) { //start box selecting
             isSelecting = true;
             StartBoxSelecting();
         }
 
-        if (Input.GetMouseButtonUp(0)) { //end box selecting
+        if (mouseUp) { //end box selecting
             isSelecting = false;
             EndBoxSelecting();
+            mouseUp = false;
         }
 
         if (isSelecting) // while box selecting
-            UpdateSelectionBox(startMousePosition, Input.mousePosition);
+            UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
 
     }
     void StartBoxSelecting()
     {
-        startMousePosition = Input.mousePosition;
+        startMousePosition = input.Entities.CursorPosition.ReadValue<Vector2>();
         SelectionBoxPanel.gameObject.SetActive(true);
     }
     public float selectionSensitivity = 25;
     void EndBoxSelecting()
     {
-        if((Input.mousePosition - startMousePosition).sqrMagnitude > selectionSensitivity)
+        if((input.Entities.CursorPosition.ReadValue<Vector2>() - startMousePosition).sqrMagnitude > selectionSensitivity)
             ClearSelection(); // if not small box, then clear selection
 
-        SelectEntitiesInBox(startMousePosition, Input.mousePosition);
+        SelectEntitiesInBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
         SelectionBoxPanel.gameObject.SetActive(false);
     }
 
@@ -111,12 +121,13 @@ public class SelectionMgr : MonoBehaviour
     public Entity381 selectedEntity = null;
     public List<Entity381> selectedEntities = new List<Entity381>();
 
+    bool lShiftDown = false;
     public void SelectNextEntity()
     {
         selectedEntityIndex = 
             (selectedEntityIndex >= EntityMgr.inst.entities.Count - 1 ? 0 : selectedEntityIndex + 1);
         SelectEntity(EntityMgr.inst.entities[selectedEntityIndex], 
-            shouldClearSelection: !Input.GetKey(KeyCode.LeftShift));
+            shouldClearSelection: !lShiftDown);
     }
 
     public void ClearSelection()
@@ -136,6 +147,21 @@ public class SelectionMgr : MonoBehaviour
             selectedEntity.isSelected = true;
             selectedEntities.Add(ent);
         }
+    }
+
+    private void OnCursorCanceled(InputAction.CallbackContext context)
+    {
+        mouseUp = true;
+    }
+
+    private void OnClearSelectionPerformed(InputAction.CallbackContext context)
+    {
+        lShiftDown = true;
+    }
+
+    private void OnClearSelectionCanceled(InputAction.CallbackContext context)
+    {
+        lShiftDown = false;
     }
 
 }

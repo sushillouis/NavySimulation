@@ -12,21 +12,25 @@ public class GraphMgr : MonoBehaviour
     public Vector3 position;
     public int resolution;
 
+    private GameInputs input;
+
     private void Awake()
     {
         inst = this;
+        input = new GameInputs();
+        input.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        if (Input.GetKeyUp(KeyCode.G))
+        if (input.Graph.Create.triggered)
         {
             if (SelectionMgr.inst.selectedEntity != null)
                 CreateGraph(SelectionMgr.inst.selectedEntity);
         }
-        if (Input.GetKeyUp(KeyCode.H))
+        if (input.Graph.Destroy.triggered)
         {
             DeleteAllGraphs();
         }

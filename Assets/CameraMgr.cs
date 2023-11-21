@@ -1,10 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraMgr : MonoBehaviour
 {
     public static CameraMgr inst;
+    private GameInputs input;
+    private Vector3 moveVector;
+    private float yawValue;
+    private float pitchValue;
+
     private void Awake()
     {
         inst = this;
@@ -12,7 +18,8 @@ public class CameraMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        input = new GameInputs();
+        input.Enable();
     }
 
     public GameObject RTSCameraRig;
@@ -28,34 +35,22 @@ public class CameraMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-            YawNode.transform.Translate(Vector3.forward * Time.deltaTime * cameraMoveSpeed);
-        if (Input.GetKey(KeyCode.S))
-            YawNode.transform.Translate(Vector3.back * Time.deltaTime * cameraMoveSpeed);
-        if (Input.GetKey(KeyCode.A))
-            YawNode.transform.Translate(Vector3.left * Time.deltaTime * cameraMoveSpeed);
-        if (Input.GetKey(KeyCode.D))
-            YawNode.transform.Translate(Vector3.right * Time.deltaTime * cameraMoveSpeed);
-        if (Input.GetKey(KeyCode.R))
-            YawNode.transform.Translate(Vector3.up * Time.deltaTime * cameraMoveSpeed);
-        if (Input.GetKey(KeyCode.F))
-            YawNode.transform.Translate(Vector3.down * Time.deltaTime * cameraMoveSpeed);
+        moveVector = input.Camera.Movement.ReadValue<Vector3>();
+        yawValue = input.Camera.Yaw.ReadValue<float>();
+        pitchValue = input.Camera.Pitch.ReadValue<float>();
 
+
+        YawNode.transform.Translate(moveVector * Time.deltaTime * cameraMoveSpeed);
+        
         currentYawEulerAngles = YawNode.transform.localEulerAngles;
-        if (Input.GetKey(KeyCode.Q))
-            currentYawEulerAngles.y -= cameraTurnRate * Time.deltaTime;
-        if (Input.GetKey(KeyCode.E))
-            currentYawEulerAngles.y += cameraTurnRate * Time.deltaTime;
+        currentYawEulerAngles.y +=  yawValue * cameraTurnRate * Time.deltaTime;
         YawNode.transform.localEulerAngles = currentYawEulerAngles;
 
         currentPitchEulerAngles = PitchNode.transform.localEulerAngles;
-        if (Input.GetKey(KeyCode.Z))
-            currentPitchEulerAngles.x -= cameraTurnRate * Time.deltaTime;
-        if (Input.GetKey(KeyCode.X))
-            currentPitchEulerAngles.x += cameraTurnRate * Time.deltaTime;
+        currentPitchEulerAngles.x += pitchValue * cameraTurnRate * Time.deltaTime;
         PitchNode.transform.localEulerAngles = currentPitchEulerAngles;
 
-        if (Input.GetKeyUp(KeyCode.C)) {
+        if (input.Camera.RTSView.triggered) {
             if (isRTSMode) {
                 YawNode.transform.SetParent(SelectionMgr.inst.selectedEntity.cameraRig.transform);
                 YawNode.transform.localPosition = Vector3.zero;
@@ -67,12 +62,6 @@ public class CameraMgr : MonoBehaviour
             }
             isRTSMode = !isRTSMode;
         }
-
-
-
-
-
-
     }
     public bool isRTSMode = true;
 }

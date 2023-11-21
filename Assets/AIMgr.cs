@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AIMgr : MonoBehaviour
 {
     public static AIMgr inst;
+    private GameInputs input;
     private void Awake()
     {
         inst = this;
@@ -13,6 +15,13 @@ public class AIMgr : MonoBehaviour
     void Start()
     {
         layerMask = 1 << 9;// LayerMask.GetMask("Water");
+        input = new GameInputs();
+        input.Enable();
+        input.Entities.Intercept.performed += OnInterceptPerformed;
+        input.Entities.Intercept.canceled += OnInterceptCanceled;
+        input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
+        input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
+
     }
 
     public bool isPotentialFieldsMovement = false;
@@ -29,8 +38,8 @@ public class AIMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask)) {
+        if (input.Entities.Move.triggered) {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(input.Entities.CursorPosition.ReadValue<Vector2>()), out hit, float.MaxValue, layerMask)) {
                 //Debug.DrawLine(Camera.main.transform.position, hit.point, Color.yellow, 2); //for debugging
                 Vector3 pos = hit.point;
                 pos.y = 0;
@@ -38,7 +47,7 @@ public class AIMgr : MonoBehaviour
                 if (ent == null) {
                     HandleMove(SelectionMgr.inst.selectedEntities, pos);
                 } else {
-                    if (Input.GetKey(KeyCode.LeftControl))
+                    if (interceptDown)
                         HandleIntercept(SelectionMgr.inst.selectedEntities, ent);
                     else
                         HandleFollow(SelectionMgr.inst.selectedEntities, ent);
@@ -60,7 +69,7 @@ public class AIMgr : MonoBehaviour
 
     void AddOrSet(Command c, UnitAI uai)
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (addDown)
             uai.AddCommand(c);
         else
             uai.SetCommand(c);
@@ -102,5 +111,27 @@ public class AIMgr : MonoBehaviour
             }    
         }
         return minEnt;
+    }
+
+    bool interceptDown = false;
+    private void OnInterceptPerformed(InputAction.CallbackContext context)
+    {
+        interceptDown = true;
+    }
+
+    private void OnInterceptCanceled(InputAction.CallbackContext context)
+    {
+        interceptDown = false;
+    }
+
+    bool addDown = false;
+    private void OnClearSelectionPerformed(InputAction.CallbackContext context)
+    {
+        addDown = true;
+    }
+
+    private void OnClearSelectionCanceled(InputAction.CallbackContext context)
+    {
+        addDown = false;
     }
 }

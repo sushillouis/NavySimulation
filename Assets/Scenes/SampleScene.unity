@@ -3020,7 +3020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSelecting: 0
-  startMousePosition: {x: 0, y: 0, z: 0}
+  startMousePosition: {x: 0, y: 0}
   SelectionBoxPanel: {fileID: 194918368}
   UICanvas: {fileID: 1491763689}
   selectionSensitivity: 25
@@ -3542,9 +3542,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graph: {fileID: 1851050449059633817, guid: 11233e87b35a96242b7e9fc9cc782ac1, type: 3}
   maxMag: 50
-  size: {x: 1000, y: 1000}
-  position: {x: -500, y: 0, z: -500}
-  resolution: 20
+  size: {x: 10000, y: 10000}
+  position: {x: -5000, y: 0, z: -5000}
+  resolution: 200
 --- !u!1 &2144337139
 GameObject:
   m_ObjectHideFlags: 0
