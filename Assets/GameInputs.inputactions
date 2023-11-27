@@ -2,7 +2,7 @@
     "name": "GameInputs",
     "maps": [
         {
-            "name": "Camera",
+            "name": "Keyboard",
             "id": "64ad9aad-2e92-46a9-8394-8d00d4d16a2d",
             "actions": [
                 {
@@ -36,6 +36,105 @@
                     "name": "RTSView",
                     "type": "Button",
                     "id": "30f30e9e-c968-4b1b-bce3-0617028eb131",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Speed",
+                    "type": "Value",
+                    "id": "6dcfecf7-9b0e-483f-a6af-0841c3a8359a",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Heading",
+                    "type": "Button",
+                    "id": "4c27e7c4-2eeb-4eff-8846-bb6b03ea8027",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextEntity",
+                    "type": "Button",
+                    "id": "00052d87-23b3-42ba-bf5c-90083b24e386",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cursor",
+                    "type": "Button",
+                    "id": "0046ff58-3ea1-467b-a70f-333fdd1ef479",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CursorPosition",
+                    "type": "Value",
+                    "id": "78ce3964-7a4f-4b89-b6cb-3af0610e8d9d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ClearSelection",
+                    "type": "Button",
+                    "id": "40178561-e695-4574-b148-70ebae988276",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "08ea3fe2-b904-46d9-b89b-93445fad32fe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Intercept",
+                    "type": "Button",
+                    "id": "e4d31d4c-5464-4e57-8b79-0659ceff66f2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Create100",
+                    "type": "Button",
+                    "id": "74a5d121-8f50-49b3-b844-57ddb0f74406",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Create",
+                    "type": "Button",
+                    "id": "91bc7bd3-382e-4f59-972f-81092c3c5aa6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Destroy",
+                    "type": "Button",
+                    "id": "320df4f8-6c01-4e6e-aafb-4f5b5f13b44f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -75,6 +174,17 @@
                     "action": "Pitch",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "781e5243-d9b7-4bf6-83fc-78990e7181a6",
+                    "path": "<Touchscreen>/primaryTouch/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -196,99 +306,21 @@
                     "action": "Yaw",
                     "isComposite": false,
                     "isPartOfComposite": true
-                }
-            ]
-        },
-        {
-            "name": "Entities",
-            "id": "ad6cdc96-9ba2-4fc1-891d-e92f04f8dbcc",
-            "actions": [
-                {
-                    "name": "Speed",
-                    "type": "Value",
-                    "id": "a4e81bf9-d93f-45d3-a7a2-6692784ccdad",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
                 {
-                    "name": "Heading",
-                    "type": "Button",
-                    "id": "94bfb878-6ef1-46c7-84c1-bb6d041c240d",
-                    "expectedControlType": "Button",
-                    "processors": "",
+                    "name": "",
+                    "id": "51cad81c-dea2-4d14-b7b7-ccdc88a92488",
+                    "path": "<Touchscreen>/primaryTouch/delta/x",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
-                {
-                    "name": "NextEntity",
-                    "type": "Button",
-                    "id": "2e2eee5b-1a59-427a-ad65-6e1d703254ec",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Cursor",
-                    "type": "Button",
-                    "id": "80ab0924-1ad9-4659-823e-134cfababc9d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "CursorPosition",
-                    "type": "Value",
-                    "id": "79ef4dfc-3d0a-4cd5-94e3-c42993aae840",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "ClearSelection",
-                    "type": "Button",
-                    "id": "5c5b6087-d7da-4eaa-9738-c1046e895436",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Move",
-                    "type": "Button",
-                    "id": "3146158d-76ad-4f96-9f0b-3d2f52731f72",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Intercept",
-                    "type": "Button",
-                    "id": "646efab9-b279-4885-a774-9381ae73f38d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Create100",
-                    "type": "Button",
-                    "id": "97f1d73b-41c8-4d0f-a724-758620916edb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
                 {
                     "name": "1D Axis",
-                    "id": "fc1c6d01-0dd6-4ee7-8351-a8813bdd1d90",
+                    "id": "e3e21d95-e4c8-4b36-80b2-d4e57ef58a20",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -299,7 +331,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "317a8fa6-eafe-4ac6-9337-394d4285d422",
+                    "id": "a91cd8a5-fe69-4224-b5a7-905d4600fde3",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -310,7 +342,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "607d7012-65f3-4c66-80c4-865eaf7e095e",
+                    "id": "a0f88388-cd50-4bee-ad75-069affdfa77e",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
@@ -321,7 +353,7 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "df8c5289-e55c-473c-ac5a-c2335e67178b",
+                    "id": "1d5c2334-bfcf-42fa-8ddf-dc24ac4bbca4",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -332,7 +364,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "c8690e8d-2d62-4958-8fdf-035a0f85c3ad",
+                    "id": "69eb6fef-6b13-4aac-a8a2-d0cd5e42c1dd",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -343,7 +375,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "42aadcca-234d-4582-ab23-b7459a9451e8",
+                    "id": "b9522775-c3af-42db-90a8-369ca06fa084",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
@@ -354,7 +386,7 @@
                 },
                 {
                     "name": "",
-                    "id": "e541117d-542b-42e6-ba49-e9c14b151efd",
+                    "id": "82e0bf6e-08dc-4e9f-a42d-b15c9f3966a4",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
@@ -365,29 +397,7 @@
                 },
                 {
                     "name": "",
-                    "id": "79fd010c-592b-44f8-9834-fa5226fd6b09",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CursorPosition",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dc4c2097-5825-42e2-9c60-35b1f62c7916",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ClearSelection",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "03080c9b-54f8-49b5-b453-f2f7f3d735fd",
+                    "id": "e4df9687-c941-4f69-bc0c-217ba9a2be01",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
@@ -398,7 +408,29 @@
                 },
                 {
                     "name": "",
-                    "id": "aae8eb97-727a-4319-938a-abc7855bc255",
+                    "id": "c3c7aaaf-dc0d-466b-a280-7bae5b5df249",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "865c5fbd-fe37-4b58-89a5-f93a40dec024",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClearSelection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d1807f4-2b12-43b5-ab25-d5df6b16ce02",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
@@ -409,7 +441,7 @@
                 },
                 {
                     "name": "",
-                    "id": "449f624c-7247-4268-a3df-2b8e52e4c89a",
+                    "id": "59509ce1-a2f2-4fc6-b0b5-111ae86956dc",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
@@ -420,7 +452,7 @@
                 },
                 {
                     "name": "",
-                    "id": "30b7f619-344b-443f-8541-21d7310d0b2f",
+                    "id": "b6ee38ae-d1ea-4803-94fd-a0e33c81f63d",
                     "path": "<Keyboard>/f12",
                     "interactions": "",
                     "processors": "",
@@ -428,36 +460,10 @@
                     "action": "Create100",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Graph",
-            "id": "bfe753b8-7905-44f6-8fa0-0d335b7af7a5",
-            "actions": [
-                {
-                    "name": "Create",
-                    "type": "Button",
-                    "id": "ac9a43e2-e879-4c22-9e05-6e686fbec7bc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
-                    "name": "Destroy",
-                    "type": "Button",
-                    "id": "2dae543a-43e1-4cf3-8529-85dfc7c64a83",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
                     "name": "",
-                    "id": "a8299f0c-22be-402f-97e4-0d030745c522",
+                    "id": "b287a5fd-a5cf-498a-91d5-a2e6b3aa0310",
                     "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
@@ -468,7 +474,7 @@
                 },
                 {
                     "name": "",
-                    "id": "4a618757-988f-4c7d-a077-ce257578b653",
+                    "id": "200287fc-9a01-4c12-a65d-17b11a53b10f",
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",

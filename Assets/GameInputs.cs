@@ -24,7 +24,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     ""name"": ""GameInputs"",
     ""maps"": [
         {
-            ""name"": ""Camera"",
+            ""name"": ""Keyboard"",
             ""id"": ""64ad9aad-2e92-46a9-8394-8d00d4d16a2d"",
             ""actions"": [
                 {
@@ -58,6 +58,105 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""name"": ""RTSView"",
                     ""type"": ""Button"",
                     ""id"": ""30f30e9e-c968-4b1b-bce3-0617028eb131"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Speed"",
+                    ""type"": ""Value"",
+                    ""id"": ""6dcfecf7-9b0e-483f-a6af-0841c3a8359a"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Heading"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c27e7c4-2eeb-4eff-8846-bb6b03ea8027"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextEntity"",
+                    ""type"": ""Button"",
+                    ""id"": ""00052d87-23b3-42ba-bf5c-90083b24e386"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cursor"",
+                    ""type"": ""Button"",
+                    ""id"": ""0046ff58-3ea1-467b-a70f-333fdd1ef479"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CursorPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""78ce3964-7a4f-4b89-b6cb-3af0610e8d9d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ClearSelection"",
+                    ""type"": ""Button"",
+                    ""id"": ""40178561-e695-4574-b148-70ebae988276"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Button"",
+                    ""id"": ""08ea3fe2-b904-46d9-b89b-93445fad32fe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Intercept"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4d31d4c-5464-4e57-8b79-0659ceff66f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Create100"",
+                    ""type"": ""Button"",
+                    ""id"": ""74a5d121-8f50-49b3-b844-57ddb0f74406"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Create"",
+                    ""type"": ""Button"",
+                    ""id"": ""91bc7bd3-382e-4f59-972f-81092c3c5aa6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Destroy"",
+                    ""type"": ""Button"",
+                    ""id"": ""320df4f8-6c01-4e6e-aafb-4f5b5f13b44f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -97,6 +196,17 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Pitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""781e5243-d9b7-4bf6-83fc-78990e7181a6"",
+                    ""path"": ""<Touchscreen>/primaryTouch/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -218,99 +328,21 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Yaw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                }
-            ]
-        },
-        {
-            ""name"": ""Entities"",
-            ""id"": ""ad6cdc96-9ba2-4fc1-891d-e92f04f8dbcc"",
-            ""actions"": [
-                {
-                    ""name"": ""Speed"",
-                    ""type"": ""Value"",
-                    ""id"": ""a4e81bf9-d93f-45d3-a7a2-6692784ccdad"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Heading"",
-                    ""type"": ""Button"",
-                    ""id"": ""94bfb878-6ef1-46c7-84c1-bb6d041c240d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
+                    ""name"": """",
+                    ""id"": ""51cad81c-dea2-4d14-b7b7-ccdc88a92488"",
+                    ""path"": ""<Touchscreen>/primaryTouch/delta/x"",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
-                {
-                    ""name"": ""NextEntity"",
-                    ""type"": ""Button"",
-                    ""id"": ""2e2eee5b-1a59-427a-ad65-6e1d703254ec"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Cursor"",
-                    ""type"": ""Button"",
-                    ""id"": ""80ab0924-1ad9-4659-823e-134cfababc9d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CursorPosition"",
-                    ""type"": ""Value"",
-                    ""id"": ""79ef4dfc-3d0a-4cd5-94e3-c42993aae840"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ClearSelection"",
-                    ""type"": ""Button"",
-                    ""id"": ""5c5b6087-d7da-4eaa-9738-c1046e895436"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Move"",
-                    ""type"": ""Button"",
-                    ""id"": ""3146158d-76ad-4f96-9f0b-3d2f52731f72"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Intercept"",
-                    ""type"": ""Button"",
-                    ""id"": ""646efab9-b279-4885-a774-9381ae73f38d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Create100"",
-                    ""type"": ""Button"",
-                    ""id"": ""97f1d73b-41c8-4d0f-a724-758620916edb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
                 {
                     ""name"": ""1D Axis"",
-                    ""id"": ""fc1c6d01-0dd6-4ee7-8351-a8813bdd1d90"",
+                    ""id"": ""e3e21d95-e4c8-4b36-80b2-d4e57ef58a20"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -321,7 +353,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""317a8fa6-eafe-4ac6-9337-394d4285d422"",
+                    ""id"": ""a91cd8a5-fe69-4224-b5a7-905d4600fde3"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -332,7 +364,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""607d7012-65f3-4c66-80c4-865eaf7e095e"",
+                    ""id"": ""a0f88388-cd50-4bee-ad75-069affdfa77e"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -343,7 +375,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""1D Axis"",
-                    ""id"": ""df8c5289-e55c-473c-ac5a-c2335e67178b"",
+                    ""id"": ""1d5c2334-bfcf-42fa-8ddf-dc24ac4bbca4"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -354,7 +386,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""c8690e8d-2d62-4958-8fdf-035a0f85c3ad"",
+                    ""id"": ""69eb6fef-6b13-4aac-a8a2-d0cd5e42c1dd"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -365,7 +397,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""42aadcca-234d-4582-ab23-b7459a9451e8"",
+                    ""id"": ""b9522775-c3af-42db-90a8-369ca06fa084"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -376,7 +408,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e541117d-542b-42e6-ba49-e9c14b151efd"",
+                    ""id"": ""82e0bf6e-08dc-4e9f-a42d-b15c9f3966a4"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -387,29 +419,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""79fd010c-592b-44f8-9834-fa5226fd6b09"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CursorPosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dc4c2097-5825-42e2-9c60-35b1f62c7916"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ClearSelection"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""03080c9b-54f8-49b5-b453-f2f7f3d735fd"",
+                    ""id"": ""e4df9687-c941-4f69-bc0c-217ba9a2be01"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
@@ -420,7 +430,29 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""aae8eb97-727a-4319-938a-abc7855bc255"",
+                    ""id"": ""c3c7aaaf-dc0d-466b-a280-7bae5b5df249"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CursorPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""865c5fbd-fe37-4b58-89a5-f93a40dec024"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClearSelection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d1807f4-2b12-43b5-ab25-d5df6b16ce02"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -431,7 +463,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""449f624c-7247-4268-a3df-2b8e52e4c89a"",
+                    ""id"": ""59509ce1-a2f2-4fc6-b0b5-111ae86956dc"",
                     ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -442,7 +474,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""30b7f619-344b-443f-8541-21d7310d0b2f"",
+                    ""id"": ""b6ee38ae-d1ea-4803-94fd-a0e33c81f63d"",
                     ""path"": ""<Keyboard>/f12"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -450,36 +482,10 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Create100"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Graph"",
-            ""id"": ""bfe753b8-7905-44f6-8fa0-0d335b7af7a5"",
-            ""actions"": [
-                {
-                    ""name"": ""Create"",
-                    ""type"": ""Button"",
-                    ""id"": ""ac9a43e2-e879-4c22-9e05-6e686fbec7bc"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Destroy"",
-                    ""type"": ""Button"",
-                    ""id"": ""2dae543a-43e1-4cf3-8529-85dfc7c64a83"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
                     ""name"": """",
-                    ""id"": ""a8299f0c-22be-402f-97e4-0d030745c522"",
+                    ""id"": ""b287a5fd-a5cf-498a-91d5-a2e6b3aa0310"",
                     ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -490,7 +496,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4a618757-988f-4c7d-a077-ce257578b653"",
+                    ""id"": ""200287fc-9a01-4c12-a65d-17b11a53b10f"",
                     ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -504,27 +510,23 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Camera
-        m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-        m_Camera_Movement = m_Camera.FindAction("Movement", throwIfNotFound: true);
-        m_Camera_Yaw = m_Camera.FindAction("Yaw", throwIfNotFound: true);
-        m_Camera_Pitch = m_Camera.FindAction("Pitch", throwIfNotFound: true);
-        m_Camera_RTSView = m_Camera.FindAction("RTSView", throwIfNotFound: true);
-        // Entities
-        m_Entities = asset.FindActionMap("Entities", throwIfNotFound: true);
-        m_Entities_Speed = m_Entities.FindAction("Speed", throwIfNotFound: true);
-        m_Entities_Heading = m_Entities.FindAction("Heading", throwIfNotFound: true);
-        m_Entities_NextEntity = m_Entities.FindAction("NextEntity", throwIfNotFound: true);
-        m_Entities_Cursor = m_Entities.FindAction("Cursor", throwIfNotFound: true);
-        m_Entities_CursorPosition = m_Entities.FindAction("CursorPosition", throwIfNotFound: true);
-        m_Entities_ClearSelection = m_Entities.FindAction("ClearSelection", throwIfNotFound: true);
-        m_Entities_Move = m_Entities.FindAction("Move", throwIfNotFound: true);
-        m_Entities_Intercept = m_Entities.FindAction("Intercept", throwIfNotFound: true);
-        m_Entities_Create100 = m_Entities.FindAction("Create100", throwIfNotFound: true);
-        // Graph
-        m_Graph = asset.FindActionMap("Graph", throwIfNotFound: true);
-        m_Graph_Create = m_Graph.FindAction("Create", throwIfNotFound: true);
-        m_Graph_Destroy = m_Graph.FindAction("Destroy", throwIfNotFound: true);
+        // Keyboard
+        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
+        m_Keyboard_Movement = m_Keyboard.FindAction("Movement", throwIfNotFound: true);
+        m_Keyboard_Yaw = m_Keyboard.FindAction("Yaw", throwIfNotFound: true);
+        m_Keyboard_Pitch = m_Keyboard.FindAction("Pitch", throwIfNotFound: true);
+        m_Keyboard_RTSView = m_Keyboard.FindAction("RTSView", throwIfNotFound: true);
+        m_Keyboard_Speed = m_Keyboard.FindAction("Speed", throwIfNotFound: true);
+        m_Keyboard_Heading = m_Keyboard.FindAction("Heading", throwIfNotFound: true);
+        m_Keyboard_NextEntity = m_Keyboard.FindAction("NextEntity", throwIfNotFound: true);
+        m_Keyboard_Cursor = m_Keyboard.FindAction("Cursor", throwIfNotFound: true);
+        m_Keyboard_CursorPosition = m_Keyboard.FindAction("CursorPosition", throwIfNotFound: true);
+        m_Keyboard_ClearSelection = m_Keyboard.FindAction("ClearSelection", throwIfNotFound: true);
+        m_Keyboard_Move = m_Keyboard.FindAction("Move", throwIfNotFound: true);
+        m_Keyboard_Intercept = m_Keyboard.FindAction("Intercept", throwIfNotFound: true);
+        m_Keyboard_Create100 = m_Keyboard.FindAction("Create100", throwIfNotFound: true);
+        m_Keyboard_Create = m_Keyboard.FindAction("Create", throwIfNotFound: true);
+        m_Keyboard_Destroy = m_Keyboard.FindAction("Destroy", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -583,30 +585,52 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Camera
-    private readonly InputActionMap m_Camera;
-    private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
-    private readonly InputAction m_Camera_Movement;
-    private readonly InputAction m_Camera_Yaw;
-    private readonly InputAction m_Camera_Pitch;
-    private readonly InputAction m_Camera_RTSView;
-    public struct CameraActions
+    // Keyboard
+    private readonly InputActionMap m_Keyboard;
+    private List<IKeyboardActions> m_KeyboardActionsCallbackInterfaces = new List<IKeyboardActions>();
+    private readonly InputAction m_Keyboard_Movement;
+    private readonly InputAction m_Keyboard_Yaw;
+    private readonly InputAction m_Keyboard_Pitch;
+    private readonly InputAction m_Keyboard_RTSView;
+    private readonly InputAction m_Keyboard_Speed;
+    private readonly InputAction m_Keyboard_Heading;
+    private readonly InputAction m_Keyboard_NextEntity;
+    private readonly InputAction m_Keyboard_Cursor;
+    private readonly InputAction m_Keyboard_CursorPosition;
+    private readonly InputAction m_Keyboard_ClearSelection;
+    private readonly InputAction m_Keyboard_Move;
+    private readonly InputAction m_Keyboard_Intercept;
+    private readonly InputAction m_Keyboard_Create100;
+    private readonly InputAction m_Keyboard_Create;
+    private readonly InputAction m_Keyboard_Destroy;
+    public struct KeyboardActions
     {
         private @GameInputs m_Wrapper;
-        public CameraActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Camera_Movement;
-        public InputAction @Yaw => m_Wrapper.m_Camera_Yaw;
-        public InputAction @Pitch => m_Wrapper.m_Camera_Pitch;
-        public InputAction @RTSView => m_Wrapper.m_Camera_RTSView;
-        public InputActionMap Get() { return m_Wrapper.m_Camera; }
+        public KeyboardActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Keyboard_Movement;
+        public InputAction @Yaw => m_Wrapper.m_Keyboard_Yaw;
+        public InputAction @Pitch => m_Wrapper.m_Keyboard_Pitch;
+        public InputAction @RTSView => m_Wrapper.m_Keyboard_RTSView;
+        public InputAction @Speed => m_Wrapper.m_Keyboard_Speed;
+        public InputAction @Heading => m_Wrapper.m_Keyboard_Heading;
+        public InputAction @NextEntity => m_Wrapper.m_Keyboard_NextEntity;
+        public InputAction @Cursor => m_Wrapper.m_Keyboard_Cursor;
+        public InputAction @CursorPosition => m_Wrapper.m_Keyboard_CursorPosition;
+        public InputAction @ClearSelection => m_Wrapper.m_Keyboard_ClearSelection;
+        public InputAction @Move => m_Wrapper.m_Keyboard_Move;
+        public InputAction @Intercept => m_Wrapper.m_Keyboard_Intercept;
+        public InputAction @Create100 => m_Wrapper.m_Keyboard_Create100;
+        public InputAction @Create => m_Wrapper.m_Keyboard_Create;
+        public InputAction @Destroy => m_Wrapper.m_Keyboard_Destroy;
+        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
-        public void AddCallbacks(ICameraActions instance)
+        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
+        public void AddCallbacks(IKeyboardActions instance)
         {
-            if (instance == null || m_Wrapper.m_CameraActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_CameraActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_KeyboardActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_KeyboardActionsCallbackInterfaces.Add(instance);
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
@@ -619,74 +643,6 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @RTSView.started += instance.OnRTSView;
             @RTSView.performed += instance.OnRTSView;
             @RTSView.canceled += instance.OnRTSView;
-        }
-
-        private void UnregisterCallbacks(ICameraActions instance)
-        {
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
-            @Yaw.started -= instance.OnYaw;
-            @Yaw.performed -= instance.OnYaw;
-            @Yaw.canceled -= instance.OnYaw;
-            @Pitch.started -= instance.OnPitch;
-            @Pitch.performed -= instance.OnPitch;
-            @Pitch.canceled -= instance.OnPitch;
-            @RTSView.started -= instance.OnRTSView;
-            @RTSView.performed -= instance.OnRTSView;
-            @RTSView.canceled -= instance.OnRTSView;
-        }
-
-        public void RemoveCallbacks(ICameraActions instance)
-        {
-            if (m_Wrapper.m_CameraActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(ICameraActions instance)
-        {
-            foreach (var item in m_Wrapper.m_CameraActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_CameraActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public CameraActions @Camera => new CameraActions(this);
-
-    // Entities
-    private readonly InputActionMap m_Entities;
-    private List<IEntitiesActions> m_EntitiesActionsCallbackInterfaces = new List<IEntitiesActions>();
-    private readonly InputAction m_Entities_Speed;
-    private readonly InputAction m_Entities_Heading;
-    private readonly InputAction m_Entities_NextEntity;
-    private readonly InputAction m_Entities_Cursor;
-    private readonly InputAction m_Entities_CursorPosition;
-    private readonly InputAction m_Entities_ClearSelection;
-    private readonly InputAction m_Entities_Move;
-    private readonly InputAction m_Entities_Intercept;
-    private readonly InputAction m_Entities_Create100;
-    public struct EntitiesActions
-    {
-        private @GameInputs m_Wrapper;
-        public EntitiesActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Speed => m_Wrapper.m_Entities_Speed;
-        public InputAction @Heading => m_Wrapper.m_Entities_Heading;
-        public InputAction @NextEntity => m_Wrapper.m_Entities_NextEntity;
-        public InputAction @Cursor => m_Wrapper.m_Entities_Cursor;
-        public InputAction @CursorPosition => m_Wrapper.m_Entities_CursorPosition;
-        public InputAction @ClearSelection => m_Wrapper.m_Entities_ClearSelection;
-        public InputAction @Move => m_Wrapper.m_Entities_Move;
-        public InputAction @Intercept => m_Wrapper.m_Entities_Intercept;
-        public InputAction @Create100 => m_Wrapper.m_Entities_Create100;
-        public InputActionMap Get() { return m_Wrapper.m_Entities; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(EntitiesActions set) { return set.Get(); }
-        public void AddCallbacks(IEntitiesActions instance)
-        {
-            if (instance == null || m_Wrapper.m_EntitiesActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_EntitiesActionsCallbackInterfaces.Add(instance);
             @Speed.started += instance.OnSpeed;
             @Speed.performed += instance.OnSpeed;
             @Speed.canceled += instance.OnSpeed;
@@ -714,10 +670,28 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @Create100.started += instance.OnCreate100;
             @Create100.performed += instance.OnCreate100;
             @Create100.canceled += instance.OnCreate100;
+            @Create.started += instance.OnCreate;
+            @Create.performed += instance.OnCreate;
+            @Create.canceled += instance.OnCreate;
+            @Destroy.started += instance.OnDestroy;
+            @Destroy.performed += instance.OnDestroy;
+            @Destroy.canceled += instance.OnDestroy;
         }
 
-        private void UnregisterCallbacks(IEntitiesActions instance)
+        private void UnregisterCallbacks(IKeyboardActions instance)
         {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @Yaw.started -= instance.OnYaw;
+            @Yaw.performed -= instance.OnYaw;
+            @Yaw.canceled -= instance.OnYaw;
+            @Pitch.started -= instance.OnPitch;
+            @Pitch.performed -= instance.OnPitch;
+            @Pitch.canceled -= instance.OnPitch;
+            @RTSView.started -= instance.OnRTSView;
+            @RTSView.performed -= instance.OnRTSView;
+            @RTSView.canceled -= instance.OnRTSView;
             @Speed.started -= instance.OnSpeed;
             @Speed.performed -= instance.OnSpeed;
             @Speed.canceled -= instance.OnSpeed;
@@ -745,54 +719,6 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @Create100.started -= instance.OnCreate100;
             @Create100.performed -= instance.OnCreate100;
             @Create100.canceled -= instance.OnCreate100;
-        }
-
-        public void RemoveCallbacks(IEntitiesActions instance)
-        {
-            if (m_Wrapper.m_EntitiesActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IEntitiesActions instance)
-        {
-            foreach (var item in m_Wrapper.m_EntitiesActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_EntitiesActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public EntitiesActions @Entities => new EntitiesActions(this);
-
-    // Graph
-    private readonly InputActionMap m_Graph;
-    private List<IGraphActions> m_GraphActionsCallbackInterfaces = new List<IGraphActions>();
-    private readonly InputAction m_Graph_Create;
-    private readonly InputAction m_Graph_Destroy;
-    public struct GraphActions
-    {
-        private @GameInputs m_Wrapper;
-        public GraphActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Create => m_Wrapper.m_Graph_Create;
-        public InputAction @Destroy => m_Wrapper.m_Graph_Destroy;
-        public InputActionMap Get() { return m_Wrapper.m_Graph; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GraphActions set) { return set.Get(); }
-        public void AddCallbacks(IGraphActions instance)
-        {
-            if (instance == null || m_Wrapper.m_GraphActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GraphActionsCallbackInterfaces.Add(instance);
-            @Create.started += instance.OnCreate;
-            @Create.performed += instance.OnCreate;
-            @Create.canceled += instance.OnCreate;
-            @Destroy.started += instance.OnDestroy;
-            @Destroy.performed += instance.OnDestroy;
-            @Destroy.canceled += instance.OnDestroy;
-        }
-
-        private void UnregisterCallbacks(IGraphActions instance)
-        {
             @Create.started -= instance.OnCreate;
             @Create.performed -= instance.OnCreate;
             @Create.canceled -= instance.OnCreate;
@@ -801,30 +727,27 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @Destroy.canceled -= instance.OnDestroy;
         }
 
-        public void RemoveCallbacks(IGraphActions instance)
+        public void RemoveCallbacks(IKeyboardActions instance)
         {
-            if (m_Wrapper.m_GraphActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_KeyboardActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IGraphActions instance)
+        public void SetCallbacks(IKeyboardActions instance)
         {
-            foreach (var item in m_Wrapper.m_GraphActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_KeyboardActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_GraphActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_KeyboardActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public GraphActions @Graph => new GraphActions(this);
-    public interface ICameraActions
+    public KeyboardActions @Keyboard => new KeyboardActions(this);
+    public interface IKeyboardActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
         void OnPitch(InputAction.CallbackContext context);
         void OnRTSView(InputAction.CallbackContext context);
-    }
-    public interface IEntitiesActions
-    {
         void OnSpeed(InputAction.CallbackContext context);
         void OnHeading(InputAction.CallbackContext context);
         void OnNextEntity(InputAction.CallbackContext context);
@@ -834,9 +757,6 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnIntercept(InputAction.CallbackContext context);
         void OnCreate100(InputAction.CallbackContext context);
-    }
-    public interface IGraphActions
-    {
         void OnCreate(InputAction.CallbackContext context);
         void OnDestroy(InputAction.CallbackContext context);
     }

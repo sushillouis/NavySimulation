@@ -35,9 +35,9 @@ public class CameraMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveVector = input.Camera.Movement.ReadValue<Vector3>();
-        yawValue = input.Camera.Yaw.ReadValue<float>();
-        pitchValue = input.Camera.Pitch.ReadValue<float>();
+        moveVector = input.Keyboard.Movement.ReadValue<Vector3>();
+        yawValue = input.Keyboard.Yaw.ReadValue<float>();
+        pitchValue = input.Keyboard.Pitch.ReadValue<float>();
 
 
         YawNode.transform.Translate(moveVector * Time.deltaTime * cameraMoveSpeed);
@@ -50,7 +50,7 @@ public class CameraMgr : MonoBehaviour
         currentPitchEulerAngles.x += pitchValue * cameraTurnRate * Time.deltaTime;
         PitchNode.transform.localEulerAngles = currentPitchEulerAngles;
 
-        if (input.Camera.RTSView.triggered) {
+        if (input.Keyboard.RTSView.triggered) {
             if (isRTSMode) {
                 YawNode.transform.SetParent(SelectionMgr.inst.selectedEntity.cameraRig.transform);
                 YawNode.transform.localPosition = Vector3.zero;

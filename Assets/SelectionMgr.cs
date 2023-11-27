@@ -20,9 +20,9 @@ public class SelectionMgr : MonoBehaviour
     {
         input = new GameInputs();
         input.Enable();
-        input.Entities.Cursor.canceled += OnCursorCanceled;
-        input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
-        input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
+        input.Keyboard.Cursor.canceled += OnCursorCanceled;
+        input.Keyboard.ClearSelection.performed += OnClearSelectionPerformed;
+        input.Keyboard.ClearSelection.canceled += OnClearSelectionCanceled;
     }
     //----------------------------------------------------------------------------------------------------
     public bool isSelecting = false;
@@ -34,10 +34,10 @@ public class SelectionMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (input.Entities.NextEntity.triggered)
+        if (input.Keyboard.NextEntity.triggered)
             SelectNextEntity();
 
-        if (input.Entities.Cursor.triggered) { //start box selecting
+        if (input.Keyboard.Cursor.triggered) { //start box selecting
             isSelecting = true;
             StartBoxSelecting();
         }
@@ -49,21 +49,21 @@ public class SelectionMgr : MonoBehaviour
         }
 
         if (isSelecting) // while box selecting
-            UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
+            UpdateSelectionBox(startMousePosition, input.Keyboard.CursorPosition.ReadValue<Vector2>());
 
     }
     void StartBoxSelecting()
     {
-        startMousePosition = input.Entities.CursorPosition.ReadValue<Vector2>();
+        startMousePosition = input.Keyboard.CursorPosition.ReadValue<Vector2>();
         SelectionBoxPanel.gameObject.SetActive(true);
     }
     public float selectionSensitivity = 25;
     void EndBoxSelecting()
     {
-        if((input.Entities.CursorPosition.ReadValue<Vector2>() - startMousePosition).sqrMagnitude > selectionSensitivity)
+        if((input.Keyboard.CursorPosition.ReadValue<Vector2>() - startMousePosition).sqrMagnitude > selectionSensitivity)
             ClearSelection(); // if not small box, then clear selection
 
-        SelectEntitiesInBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
+        SelectEntitiesInBox(startMousePosition, input.Keyboard.CursorPosition.ReadValue<Vector2>());
         SelectionBoxPanel.gameObject.SetActive(false);
     }
 

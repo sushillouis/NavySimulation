@@ -17,10 +17,10 @@ public class AIMgr : MonoBehaviour
         layerMask = 1 << 9;// LayerMask.GetMask("Water");
         input = new GameInputs();
         input.Enable();
-        input.Entities.Intercept.performed += OnInterceptPerformed;
-        input.Entities.Intercept.canceled += OnInterceptCanceled;
-        input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
-        input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
+        input.Keyboard.Intercept.performed += OnInterceptPerformed;
+        input.Keyboard.Intercept.canceled += OnInterceptCanceled;
+        input.Keyboard.ClearSelection.performed += OnClearSelectionPerformed;
+        input.Keyboard.ClearSelection.canceled += OnClearSelectionCanceled;
 
     }
 
@@ -38,8 +38,8 @@ public class AIMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (input.Entities.Move.triggered) {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(input.Entities.CursorPosition.ReadValue<Vector2>()), out hit, float.MaxValue, layerMask)) {
+        if (input.Keyboard.Move.triggered) {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(input.Keyboard.CursorPosition.ReadValue<Vector2>()), out hit, float.MaxValue, layerMask)) {
                 //Debug.DrawLine(Camera.main.transform.position, hit.point, Color.yellow, 2); //for debugging
                 Vector3 pos = hit.point;
                 pos.y = 0;

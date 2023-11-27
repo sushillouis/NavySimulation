@@ -30,7 +30,7 @@ public class GameMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (input.Entities.Create100.triggered) {
+        if (input.Keyboard.Create100.triggered) {
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     Entity381 ent = EntityMgr.inst.CreateEntity(EntityType.PilotVessel, position, Vector3.zero);
