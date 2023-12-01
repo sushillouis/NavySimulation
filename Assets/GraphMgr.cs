@@ -25,12 +25,12 @@ public class GraphMgr : MonoBehaviour
     void Update()
     {
         
-        if (input.Keyboard.Create.triggered)
+        if (input.Graph.Create.triggered)
         {
             if (SelectionMgr.inst.selectedEntity != null)
                 CreateGraph(SelectionMgr.inst.selectedEntity);
         }
-        if (input.Keyboard.Destroy.triggered)
+        if (input.Graph.Destroy.triggered)
         {
             DeleteAllGraphs();
         }

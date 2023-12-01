@@ -28,17 +28,17 @@ public class ControlMgr : MonoBehaviour
     void Update()
     {
         if (SelectionMgr.inst.selectedEntity != null) {
-            speedChange = input.Keyboard.Speed.ReadValue<float>();
-            headingChange = input.Keyboard.Heading.ReadValue<float>();
+            speedChange = input.Entities.Speed.ReadValue<float>();
+            headingChange = input.Entities.Heading.ReadValue<float>();
 
-            if (input.Keyboard.Speed.triggered)
+            if (input.Entities.Speed.triggered)
             {
                 SelectionMgr.inst.selectedEntity.desiredSpeed += speedChange * deltaSpeed;
                 SelectionMgr.inst.selectedEntity.desiredSpeed =
                     Utils.Clamp(SelectionMgr.inst.selectedEntity.desiredSpeed, SelectionMgr.inst.selectedEntity.minSpeed, SelectionMgr.inst.selectedEntity.maxSpeed);
             }
             
-            if (input.Keyboard.Heading.triggered) 
+            if (input.Entities.Heading.triggered) 
             {
                 SelectionMgr.inst.selectedEntity.desiredHeading += headingChange * deltaHeading;
                 SelectionMgr.inst.selectedEntity.desiredHeading = Utils.Degrees360(SelectionMgr.inst.selectedEntity.desiredHeading);
