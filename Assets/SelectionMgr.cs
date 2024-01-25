@@ -36,26 +36,23 @@ public class SelectionMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        numTouches = Touch.activeTouches.Count;
-        if(numTouches < 2)
-        {
-            if (input.Entities.NextEntity.triggered)
-                SelectNextEntity();
+        if (input.Entities.NextEntity.triggered)
+            SelectNextEntity();
 
-            if (input.Entities.Cursor.triggered) { //start box selecting
-                isSelecting = true;
-                StartBoxSelecting();
-            }
-
-            if (mouseUp) { //end box selecting
-                isSelecting = false;
-                EndBoxSelecting();
-                mouseUp = false;
-            }
-
-            if (isSelecting) // while box selecting
-                UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
+        if (input.Entities.Cursor.triggered) { //start box selecting
+            isSelecting = true;
+            StartBoxSelecting();
+            Debug.Log("Started");
         }
+
+        if (mouseUp) { //end box selecting
+            isSelecting = false;
+            EndBoxSelecting();
+            mouseUp = false;
+        }
+
+        if (isSelecting) // while box selecting
+            UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
 
     }
     void StartBoxSelecting()

@@ -63,15 +63,16 @@ public class CameraMgr : MonoBehaviour
     void Update()
     {
         numTouches = Touch.activeTouches.Count;
+        moveVector = Vector3.zero;
         if(numTouches == 0 || numTouches == 3)
         {
-            moveVector = input.Camera.Movement.ReadValue<Vector3>();
+            moveVector += input.Camera.Movement.ReadValue<Vector3>();
         }
         if (numTouches == 0 || numTouches == 4)
         {
-            moveVector = input.Camera.TouchUpAndDown.ReadValue<Vector3>();
+            moveVector += input.Camera.TouchUpAndDown.ReadValue<Vector3>();
         }
-        if (numTouches == 0 || numTouches == 1)
+        if (numTouches == 0 || (numTouches == 1 && !UIMgr.inst.isActive))
         {
             yawValue = input.Camera.Yaw.ReadValue<float>();
             pitchValue = input.Camera.Pitch.ReadValue<float>();

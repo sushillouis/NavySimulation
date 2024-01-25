@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UIMgr : MonoBehaviour
 {
     public static UIMgr inst;
+    public GameObject ToggleMultiSelect;
+    public bool isActive;
     private void Awake()
     {
         inst = this;
@@ -14,7 +16,10 @@ public class UIMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ToggleMultiSelect.SetActive(false);
+        #if UNITY_EDITOR
+            ToggleMultiSelect.SetActive(true);
+        #endif
     }
     public Text entityName;
     public Text speed;
@@ -33,5 +38,10 @@ public class UIMgr : MonoBehaviour
             heading.text = ent.heading.ToString("F1") + " deg";
             desiredHeading.text = ent.desiredHeading.ToString("F1") + " deg";
         }
+
+        if (ToggleMultiSelect.activeSelf)
+            isActive = ToggleMultiSelect.GetComponent<Toggle>().isOn;
+        else
+            isActive = false;
     }
 }
