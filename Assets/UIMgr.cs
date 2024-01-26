@@ -17,7 +17,10 @@ public class UIMgr : MonoBehaviour
     void Start()
     {
         ToggleMultiSelect.SetActive(false);
-        #if UNITY_EDITOR
+        #if UNITY_ANDROID
+            ToggleMultiSelect.SetActive(true);
+        #endif
+        #if UNITY_ANDROID
             ToggleMultiSelect.SetActive(true);
         #endif
     }

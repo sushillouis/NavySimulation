@@ -605,19 +605,19 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ed237227-4f3e-41c7-bf80-673ceacabf07"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""id"": ""49d9dc12-6aaf-4947-b406-5bbd5c11bdf4"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Cursor"",
+                    ""action"": ""CursorPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""49d9dc12-6aaf-4947-b406-5bbd5c11bdf4"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""id"": ""42f0394a-92c9-4ca2-b1ce-bdc7b8b1463d"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -644,6 +644,28 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6dfa7d76-3a90-414e-aa71-a944b02024b6"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": ""SlowTap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c7a5d93-ef0a-45f7-ad8b-0c3dc96635a4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }

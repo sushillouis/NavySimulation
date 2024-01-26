@@ -21,6 +21,8 @@ public class SelectionMgr : MonoBehaviour
     {
         input = new GameInputs();
         input.Enable();
+        input.Entities.Cursor.started += OnCursorStarted;
+        input.Entities.Cursor.performed += OnCursorPerformed;
         input.Entities.Cursor.canceled += OnCursorCanceled;
         input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
         input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
@@ -30,29 +32,36 @@ public class SelectionMgr : MonoBehaviour
     public Vector2 startMousePosition;
     public RectTransform SelectionBoxPanel;
     public RectTransform UICanvas;
-    private bool mouseUp;
+    private bool mouseUp = true;
+    private bool start = false;
     public int numTouches;
 
     // Update is called once per frame
     void Update()
     {
-        if (input.Entities.NextEntity.triggered)
-            SelectNextEntity();
+        numTouches = Touch.activeTouches.Count;
+        if (UIMgr.inst.isActive || numTouches == 0) {
+            if (input.Entities.NextEntity.triggered)
+                SelectNextEntity();
 
-        if (input.Entities.Cursor.triggered) { //start box selecting
-            isSelecting = true;
-            StartBoxSelecting();
-            Debug.Log("Started");
-        }
+            if (start)
+            { //start box selecting
+                isSelecting = true;
+                mouseUp = false;
+                start = false;
+                StartBoxSelecting();
+            }
 
-        if (mouseUp) { //end box selecting
-            isSelecting = false;
-            EndBoxSelecting();
-            mouseUp = false;
-        }
+            if (mouseUp)
+            { //end box selecting
+                isSelecting = false;
+                EndBoxSelecting();
+                mouseUp = false;
+            }
 
-        if (isSelecting) // while box selecting
-            UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
+            if (isSelecting) // while box selecting
+                UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
+        } 
 
     }
     void StartBoxSelecting()
@@ -65,7 +74,6 @@ public class SelectionMgr : MonoBehaviour
     {
         if((input.Entities.CursorPosition.ReadValue<Vector2>() - startMousePosition).sqrMagnitude > selectionSensitivity)
             ClearSelection(); // if not small box, then clear selection
-
         SelectEntitiesInBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
         SelectionBoxPanel.gameObject.SetActive(false);
     }
@@ -150,6 +158,15 @@ public class SelectionMgr : MonoBehaviour
             selectedEntity.isSelected = true;
             selectedEntities.Add(ent);
         }
+    }
+
+    private void OnCursorStarted(InputAction.CallbackContext context)
+    {
+        start = true;
+    }
+    private void OnCursorPerformed(InputAction.CallbackContext context)
+    {
+        mouseUp = true;
     }
 
     private void OnCursorCanceled(InputAction.CallbackContext context)
