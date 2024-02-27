@@ -64,7 +64,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""TouchUpAndDown"",
+                    ""name"": ""UpAndDown"",
                     ""type"": ""Value"",
                     ""id"": ""3107315d-2312-4d7a-9776-9aacf992b476"",
                     ""expectedControlType"": ""Vector3"",
@@ -185,28 +185,6 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""e9edc7a8-387c-49f7-9633-520b36ed5e60"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""bbeb36d7-9cfc-485f-875a-c577ea1b548b"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""left"",
                     ""id"": ""be1132c5-eca0-481d-8c70-5ddfa9416641"",
                     ""path"": ""<Keyboard>/a"",
@@ -262,28 +240,6 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""21898b89-b0ab-46ab-8990-5f09ada78e7d"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""7933b512-b20b-4704-898d-f2fd57b0a50b"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""left"",
                     ""id"": ""38947bf8-0718-4171-97f8-019fbe2451ec"",
                     ""path"": ""<Touchscreen>/primaryTouch/delta/left"",
@@ -334,7 +290,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TouchUpAndDown"",
+                    ""action"": ""UpAndDown"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -345,7 +301,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TouchUpAndDown"",
+                    ""action"": ""UpAndDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -356,51 +312,40 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TouchUpAndDown"",
+                    ""action"": ""UpAndDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""490b53df-cb80-470c-a09c-7b3d9032e6be"",
-                    ""path"": """",
+                    ""name"": ""3D Vector"",
+                    ""id"": ""fe5b612d-c1aa-43f0-aff4-005634a22836"",
+                    ""path"": ""3DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TouchUpAndDown"",
+                    ""action"": ""UpAndDown"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""12d8c06c-d2c3-4f0e-951a-68a3aad80309"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpAndDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""aff717cc-ba85-4d25-b7e9-f7f9a58ffc3a"",
-                    ""path"": """",
+                    ""name"": ""down"",
+                    ""id"": ""a2823998-6572-4431-8a9f-73cc327d48c1"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TouchUpAndDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""forward"",
-                    ""id"": ""20dcf2be-bab7-4dc8-ae05-ced6cda67bc0"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TouchUpAndDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""backward"",
-                    ""id"": ""84b53ec3-16ae-46ad-b98d-56174f526281"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TouchUpAndDown"",
+                    ""action"": ""UpAndDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -739,7 +684,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         m_Camera_Pitch = m_Camera.FindAction("Pitch", throwIfNotFound: true);
         m_Camera_RTSView = m_Camera.FindAction("RTSView", throwIfNotFound: true);
         m_Camera_Movement = m_Camera.FindAction("Movement", throwIfNotFound: true);
-        m_Camera_TouchUpAndDown = m_Camera.FindAction("TouchUpAndDown", throwIfNotFound: true);
+        m_Camera_UpAndDown = m_Camera.FindAction("UpAndDown", throwIfNotFound: true);
         // Entities
         m_Entities = asset.FindActionMap("Entities", throwIfNotFound: true);
         m_Entities_Speed = m_Entities.FindAction("Speed", throwIfNotFound: true);
@@ -820,7 +765,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Camera_Pitch;
     private readonly InputAction m_Camera_RTSView;
     private readonly InputAction m_Camera_Movement;
-    private readonly InputAction m_Camera_TouchUpAndDown;
+    private readonly InputAction m_Camera_UpAndDown;
     public struct CameraActions
     {
         private @GameInputs m_Wrapper;
@@ -829,7 +774,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         public InputAction @Pitch => m_Wrapper.m_Camera_Pitch;
         public InputAction @RTSView => m_Wrapper.m_Camera_RTSView;
         public InputAction @Movement => m_Wrapper.m_Camera_Movement;
-        public InputAction @TouchUpAndDown => m_Wrapper.m_Camera_TouchUpAndDown;
+        public InputAction @UpAndDown => m_Wrapper.m_Camera_UpAndDown;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -851,9 +796,9 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @TouchUpAndDown.started += instance.OnTouchUpAndDown;
-            @TouchUpAndDown.performed += instance.OnTouchUpAndDown;
-            @TouchUpAndDown.canceled += instance.OnTouchUpAndDown;
+            @UpAndDown.started += instance.OnUpAndDown;
+            @UpAndDown.performed += instance.OnUpAndDown;
+            @UpAndDown.canceled += instance.OnUpAndDown;
         }
 
         private void UnregisterCallbacks(ICameraActions instance)
@@ -870,9 +815,9 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @TouchUpAndDown.started -= instance.OnTouchUpAndDown;
-            @TouchUpAndDown.performed -= instance.OnTouchUpAndDown;
-            @TouchUpAndDown.canceled -= instance.OnTouchUpAndDown;
+            @UpAndDown.started -= instance.OnUpAndDown;
+            @UpAndDown.performed -= instance.OnUpAndDown;
+            @UpAndDown.canceled -= instance.OnUpAndDown;
         }
 
         public void RemoveCallbacks(ICameraActions instance)
@@ -1060,7 +1005,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         void OnPitch(InputAction.CallbackContext context);
         void OnRTSView(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-        void OnTouchUpAndDown(InputAction.CallbackContext context);
+        void OnUpAndDown(InputAction.CallbackContext context);
     }
     public interface IEntitiesActions
     {
