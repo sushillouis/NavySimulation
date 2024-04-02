@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AIMgr : MonoBehaviour
 {
     public static AIMgr inst;
+    private GameInputs input;
     private void Awake()
     {
         inst = this;
@@ -13,6 +15,12 @@ public class AIMgr : MonoBehaviour
     void Start()
     {
         layerMask = 1 << 9;// LayerMask.GetMask("Water");
+        input = new GameInputs();
+        input.Enable();
+        input.Entities.Intercept.performed += OnInterceptPerformed;
+        input.Entities.Intercept.canceled += OnInterceptCanceled;
+        input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
+        input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
     }
 
     public bool isPotentialFieldsMovement = false;
@@ -38,7 +46,7 @@ public class AIMgr : MonoBehaviour
                 if (ent == null) {
                     HandleMove(SelectionMgr.inst.selectedEntities, pos);
                 } else {
-                    if (Input.GetKey(KeyCode.LeftControl))
+                    if (interceptDown)
                         HandleIntercept(SelectionMgr.inst.selectedEntities, ent);
                     else
                         HandleFollow(SelectionMgr.inst.selectedEntities, ent);
@@ -60,7 +68,7 @@ public class AIMgr : MonoBehaviour
 
     void AddOrSet(Command c, UnitAI uai)
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (addDown)
             uai.AddCommand(c);
         else
             uai.SetCommand(c);
@@ -102,5 +110,27 @@ public class AIMgr : MonoBehaviour
             }    
         }
         return minEnt;
+    }
+
+    bool interceptDown = false;
+    private void OnInterceptPerformed(InputAction.CallbackContext context)
+    {
+        interceptDown = true;
+    }
+
+    private void OnInterceptCanceled(InputAction.CallbackContext context)
+    {
+        interceptDown = false;
+    }
+
+    bool addDown = false;
+    private void OnClearSelectionPerformed(InputAction.CallbackContext context)
+    {
+        addDown = true;
+    }
+
+    private void OnClearSelectionCanceled(InputAction.CallbackContext context)
+    {
+        addDown = false;
     }
 }

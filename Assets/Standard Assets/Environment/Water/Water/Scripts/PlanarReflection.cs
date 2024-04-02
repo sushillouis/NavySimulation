@@ -105,13 +105,14 @@ namespace UnityStandardAssets.Water
             if (null != m_HelperCameras)
             {
                 m_HelperCameras.Clear();
+
             }
         }
 
 
         public void WaterTileBeingRendered(Transform tr, Camera currentCam)
         {
-            RenderHelpCameras(currentCam);
+            //RenderHelpCameras(currentCam);
 
             if (m_ReflectionCamera && m_SharedMaterial)
             {

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using UnityEngine.UI;
 
 public class SelectionMgr : MonoBehaviour
@@ -11,35 +13,56 @@ public class SelectionMgr : MonoBehaviour
         inst = this;
     }
 
+    private GameInputs input;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        input = new GameInputs();
+        input.Enable();
+        input.Entities.Cursor.started += OnCursorStarted;
+        input.Entities.Cursor.performed += OnCursorPerformed;
+        input.Entities.Cursor.canceled += OnCursorCanceled;
+        input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
+        input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
     }
     //----------------------------------------------------------------------------------------------------
     public bool isSelecting = false;
     public Vector3 startMousePosition;
     public RectTransform SelectionBoxPanel;
     public RectTransform UICanvas;
+    private bool mouseUp = true;
+    private bool start = false;
+    public int numTouches;
+    bool lShiftDown = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Tab))
-            SelectNextEntity();
+        numTouches = Touch.activeTouches.Count;
+        if (UIMgr.inst.isActive || numTouches == 0)
+        {
+            if (input.Entities.NextEntity.triggered)
+                SelectNextEntity();
 
-        if (Input.GetMouseButtonDown(0)) { //start box selecting
-            isSelecting = true;
-            StartBoxSelecting();
+            if (start)
+            { //start box selecting
+                isSelecting = true;
+                mouseUp = false;
+                start = false;
+                StartBoxSelecting();
+            }
+
+            if (mouseUp)
+            { //end box selecting
+                isSelecting = false;
+                EndBoxSelecting();
+                mouseUp = false;
+            }
+
+            if (isSelecting) // while box selecting
+                UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
         }
-
-        if (Input.GetMouseButtonUp(0)) { //end box selecting
-            isSelecting = false;
-            EndBoxSelecting();
-        }
-
-        if (isSelecting) // while box selecting
-            UpdateSelectionBox(startMousePosition, Input.mousePosition);
 
     }
     void StartBoxSelecting()
@@ -116,7 +139,7 @@ public class SelectionMgr : MonoBehaviour
         selectedEntityIndex = 
             (selectedEntityIndex >= EntityMgr.inst.entities.Count - 1 ? 0 : selectedEntityIndex + 1);
         SelectEntity(EntityMgr.inst.entities[selectedEntityIndex], 
-            shouldClearSelection: !Input.GetKey(KeyCode.LeftShift));
+            shouldClearSelection: !lShiftDown);
     }
 
     public void ClearSelection()
@@ -136,6 +159,30 @@ public class SelectionMgr : MonoBehaviour
             selectedEntity.isSelected = true;
             selectedEntities.Add(ent);
         }
+    }
+
+    private void OnCursorStarted(InputAction.CallbackContext context)
+    {
+        start = true;
+    }
+    private void OnCursorPerformed(InputAction.CallbackContext context)
+    {
+        mouseUp = true;
+    }
+
+    private void OnCursorCanceled(InputAction.CallbackContext context)
+    {
+        mouseUp = true;
+    }
+
+    private void OnClearSelectionPerformed(InputAction.CallbackContext context)
+    {
+        lShiftDown = true;
+    }
+
+    private void OnClearSelectionCanceled(InputAction.CallbackContext context)
+    {
+        lShiftDown = false;
     }
 
 }

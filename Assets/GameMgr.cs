@@ -5,9 +5,12 @@ using UnityEngine;
 public class GameMgr : MonoBehaviour
 {
     public static GameMgr inst;
+    private GameInputs input;
     private void Awake()
     {
         inst = this;
+        input = new GameInputs();
+        input.Enable();
     }
 
     // Start is called before the first frame update
@@ -26,7 +29,7 @@ public class GameMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.F12)) {
+        if (input.Entities.Create100.triggered) {
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     Entity381 ent = EntityMgr.inst.CreateEntity(EntityType.PilotVessel, position, Vector3.zero);
