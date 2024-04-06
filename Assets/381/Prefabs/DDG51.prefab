@@ -406,7 +406,137 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+      objectReference: {fileID: 2100000, guid: c50d77affeb31e14c9c062c282f13fc8, type: 2}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_GradientMax.key0.a
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_GradientMax.key0.b
+      value: 0.9607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_GradientMax.key0.r
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_GradientMax.key1.a
+      value: 0.039215688
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_GradientMax.key1.b
+      value: 0.5803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_GradientMax.key1.g
+      value: 0.5803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: dayMMGradient.m_GradientMax.key1.r
+      value: 0.4627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key0.a
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key0.b
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key0.g
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key0.r
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key1.a
+      value: 0.019607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key1.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key1.g
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: duskMMGradient.m_GradientMax.key1.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key0.a
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key0.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key0.g
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key0.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key1.a
+      value: 0.019607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key1.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key1.g
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7351828984458705505, guid: d8082e6d06ae6824bb7326e150bc83ad,
+        type: 3}
+      propertyPath: nightMMGradient.m_GradientMax.key1.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
     - target: {fileID: 7464076882414629701, guid: d8082e6d06ae6824bb7326e150bc83ad,
         type: 3}
       propertyPath: m_Name

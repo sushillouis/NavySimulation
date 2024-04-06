@@ -47,6 +47,7 @@ public class Entity381 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isSelected = false;
         cameraRig = transform.Find("CameraRig").gameObject;
         selectionCircle = transform.Find("Decorations").Find("SelectionCylinder").gameObject;
     }
