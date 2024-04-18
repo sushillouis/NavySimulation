@@ -7,17 +7,18 @@ Ships assume constant acceleration and constant turn rate.
 
 Doing the tutorials at: https://docs.google.com/presentation/d/1dehTrM8pLemBWZd7-qXev9pUkZPpYvW-lXwi0k7SlkU/edit?usp=sharing (A google drive link) will help you understand the code.
 
-Commands
-1. Keyboard
-  a. Arrow keys to control desired speed and desired heading of ship
-  b. WASD to move camera. QE to yaw camera. ZX to pitch camera. RF to raise and lower camera. C to switch to third person view from selected ship
-  c. Tab key to select next ship
-2. Mouse
-  a. Left mouse click select
-  b. Right mouse click
-    i. Over open water --> move to clicked location
-    ii. Over other ship --> follow that ship at a relative vector of (100, 0, 0) -  on the starboard side at 100 meters
-    iii. CTRL-right-mouse click over other ship --> predictively intercept other ship
+### Commands
+#### Keyboard
+1.  Arrow keys to control desired speed and desired heading of ship
+2.  WASD to move camera. QE to yaw camera. ZX to pitch camera. RF to raise and lower camera. C to switch to third person view from selected ship
+3.  Tab key to select next ship
+
+#### Mouse
+1. Left mouse click select. Drag to group select
+2. Right mouse click
+    - Over open water --> move to clicked location
+    - Over other ship --> follow that ship at a relative vector of (100, 0, 0) -  on the starboard side at 100 meters
+    - CTRL-right-mouse click over other ship --> predictively intercept other ship (Collide)
 
 The code and simulation architecture follow the assignments and notes from the CS381 Game Engine Architecture course at the University of Nevada, Reno
 https://www.cse.unr.edu/~sushil/class/381.
