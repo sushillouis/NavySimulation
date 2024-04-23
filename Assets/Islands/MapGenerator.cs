@@ -13,10 +13,12 @@ public struct TerrainTypes
 
 public class MapGenerator : MonoBehaviour
 {
-    public enum DrawMode {Noise, Color, Mesh};
+    public enum DrawMode {Noise, Color, Mesh, FalloffMap};
 
     public DrawMode drawMode;
+    const int chunkSize = 241;
 
+    [Header("Generation Settings")]
     public int width;
     public int height;
     public float scale;
@@ -25,14 +27,20 @@ public class MapGenerator : MonoBehaviour
     public float persistance;
     public float lacrunarity;
     public int seed;
+    public bool falloff;
     public Vector2 offset;
 
+    [Header("Mesh Settings")]
     public Renderer render;
     public MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
+    public float heightMultiplier;
+    public AnimationCurve heightCurve;
 
+    [Header("Debug Settings")]
     public bool autoUpdate;
 
+    [Header("Region Settings")]
     public TerrainTypes[] regions;
 
     float[,] noiseMap;
@@ -47,6 +55,9 @@ public class MapGenerator : MonoBehaviour
             DrawColorMap();
         else if (drawMode == DrawMode.Mesh)
             DrawMesh();
+        else if (drawMode == DrawMode.FalloffMap)
+            DrawFalloffMap();
+
     }
 
     public void DrawNoiseMap()
@@ -58,6 +69,22 @@ public class MapGenerator : MonoBehaviour
             for(int j = 0; j < height; j++)
             {
                 colors[j * width + i] = Color.Lerp(Color.black, Color.white, noiseMap[i, j]);
+            }
+        }
+        DrawTexture(texture, colors);
+    }
+
+    public void DrawFalloffMap() { 
+        Texture2D texture = new Texture2D(width, height);
+
+        float[,] falloff = generateFalloffMap();
+
+        Color[] colors = new Color[width * height];
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                colors[j * width + i] = Color.Lerp(Color.black, Color.white, falloff[i, j]);
             }
         }
         DrawTexture(texture, colors);
@@ -113,9 +140,10 @@ public class MapGenerator : MonoBehaviour
         if (scale <= 0)
             scale = 0.0001f;
 
+        float[,] falloffMap = generateFalloffMap();
         float max = float.MinValue;
         float min = float.MaxValue;
-
+        
         float halfWidth = width / 2f;
         float halfHeight = height / 2f;
 
@@ -144,6 +172,9 @@ public class MapGenerator : MonoBehaviour
                 else if (noiseHeight < min)
                     min = noiseHeight;
                 noiseMap[i, j] = noiseHeight;
+
+                if (falloff)
+                    noiseMap[i, j] = Mathf.Clamp01(noiseMap[i, j] - falloffMap[i, j]);
             }
         }
 
@@ -163,16 +194,16 @@ public class MapGenerator : MonoBehaviour
         MeshData mesh = new MeshData(width, height);
         int vertIndex = 0;
 
-        for(int i = 0; i < width; i++)
+        for(int y = 0; y < height; y++)
         {
-            for(int j = 0; j < height; j++)
+            for(int x = 0; x < width; x++)
             {
-                mesh.vertices[vertIndex] = new Vector3(topLeftX + j, noiseMap[i,j], topLeftZ - i);
-                mesh.uvs[vertIndex] = new Vector2((float)j/width, (float)i/height);
+                mesh.vertices[vertIndex] = new Vector3(topLeftX + x, heightCurve.Evaluate(noiseMap[x,y]) * heightMultiplier, topLeftZ - y);
+                mesh.uvs[vertIndex] = new Vector2((float)x/width, (float)y/height);
 
-                if(j < width - 1 && i < height - 1)
+                if(x < width - 1 && y < height - 1)
                 {
-                    mesh.addTriangle(vertIndex, vertIndex + 1, vertIndex + width);
+                    mesh.addTriangle(vertIndex, vertIndex + width + 1, vertIndex + width);
                     mesh.addTriangle(vertIndex + width + 1, vertIndex, vertIndex + 1);
                 }
 
@@ -192,8 +223,9 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
-            {
+            {   
                 float currentHeight = noiseMap[i, j];
+
                 for (int k = 0; k < regions.Length; k++)
                 {
                     if (currentHeight < regions[k].height)
@@ -224,6 +256,25 @@ public class MapGenerator : MonoBehaviour
             lacrunarity = 1;
         if(octaves < 0)
             octaves = 0;
+    }
+
+    public float[,] generateFalloffMap()
+    {
+        float[,] map = new float[width, height];
+
+        for(int i = 0; i < width; i++)
+        {
+            for(int j = 0; j < height; j++)
+            {
+                float x = (float)i / width * 2 - 1;
+                float y = (float)j / height * 2 - 1;
+
+                float val = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
+                map[i,j] = val;
+            }
+        }
+
+        return map;
     }
 
 }
@@ -258,6 +309,7 @@ public class MeshData
         mesh.triangles = triangles;
         mesh.uv = uvs;
         mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
         return mesh;
     }
 }
