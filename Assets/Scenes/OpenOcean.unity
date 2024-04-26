@@ -204,7 +204,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 4.6e-44, z: 3.344e-41, w: 2.8067334e+20}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -1825,6 +1825,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400012, guid: b544816461f324e56a39767fdeb5b114, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.017362643
+      objectReference: {fileID: 0}
+    - target: {fileID: 400012, guid: b544816461f324e56a39767fdeb5b114, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0017663883
+      objectReference: {fileID: 0}
+    - target: {fileID: 400012, guid: b544816461f324e56a39767fdeb5b114, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99471337
+      objectReference: {fileID: 0}
+    - target: {fileID: 400012, guid: b544816461f324e56a39767fdeb5b114, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.10119715
+      objectReference: {fileID: 0}
+    - target: {fileID: 400012, guid: b544816461f324e56a39767fdeb5b114, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 11.618
+      objectReference: {fileID: 0}
+    - target: {fileID: 400012, guid: b544816461f324e56a39767fdeb5b114, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 182
+      objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b544816461f324e56a39767fdeb5b114, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1832,6 +1856,21 @@ PrefabInstance:
     - target: {fileID: 11400008, guid: b544816461f324e56a39767fdeb5b114, type: 3}
       propertyPath: waterQuality
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 519905088271815294, guid: b544816461f324e56a39767fdeb5b114,
+        type: 3}
+      propertyPath: offset.x
+      value: 11.618
+      objectReference: {fileID: 0}
+    - target: {fileID: 519905088271815294, guid: b544816461f324e56a39767fdeb5b114,
+        type: 3}
+      propertyPath: offset.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 519905088271815294, guid: b544816461f324e56a39767fdeb5b114,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
