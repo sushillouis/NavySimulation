@@ -15,6 +15,10 @@ public static class FalloffGenerator
                 float x = i / (float) size * 2 - 1;
                 float y = j / (float) size * 2 - 1;
 
+                //y *= 5f;
+
+                //y = Mathf.Clamp(y, -1, 1);
+
                 float value = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
                 map[i,j] = Evaluate(value);
             }

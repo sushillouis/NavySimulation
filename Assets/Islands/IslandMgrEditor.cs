@@ -2,25 +2,25 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
-[CustomEditor(typeof(MapGenerator))]
-public class MapGeneratorEditor : Editor
+[CustomEditor(typeof(IslandsMgr))]
+public class IslandMgrEditor : Editor
 {
 
     public override void OnInspectorGUI()
     {
-        MapGenerator mapGen = (MapGenerator)target;
+        IslandsMgr islandMgr = (IslandsMgr)target;
 
         if (DrawDefaultInspector())
         {
-            if (mapGen.autoUpdate)
+            if (islandMgr.autoUpdate)
             {
-                mapGen.DrawMap();
+                islandMgr.RedrawIslands();
             }
         }
 
         if (GUILayout.Button("Generate"))
         {
-            mapGen.DrawMap();
+            islandMgr.RedrawIslands();
         }
     }
 }

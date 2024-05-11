@@ -108,7 +108,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightCutoff: 55.5
+    - _HeightCutoff: 86.68
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

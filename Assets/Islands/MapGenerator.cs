@@ -13,7 +13,6 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainData terrainData;
     public NoiseData noiseData;
-    public TextureData textureData;
 
     public Material terrainMaterial;
 
@@ -28,13 +27,8 @@ public class MapGenerator : MonoBehaviour
     {
         if(!Application.isPlaying)
         {
-            DrawMapInEditor();
+            DrawMap();
         }
-    }
-
-    void OnTextureValuesUpdated()
-    {
-        textureData.ApplyToMaterial(terrainMaterial);
     }
 
     public int mapChunkSize
@@ -55,11 +49,11 @@ public class MapGenerator : MonoBehaviour
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
-    public void DrawMapInEditor()
+    public void DrawMap()
     {
         MapData mapData = GenerateMapData(Vector2.zero);
 
-        MapDisplay display = FindObjectOfType<MapDisplay>();
+        MapDisplay display = GetComponent<MapDisplay>();
         if (drawMode == DrawMode.NoiseMap)
         {
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
@@ -168,12 +162,6 @@ public class MapGenerator : MonoBehaviour
         {
             noiseData.OnValuesUpdated -= OnValuesUpdated;
             noiseData.OnValuesUpdated += OnValuesUpdated;
-        }
-
-        if(textureData != null)
-        {
-            textureData.OnValuesUpdated -= OnValuesUpdated;
-            textureData.OnValuesUpdated += OnValuesUpdated;
         }
     }
 
