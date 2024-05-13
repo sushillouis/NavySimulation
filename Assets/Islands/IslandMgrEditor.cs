@@ -10,17 +10,16 @@ public class IslandMgrEditor : Editor
     {
         IslandsMgr islandMgr = (IslandsMgr)target;
 
-        if (DrawDefaultInspector())
-        {
-            if (islandMgr.autoUpdate)
-            {
-                islandMgr.RedrawIslands();
-            }
-        }
+        DrawDefaultInspector();
 
         if (GUILayout.Button("Generate"))
         {
             islandMgr.RedrawIslands();
+        }
+
+        if (GUILayout.Button("Delete"))
+        {
+            islandMgr.DeleteAllIslands();
         }
     }
 }

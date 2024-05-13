@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-public class NoiseData : UpdatableData
+//[CreateAssetMenu()]
+public class NoiseData //used to be ScriptableObject
 {
     public Noise.NormalizeMode normalizeMode;
 
@@ -17,6 +17,7 @@ public class NoiseData : UpdatableData
     public int seed;
     public Vector2 offset;
 
+    /*
     protected override void OnValidate()
     {
         if (lacunarity < 1)
@@ -30,4 +31,5 @@ public class NoiseData : UpdatableData
 
         base.OnValidate();
     }
+    */
 }

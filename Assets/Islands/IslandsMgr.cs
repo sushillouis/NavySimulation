@@ -28,8 +28,6 @@ public class IslandsMgr : MonoBehaviour
 
     public Island[] islandParameters;
 
-    public bool autoUpdate;
-
     public List<GameObject> islands;
 
     // Start is called before the first frame update
@@ -59,19 +57,32 @@ public class IslandsMgr : MonoBehaviour
         return island;
     }
 
+    public void DeleteAllIslands()
+    {
+        for (int i = islands.Count - 1; i >= 0; i--)
+        {
+            if (Application.isPlaying)
+                Destroy(islands[i]);
+            else
+                DestroyImmediate(islands[i]);
+        }
+        islands.Clear();
+    }
+
     public void RedrawIslands()
     {
-        foreach(GameObject island in islands)
+        DeleteAllIslands();
+
+        foreach (Island island in islandParameters)
         {
-            MapGenerator islandGenerator = island.GetComponent<MapGenerator>();
-            islandGenerator.DrawMap();
+            CreateIsland(island.size, island.position);
         }
+
     }
 
     NoiseData GenerateNoiseData()
     {
         NoiseData noiseData = new NoiseData();
-        noiseData.autoUpdate = true;
         noiseData.normalizeMode = Noise.NormalizeMode.Local;
         noiseData.noiseScale = Random.Range(20f, 100f);
         noiseData.octaves = Random.Range(1, 10);
@@ -82,20 +93,12 @@ public class IslandsMgr : MonoBehaviour
         float offsetY = Random.Range(-100000f, 100000f);
         noiseData.offset = new Vector2(offsetY, offsetX);
 
-        Debug.Log(noiseData.noiseScale);
-        Debug.Log(noiseData.octaves);
-        Debug.Log(noiseData.persistance);
-        Debug.Log(noiseData.lacunarity);
-        Debug.Log(noiseData.seed);
-        Debug.Log(noiseData.offset);
-
         return noiseData;
     }
 
     TerrainData GenerateTerrainData(IslandSize size, AnimationCurve meshHeightCurve)
     {
         TerrainData terrainData = new TerrainData();
-        terrainData.autoUpdate = true;
         terrainData.uniformScale = (int)size;
         terrainData.useFlatShading = false;
         terrainData.useFalloff = true;

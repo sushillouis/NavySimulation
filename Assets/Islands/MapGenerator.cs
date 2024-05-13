@@ -150,6 +150,7 @@ public class MapGenerator : MonoBehaviour
         return new MapData(noiseMap);
     }
 
+    /*
     void OnValidate()
     {
         if (terrainData != null)
@@ -164,6 +165,7 @@ public class MapGenerator : MonoBehaviour
             noiseData.OnValuesUpdated += OnValuesUpdated;
         }
     }
+    */
 
     struct MapThreadInfo<T>
     {
