@@ -13,7 +13,8 @@ public enum EntityType
     PilotVessel,
     SmitHouston,
     Tanker,
-    TugBoat
+    TugBoat,
+    JARIUSV
 }
 
 
