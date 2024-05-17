@@ -14,7 +14,9 @@ public enum EntityType
     SmitHouston,
     Tanker,
     TugBoat,
-    JARIUSV
+    JARIUSV,
+    SeaHunter,
+    Mykola
 }
 
 
