@@ -14,8 +14,16 @@ public class VOMgrEditor : Editor
 
         if (GUILayout.Button("Get Bearings"))
         {
-            Debug.Log("ownship - " + voMgr.isGiveWay(voMgr.ownship, voMgr.target));
-            Debug.Log("target - " + voMgr.isGiveWay(voMgr.target, voMgr.ownship));
+            float rhown = DistanceMgr.inst.GetPotential(voMgr.ownship, voMgr.target).relativeBearingDegrees;
+            float rht = DistanceMgr.inst.GetPotential(voMgr.target, voMgr.ownship).relativeBearingDegrees;
+
+            string output = "\nownship - " + voMgr.IsGiveWay(voMgr.ownship, voMgr.target) + " - " + rhown + "\n";
+            output += "target - " + voMgr.IsGiveWay(voMgr.target, voMgr.ownship) + " - " + rht;
+
+            Debug.Log(output);
         }
+
+        if(GUILayout.Button("Draw VO"))
+            voMgr.test.DrawVO();
     }
 }

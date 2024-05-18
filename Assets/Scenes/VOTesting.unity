@@ -640,6 +640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownship: {fileID: 0}
   target: {fileID: 0}
+  test: {fileID: 0}
 --- !u!4 &333382289
 Transform:
   m_ObjectHideFlags: 0
@@ -1424,6 +1425,18 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!4 &813775695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1297307426}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &813775696 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 7731747306308124120, guid: 0e1edcdbb0df312479e861c9f178871b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1297307426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &886595368
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1527,6 +1540,7 @@ Transform:
   - {fileID: 1586144283}
   - {fileID: 163206661}
   - {fileID: 7731747304775403855}
+  - {fileID: 813775695}
   m_Father: {fileID: 1673913200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1031111529
@@ -2648,6 +2662,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275054477}
   m_CullTransparentMesh: 0
+--- !u!1001 &1297307426
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 983888704}
+    m_Modifications:
+    - target: {fileID: 7731747306308124122, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_Name
+      value: VOLine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124122, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731747306308124123, guid: 0e1edcdbb0df312479e861c9f178871b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0e1edcdbb0df312479e861c9f178871b, type: 3}
 --- !u!1001 &1300423174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3885,6 +3972,7 @@ MonoBehaviour:
     type: 3}
   PotentialPrefab: {fileID: 7190143859791935742, guid: bfa38735ac7725c44979a7084bcd30c6,
     type: 3}
+  VOPrefab: {fileID: 813775696}
   lines: []
   tmp: {fileID: 0}
 --- !u!1 &1708907976

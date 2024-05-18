@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TestMgr : MonoBehaviour
 {
+
+    public static TestMgr inst;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        inst = this;
     }
 
     // Update is called once per frame
@@ -40,13 +44,17 @@ public class TestMgr : MonoBehaviour
         camera.transform.localRotation = Quaternion.identity;
         camera.transform.Rotate(0, 270, 0);
 
-        Entity381 ent0 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(3000, 0, 1200), Vector3.zero);
+        Entity381 ent0 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(3500, 0, 1200), Vector3.zero);
         ent0.desiredHeading = 270f;
         ent0.heading = 270f;
 
-        Entity381 ent1 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(2500, 0, 1700), Vector3.zero);
+        Entity381 ent1 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(2500, 0, 2200), Vector3.zero);
         ent1.desiredHeading = 180f;
         ent1.heading = 180f;
+
+        VOMgr.inst.ownship = ent0;
+        VOMgr.inst.target = ent1;
+        VOMgr.inst.test = new VO(ent0, ent1);
 
         DistanceMgr.inst.Initialize();
     }
