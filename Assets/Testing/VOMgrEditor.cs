@@ -24,6 +24,9 @@ public class VOMgrEditor : Editor
         }
 
         if(GUILayout.Button("Draw VO"))
-            voMgr.test.DrawVO();
+        {
+            voMgr.test.InitializeVODrawing();
+        }
+            
     }
 }

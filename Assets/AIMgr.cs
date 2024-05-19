@@ -24,6 +24,7 @@ public class AIMgr : MonoBehaviour
     }
 
     public bool isPotentialFieldsMovement = false;
+    public bool isVelocityObstaclesMovement = false;
     public float potentialDistanceThreshold = 1000;
     public float attractionCoefficient = 500;
     public float attractiveExponent = -1;

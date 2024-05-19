@@ -26,6 +26,12 @@ public class Move : Command
         DHDS dhds;
         if (AIMgr.inst.isPotentialFieldsMovement)
             dhds = ComputePotentialDHDS();
+        else if (AIMgr.inst.isVelocityObstaclesMovement)
+        {
+            dhds = VOMgr.inst.AvoidCollisions(entity, EntityMgr.inst.entities);
+            if(dhds == null)
+                dhds = ComputeDHDS();
+        }
         else
             dhds = ComputeDHDS();
 

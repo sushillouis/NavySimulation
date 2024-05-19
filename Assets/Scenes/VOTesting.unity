@@ -640,7 +640,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownship: {fileID: 0}
   target: {fileID: 0}
-  test: {fileID: 0}
 --- !u!4 &333382289
 Transform:
   m_ObjectHideFlags: 0
@@ -978,7 +977,7 @@ MonoBehaviour:
   PitchNode: {fileID: 1576919499}
   RollNode: {fileID: 1664575454}
   camera: {fileID: 534669904}
-  cameraMoveSpeed: 100
+  cameraMoveSpeed: 500
   cameraTurnRate: 30
   currentYawEulerAngles: {x: 0, y: 0, z: 0}
   currentPitchEulerAngles: {x: 0, y: 0, z: 0}
@@ -1232,7 +1231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065ce964008046c4496f4bcaeaf31a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPotentialFieldsMovement: 1
+  isPotentialFieldsMovement: 0
+  isVelocityObstaclesMovement: 1
   potentialDistanceThreshold: 1000
   attractionCoefficient: 20000
   attractiveExponent: -1

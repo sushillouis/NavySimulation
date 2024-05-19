@@ -8,6 +8,7 @@ public class TestMgr : MonoBehaviour
 {
 
     public static TestMgr inst;
+    bool added = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -44,11 +45,11 @@ public class TestMgr : MonoBehaviour
         camera.transform.localRotation = Quaternion.identity;
         camera.transform.Rotate(0, 270, 0);
 
-        Entity381 ent0 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(3500, 0, 1200), Vector3.zero);
+        Entity381 ent0 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(4500, 0, 1200), Vector3.zero);
         ent0.desiredHeading = 270f;
         ent0.heading = 270f;
 
-        Entity381 ent1 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(2500, 0, 2200), Vector3.zero);
+        Entity381 ent1 = EntityMgr.inst.CreateEntity(EntityType.DDG51, new Vector3(2500, 0, 3200), Vector3.zero);
         ent1.desiredHeading = 180f;
         ent1.heading = 180f;
 
@@ -57,5 +58,18 @@ public class TestMgr : MonoBehaviour
         VOMgr.inst.test = new VO(ent0, ent1);
 
         DistanceMgr.inst.Initialize();
+    }
+
+    public void Crossing90Waypoints() 
+    {
+        List<Entity381> ent0List = new List<Entity381>();
+        ent0List.Add(VOMgr.inst.ownship);
+        AIMgr.inst.HandleMove(ent0List, new Vector3(500, 0, 1200));
+
+        List<Entity381> ent1List = new List<Entity381>();
+        ent1List.Add(VOMgr.inst.ownship);
+        AIMgr.inst.HandleMove(ent1List, new Vector3(2500, 0, -800));
+
+        added = true;
     }
 }
