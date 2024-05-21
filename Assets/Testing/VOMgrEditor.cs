@@ -17,15 +17,15 @@ public class VOMgrEditor : Editor
             float rhown = DistanceMgr.inst.GetPotential(voMgr.ownship, voMgr.target).relativeBearingDegrees;
             float rht = DistanceMgr.inst.GetPotential(voMgr.target, voMgr.ownship).relativeBearingDegrees;
 
-            string output = "\nownship - " + voMgr.IsGiveWay(voMgr.ownship, voMgr.target) + " - " + rhown + "\n";
-            output += "target - " + voMgr.IsGiveWay(voMgr.target, voMgr.ownship) + " - " + rht;
+           // string output = "\nownship - " + voMgr.IsGiveWay(voMgr.ownship, voMgr.target) + " - " + rhown + "\n";
+           // output += "target - " + voMgr.IsGiveWay(voMgr.target, voMgr.ownship) + " - " + rht;
 
-            Debug.Log(output);
+           // Debug.Log(output);
         }
 
         if(GUILayout.Button("Draw VO"))
         {
-            voMgr.test.InitializeVODrawing();
+            //voMgr.test.InitializeVODrawing();
         }
             
     }

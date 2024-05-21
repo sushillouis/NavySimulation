@@ -17,7 +17,8 @@ public class Move : Command
         //Debug.Log("MoveInit:\tMoving to: " + movePosition);
         line = LineMgr.inst.CreateMoveLine(entity.position, movePosition);
         line.gameObject.SetActive(false);
-        potentialLine = LineMgr.inst.CreatePotentialLine(entity.position);
+        if(AIMgr.inst.isPotentialFieldsMovement)
+            potentialLine = LineMgr.inst.CreatePotentialLine(entity.position);
         line.gameObject.SetActive(true);
     }
 
@@ -27,17 +28,107 @@ public class Move : Command
         if (AIMgr.inst.isPotentialFieldsMovement)
             dhds = ComputePotentialDHDS();
         else if (AIMgr.inst.isVelocityObstaclesMovement)
-        {
-            dhds = VOMgr.inst.AvoidCollisions(entity, EntityMgr.inst.entities);
-            if(dhds == null)
-                dhds = ComputeDHDS();
-        }
+            dhds = ComputeVODHDS(entity, EntityMgr.inst.entities);
         else
             dhds = ComputeDHDS();
 
         entity.desiredHeading = dhds.dh;
         entity.desiredSpeed = dhds.ds;
         line.SetPosition(1, movePosition);
+    }
+
+    Entity381 priorityEnt = null;
+
+    public DHDS ComputeVODHDS(Entity381 ownship, List<Entity381> entities)
+    {
+        List<Entity381> riskObstacles = DetectRiskEntities(ownship.velocity, ownship, entities);
+
+        float tcpaPrio = priorityEnt != null ? Utils.TCPA(entity, priorityEnt) : 0f;
+        if (tcpaPrio < 0f)
+            priorityEnt = null;
+
+        foreach (Entity381 target in riskObstacles)
+        {
+            Potential p = DistanceMgr.inst.GetPotential(ownship, target);
+            float TCPA = Utils.TCPA(ownship, target);
+
+            if (TCPA >= 0 && TCPA < 200)
+            {
+                if (priorityEnt == null || TCPA < tcpaPrio)
+                {
+                    priorityEnt = target;
+                    tcpaPrio = TCPA;
+                }
+            }
+        }
+
+        if (priorityEnt != null)
+            return FindVODHDS(ownship, priorityEnt, entities);
+        else
+            return ComputeDHDS();
+    }
+
+    public List<Entity381> DetectRiskEntities(Vector3 velocity, Entity381 ownship, List<Entity381> entities)
+    {
+        List<Entity381> output = new List<Entity381>();
+
+        foreach (Entity381 target in entities)
+        {
+            if (target == ownship) continue;
+
+            float dist = Vector3.Distance(ownship.position, target.position);
+
+            VO velObs = new VO(ownship, target);
+            velObs.CalcVO();
+            float alpha = velObs.CalcAlpha(velocity);
+
+            if (dist < 550 || (Utils.AngleBetween(alpha, velObs.minusDelta, velObs.plusDelta)))
+            {
+                if (velObs.giveWay)
+                    output.Add(target);
+            }
+        }
+        return output;
+    }
+
+    public DHDS FindVODHDS(Entity381 ownship, Entity381 priorityEnt, List<Entity381> entities)
+    {
+        float bestAngle = ownship.heading;
+        float bestSpeed = 0;
+        float bestDCPA = Mathf.Infinity;
+        float bestTCPA = 0;
+
+
+        for (float angle = 0; angle <= 120; angle += 5)
+        {
+            for (float speed = 1; speed >= 0; speed -= 0.25f)
+            {
+                float newHeading = Utils.Degrees360(ownship.heading + angle);
+                Vector3 newVelocity = ownship.maxSpeed * speed * new Vector3(Mathf.Sin(newHeading * Mathf.Deg2Rad), 0, Mathf.Cos(newHeading * Mathf.Deg2Rad));
+                List<Entity381> newRiskObstacles = DetectRiskEntities(newVelocity, ownship, entities);
+
+                if (newRiskObstacles.Count == 0 && speed >= bestSpeed)
+                {
+                    Vector3 prioRelPos = priorityEnt.position - ownship.position;
+                    Vector3 prioRelVel = priorityEnt.velocity - newVelocity;
+                    float t = Mathf.Acos(Vector3.Dot(-prioRelPos, prioRelVel) / (prioRelPos.magnitude * prioRelVel.magnitude)); //i'm not sure really what this is supposed to represent
+                    float DCPA = prioRelPos.magnitude * Mathf.Sin(t);
+                    float TCPA = prioRelPos.magnitude * Mathf.Cos(t) / prioRelVel.magnitude;
+
+                    if (DCPA < bestDCPA && DCPA > 550 && TCPA > 0)
+                    {
+                        bestAngle = newHeading;
+                        bestSpeed = speed;
+                        bestDCPA = DCPA;
+                        bestTCPA = TCPA;
+                    }
+                }
+            }
+        }
+
+        //Debug.Log(bestAngle + " " + (ownship.maxSpeed * bestSpeed));
+
+        return new DHDS(bestAngle, ownship.maxSpeed * bestSpeed);
     }
 
     public Vector3 diff = Vector3.positiveInfinity;

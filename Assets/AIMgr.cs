@@ -61,7 +61,7 @@ public class AIMgr : MonoBehaviour
     public void HandleMove(List<Entity381> entities, Vector3 point)
     {
         foreach (Entity381 entity in entities) {
-            Move m = new Move(entity, hit.point);
+            Move m = new Move(entity, point);
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(m, uai);
         }
