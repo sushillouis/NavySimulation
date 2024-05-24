@@ -1,10 +1,13 @@
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Xml;
 using UnityEngine;
 using static UnityEditor.Rendering.CameraUI;
 using static UnityStandardAssets.Utility.TimedObjectActivator;
 
+[System.Serializable]
 public class VO
 {
     float theta;
@@ -16,21 +19,22 @@ public class VO
     public Entity381 ownship;
     public Entity381 target;
 
-    /*
+    
     public LineRenderer plusDeltaLine;
     public LineRenderer minusDeltaLine;
     public LineRenderer alphaLine;
     public LineRenderer radius;
-    */
 
-    //public bool showingVOs;
+
+    public bool visualizationInitialized;
+    public bool visualizationEnabled;
 
     public VO(Entity381 ownship, Entity381 target)
     {
         this.ownship = ownship;
         this.target = target;
         giveWay = IsGiveWay(ownship, target);
-        //showingVOs = false;
+        visualizationEnabled = false;
     }
 
     public bool IsGiveWay(Entity381 ownship, Entity381 target)
@@ -70,10 +74,43 @@ public class VO
         return relVelAngle;
     }
 
-    /*
+    public override string ToString()
+    {
+        string output = "ownship: " + ownship.name;
+        output += "\ntarget: " + target.name;
+        output += "\nminus delta: " + minusDelta;
+
+        return output;
+    }
+
+    public void ToggleVisualization()
+    {
+        visualizationEnabled = !visualizationEnabled;
+    }
+
+    public void UpdateVisualization()
+    {
+        if (visualizationEnabled)
+        {
+            if (visualizationInitialized)
+                DrawVO();
+            else
+                InitializeVODrawing();
+        }
+        else
+        {
+            if (visualizationInitialized)
+            {
+                plusDeltaLine.gameObject.SetActive(false);
+                minusDeltaLine.gameObject.SetActive(false);
+            }
+                
+        }
+    }
+
     public void InitializeVODrawing()
     {
-        CalcVO();
+        //CalcVO();
 
         plusDeltaLine = LineMgr.inst.CreateVOLine(ownship.position, ownship.position);
         plusDeltaLine.gameObject.SetActive(true);
@@ -81,37 +118,41 @@ public class VO
         minusDeltaLine = LineMgr.inst.CreateVOLine(ownship.position, ownship.position);
         minusDeltaLine.gameObject.SetActive(true);
 
-        alphaLine = LineMgr.inst.CreateVOLine(ownship.position, ownship.position);
-        alphaLine.gameObject.SetActive(true);
+        //alphaLine = LineMgr.inst.CreateVOLine(ownship.position, ownship.position);
+        //alphaLine.gameObject.SetActive(true);
 
-        showingVOs = true;
+        visualizationInitialized = true;
     }
 
     public void DrawVO()
     {
-        CalcVO();
+        //CalcVO();
+        //float alpha = CalcAlpha(ownship.velocity);
 
         float plusDeltaAngle = Utils.Degrees360(theta + delta);
         float minusDeltaAngle = Utils.Degrees360(theta - delta);
 
         Vector3 plusDeltaDirec = new Vector3(Mathf.Sin(plusDeltaAngle * Mathf.Deg2Rad), 0, Mathf.Cos(plusDeltaAngle * Mathf.Deg2Rad)).normalized;
         Vector3 minusDeltaDirec = new Vector3(Mathf.Sin(minusDeltaAngle * Mathf.Deg2Rad), 0, Mathf.Cos(minusDeltaAngle * Mathf.Deg2Rad)).normalized;
-        Vector3 alphaDirec = new Vector3(Mathf.Sin(alpha * Mathf.Deg2Rad), 0, Mathf.Cos(alpha * Mathf.Deg2Rad)).normalized;
+        //Vector3 alphaDirec = new Vector3(Mathf.Sin(alpha * Mathf.Deg2Rad), 0, Mathf.Cos(alpha * Mathf.Deg2Rad)).normalized;
 
         Vector3 plusDeltaEndpoint = ownship.position + (plusDeltaDirec * (ownship.position - target.position).magnitude);
         Vector3 minusDeltaEndpoint = ownship.position + (minusDeltaDirec * (ownship.position - target.position).magnitude);
-        Vector3 alphaEndpoint = ownship.position + (alphaDirec * 500);
+        //Vector3 alphaEndpoint = ownship.position + (alphaDirec * 500);
 
         plusDeltaLine.SetPosition(0, ownship.position);
         plusDeltaLine.SetPosition(1, plusDeltaEndpoint);
+        plusDeltaLine.gameObject.SetActive(true);
 
         minusDeltaLine.SetPosition(0, ownship.position);
         minusDeltaLine.SetPosition(1, minusDeltaEndpoint);
+        minusDeltaLine.gameObject.SetActive(true);
 
-        alphaLine.SetPosition(0, ownship.position);
-        alphaLine.SetPosition(1, alphaEndpoint);
+        //alphaLine.SetPosition(0, ownship.position);
+        //alphaLine.SetPosition(1, alphaEndpoint);
     }
 
+    /*
     public void DrawRadius()
     {
         radius = LineMgr.inst.CreateVOLine(target.position, target.position + (new Vector3(1,0,1).normalized * 550));
@@ -124,6 +165,12 @@ public class VOMgr : MonoBehaviour
 {
     public Entity381 ownship;
     public Entity381 target;
+
+    public bool isInitialized = false;
+
+    public Dictionary<Entity381, Dictionary<Entity381, VO>> vosDictionary;
+    public VO[,] vos2D;
+    public List<List<VO>> vosList;
 
     public VO test;
 
@@ -138,103 +185,77 @@ public class VOMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(test != null && test.showingVOs)
-        //{
-            //test.DrawVO();
-        //}
-    }
-
-    /*
-    public List<Entity381> DetectRiskEntities(Vector3 velocity, Entity381 ownship, List<Entity381> entities)
-    {
-        List<Entity381> output = new List<Entity381>();
-
-        foreach (Entity381 target in entities)
+        if(AIMgr.inst.isVelocityObstaclesMovement) 
         {
-            Potential p = DistanceMgr.inst.GetPotential(ownship, target);
-
-            VO velObs = new VO(ownship, target);
-            velObs.CalcVO();
-            float alpha = velObs.CalcAlpha(velocity);
-
-            float angleDiff = (velObs.theta - alpha + 180 + 360) % 360 - 180;
-
-            if (p.distance < 550 || (angleDiff <= velObs.delta && angleDiff >= -velObs.delta))
-                output.Add(target);
-        }
-        return output;
-    }  
-
-    public DHDS AvoidCollisions(Entity381 ownship, List<Entity381> entities)
-    {
-        List<Entity381> vesselsToGWTo = new List<Entity381>();
-
-        foreach (Entity381 target in entities)
-        {
-            VO vo = new VO(ownship, target);
-            if (vo.giveWay)
-                vesselsToGWTo.Add(target);
-        }
-
-        List<Entity381> riskObstacles = DetectRiskEntities(ownship.velocity, ownship, vesselsToGWTo);
-
-        Entity381 priorityEnt = null;
-        float minTCPA = Mathf.Infinity;
-
-        foreach(Entity381 target in riskObstacles)
-        {
-            Potential p = DistanceMgr.inst.GetPotential(ownship, target);
-
-            if(p.cpaInfo.time < minTCPA && p.cpaInfo.time < 200)
+            if (!isInitialized)
+                Initialize();
+            else
             {
-                priorityEnt = target;
-                minTCPA = p.cpaInfo.time;
-            }
-        }
-
-        if(priorityEnt != null)
-        {
-            return FindVODHDS(ownship, priorityEnt, entities);
-        }
-        else return null;
-    }
-
-    public DHDS FindVODHDS(Entity381 ownship, Entity381 priorityEnt, List<Entity381> entities)
-    {
-        float bestAngle = ownship.heading;
-        float bestSpeed = 0;
-        float bestDCPA = Mathf.Infinity;
-        float bestTCPA = 0;
-
-
-        for (float angle = 0; angle <= 120; angle += 5)
-        {
-            for (float speed = 1; speed >= 0; speed -= 0.25f)
-            {
-                float newHeading = Utils.Degrees360(ownship.heading + angle);
-                Vector3 newVelocity = ownship.maxSpeed * speed * new Vector3(Mathf.Sin(newHeading * Mathf.Deg2Rad), 0, Mathf.Cos(newHeading * Mathf.Deg2Rad));
-                List<Entity381> newRiskObstacles = DetectRiskEntities(newVelocity, ownship, entities);
-
-                if (newRiskObstacles.Count == 0 && speed >= bestSpeed)
+                UpdateVOs();
+                ownship = SelectionMgr.inst.selectedEntity;
+                if(ownship != null)
                 {
-                    Vector3 prioRelPos = priorityEnt.position - ownship.position;
-                    Vector3 prioRelVel = priorityEnt.velocity - newVelocity;
-                    float t = Mathf.Acos(Vector3.Dot(-prioRelPos, prioRelVel) / (prioRelPos.magnitude * prioRelVel.magnitude)); //i'm not sure really what this is supposed to represent
-                    float DCPA = prioRelPos.magnitude * Mathf.Sin(t);
-                    float TCPA = prioRelPos.magnitude * Mathf.Cos(t) / prioRelVel.magnitude;
-
-                    if (DCPA < bestDCPA && DCPA > 550 && TCPA > 0)
+                    if (Input.GetKeyDown(KeyCode.G))
                     {
-                        bestAngle = newHeading;
-                        bestSpeed = speed;
-                        bestDCPA = DCPA;
-                        bestTCPA = TCPA;
+                        foreach (KeyValuePair<Entity381, VO> entry in vosDictionary[ownship])
+                        {
+                            entry.Value.ToggleVisualization();
+                        }
+                    }
+                    foreach (KeyValuePair<Entity381, VO> entry in vosDictionary[ownship])
+                    {
+                        entry.Value.UpdateVisualization();
                     }
                 }
             }
+                
         }
-
-        return new DHDS(bestAngle, ownship.maxSpeed * bestSpeed);
     }
-    */
+
+    public void Initialize()
+    {
+        isInitialized = true;
+        vosDictionary = new Dictionary<Entity381, Dictionary<Entity381, VO>>();
+        vos2D = new VO[EntityMgr.inst.entities.Count, EntityMgr.inst.entities.Count];
+        //vosList = new List<List<VO>>();
+
+        int i = 0;
+        foreach(Entity381 ownship in EntityMgr.inst.entities)
+        {
+            Dictionary<Entity381, VO> ownshipDictionary = new Dictionary<Entity381, VO>();
+            //List<VO> ownshipVOList = new List<VO>();
+            vosDictionary.Add(ownship, ownshipDictionary);
+
+            int j = 0;
+            foreach(Entity381 target in EntityMgr.inst.entities)
+            {
+                VO vo = new VO(ownship, target);
+                vo.CalcVO();
+                ownshipDictionary.Add(target, vo);
+                vos2D[i,j] = vo;
+                j++;
+            }
+            i++;
+        }
+    }
+
+    public void UpdateVOs()
+    {
+        foreach(Entity381 ownship in EntityMgr.inst.entities)
+        {
+            foreach(Entity381 target in EntityMgr.inst.entities)
+            {
+                GetVO(ownship, target).CalcVO();
+            }
+        }
+    }
+
+    public VO GetVO(Entity381 ownship, Entity381 target)
+    {
+        VO vo = null;
+        if (isInitialized)
+            vo = vosDictionary[ownship][target];
+
+        return vo;
+    }
 }

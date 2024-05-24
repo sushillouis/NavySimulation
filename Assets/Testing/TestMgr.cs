@@ -21,13 +21,13 @@ public class TestMgr : MonoBehaviour
     {
         if (!added)
         {
-            HeadOnWaypoints();
+            Crossing90Waypoints();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ResetEntities();
-            HeadOn();
+            Crossing90();
         }
     }
 
@@ -65,17 +65,18 @@ public class TestMgr : MonoBehaviour
         added = false;
 
         DistanceMgr.inst.Initialize();
+        VOMgr.inst.Initialize();
     }
 
     public void Crossing90Waypoints() 
     {
         List<Entity381> ent0List = new List<Entity381>();
-        ent0List.Add(VOMgr.inst.ownship);
+        ent0List.Add(EntityMgr.inst.entities[0]);
         AIMgr.inst.HandleMove(ent0List, new Vector3(500, 0, 1200));
         added = true;
 
         List<Entity381> ent1List = new List<Entity381>();
-        ent1List.Add(VOMgr.inst.target);
+        ent1List.Add(EntityMgr.inst.entities[1]);
         AIMgr.inst.HandleMove(ent1List, new Vector3(2500, 0, 200));
         added = true;
     }
@@ -103,17 +104,18 @@ public class TestMgr : MonoBehaviour
         added = false;
 
         DistanceMgr.inst.Initialize();
+        VOMgr.inst.Initialize();
     }
 
     public void OvertakingWaypoints()
     {
         List<Entity381> ent0List = new List<Entity381>();
-        ent0List.Add(VOMgr.inst.ownship);
+        ent0List.Add(EntityMgr.inst.entities[0]);
         AIMgr.inst.HandleMove(ent0List, new Vector3(-1500, 0, 1200));
         added = true;
 
         List<Entity381> ent1List = new List<Entity381>();
-        ent1List.Add(VOMgr.inst.target);
+        ent1List.Add(EntityMgr.inst.entities[1]);
         AIMgr.inst.HandleMove(ent1List, new Vector3(-1500, 0, 1200));
         added = true;
     }
@@ -140,17 +142,18 @@ public class TestMgr : MonoBehaviour
         added = false;
 
         DistanceMgr.inst.Initialize();
+        VOMgr.inst.Initialize();
     }
 
     public void HeadOnWaypoints()
     {
         List<Entity381> ent0List = new List<Entity381>();
-        ent0List.Add(VOMgr.inst.ownship);
+        ent0List.Add(EntityMgr.inst.entities[0]);
         AIMgr.inst.HandleMove(ent0List, new Vector3(500, 0, 1200));
         added = true;
 
         List<Entity381> ent1List = new List<Entity381>();
-        ent1List.Add(VOMgr.inst.target);
+        ent1List.Add(EntityMgr.inst.entities[1]);
         AIMgr.inst.HandleMove(ent1List, new Vector3(6500, 0, 1200));
         added = true;
     }

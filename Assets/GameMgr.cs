@@ -35,13 +35,14 @@ public class GameMgr : MonoBehaviour
             initZ = position.z;
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
-                    Entity381 ent = EntityMgr.inst.CreateEntity(EntityType.Mykola, position, Vector3.zero);
+                    Entity381 ent = EntityMgr.inst.CreateEntity(EntityType.JARIUSV, position, Vector3.zero);
                     position.z += spread;
                 }
                 position.x += spread;
                 position.z = initZ;
             }
             DistanceMgr.inst.Initialize();
+            VOMgr.inst.Initialize();
         }
     }
 }

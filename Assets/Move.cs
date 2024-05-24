@@ -49,10 +49,9 @@ public class Move : Command
 
         foreach (Entity381 target in riskObstacles)
         {
-            Potential p = DistanceMgr.inst.GetPotential(ownship, target);
             float TCPA = Utils.TCPA(ownship, target);
 
-            if (TCPA >= 0 && TCPA < 200)
+            if (TCPA >= 0 && TCPA < AIMgr.inst.tcpaLimit)
             {
                 if (priorityEnt == null || TCPA < tcpaPrio)
                 {
@@ -78,11 +77,12 @@ public class Move : Command
 
             float dist = Vector3.Distance(ownship.position, target.position);
 
-            VO velObs = new VO(ownship, target);
-            velObs.CalcVO();
+            VO velObs = VOMgr.inst.GetVO(ownship, target);
+            //VO velObs = new VO(ownship, target);
+            //velObs.CalcVO();
             float alpha = velObs.CalcAlpha(velocity);
 
-            if (dist < 550 || (Utils.AngleBetween(alpha, velObs.minusDelta, velObs.plusDelta)))
+            if (dist < AIMgr.inst.collisionRadius || (Utils.AngleBetween(alpha, velObs.minusDelta, velObs.plusDelta)))
             {
                 if (velObs.giveWay)
                     output.Add(target);
@@ -96,8 +96,6 @@ public class Move : Command
         float bestAngle = ownship.heading;
         float bestSpeed = 0;
         float bestDCPA = Mathf.Infinity;
-        float bestTCPA = 0;
-
 
         for (float angle = 0; angle <= 120; angle += 5)
         {
@@ -115,12 +113,11 @@ public class Move : Command
                     float DCPA = prioRelPos.magnitude * Mathf.Sin(t);
                     float TCPA = prioRelPos.magnitude * Mathf.Cos(t) / prioRelVel.magnitude;
 
-                    if (DCPA < bestDCPA && DCPA > 550 && TCPA > 0)
+                    if (DCPA < bestDCPA && DCPA > AIMgr.inst.collisionRadius && TCPA > 0)
                     {
                         bestAngle = newHeading;
                         bestSpeed = speed;
                         bestDCPA = DCPA;
-                        bestTCPA = TCPA;
                     }
                 }
             }

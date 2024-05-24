@@ -135,10 +135,13 @@ public class DistanceMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isInitialized)
-            UpdatePotentials();
-        else
-            Initialize();
+        if(AIMgr.inst.isPotentialFieldsMovement)
+        {
+            if (isInitialized)
+                UpdatePotentials();
+            else
+                Initialize();
+        }
     }
 
     public List<Potential> selectedEntityPotentials; // For debugging
