@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e22f47f014cf047a074646158e96e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wakeParticleSystem: {fileID: 7300802009010406659}
+  wakeParticles:
+  - {fileID: 7300802009010406659}
   wakeLengthFactor: 0.13
   wakeSpeed: 47.001755
   dayGradient:
@@ -344,7 +345,7 @@ GameObject:
   - component: {fileID: 7300802009010406659}
   - component: {fileID: 7302508167063552837}
   m_Layer: 0
-  m_Name: WakeParticleSystem
+  m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,7 +1149,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 5
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5077,7 +5078,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
