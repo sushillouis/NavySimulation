@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class Wake : MonoBehaviour {
 
-    public List<ParticleSystem> wakeParticles;
+    public ParticleSystem wakeParticleSystem;
     float wakeThresholdSpeed = 0.77f;
     public float wakeLengthFactor = 0.13f;
 
@@ -21,8 +20,7 @@ public class Wake : MonoBehaviour {
     public Entity381 entity;
     // Use this for initialization
     void Start () {
-        foreach (ParticleSystem wakeParticleSystem in wakeParticles)
-            wakeParticleSystem.Stop();
+        wakeParticleSystem.Stop();
         entity = GetComponentInParent<Entity381>();
 
         dayMMGradient = new ParticleSystem.MinMaxGradient(dayGradient);
@@ -43,7 +41,7 @@ public class Wake : MonoBehaviour {
 
     public bool shouldDisappear = false;
     
-    public void Disappear(ParticleSystem wakeParticleSystem)
+    public void Disappear()
     {
         var cofm = wakeParticleSystem.colorOverLifetime;
         cofm.color = new ParticleSystem.MinMaxGradient(Color.clear);
@@ -53,39 +51,27 @@ public class Wake : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        foreach(ParticleSystem wakeParticleSystem in wakeParticles)
-        {
-            if (entity.speed <= wakeThresholdSpeed)
-            {
-                wakeParticleSystem.Stop();
-            }
-            else if (!wakeParticleSystem.isPlaying)
-            {
-                wakeParticleSystem.Play();
-            }
-            wakeSpeed = entity.speed * wakeLengthFactor;// * sd.shipStatic.width;
-            var main = wakeParticleSystem.main;
-            main.startSpeed = wakeSpeed;
-            if (shouldDisappear)
-            {
-                Disappear(wakeParticleSystem);
-            }
-            else
-            {
-                var cofm = wakeParticleSystem.colorOverLifetime;
-                if (isNight())
-                {
-                    cofm.color = nightMMGradient;
-                }
-                else if (isDusk())
-                {
-                    cofm.color = duskMMGradient;
-                }
-                else
-                {
-                    cofm.color = dayMMGradient; // daytime
-                }
-            }
+
+        if (entity.speed <= wakeThresholdSpeed) {
+            wakeParticleSystem.Stop();
+        } else if (!wakeParticleSystem.isPlaying) {
+            wakeParticleSystem.Play();
         }
-    }
+        wakeSpeed = entity.speed * wakeLengthFactor;// * sd.shipStatic.width;
+        if (shouldDisappear) {
+            Disappear();
+        } else {
+           var cofm = wakeParticleSystem.colorOverLifetime;
+              if (isNight()) {
+                  cofm.color = nightMMGradient;
+              } else if (isDusk()) {
+                cofm.color = duskMMGradient;
+              } else {
+                cofm.color = dayMMGradient; // daytime
+            }
+          }
+        }
+
+
+
 }
