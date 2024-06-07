@@ -16,7 +16,8 @@ public enum EntityType
     TugBoat,
     JARIUSV,
     SeaHunter,
-    Mykola
+    Mykola,
+    SeaBaby
 }
 
 

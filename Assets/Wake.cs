@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewWake : MonoBehaviour
+public class Wake : MonoBehaviour
 {
 
     public ParticleSystem wakeParticleSystem;

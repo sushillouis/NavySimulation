@@ -4806,7 +4806,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2894177759203869379}
-  - component: {fileID: 5665726003427834057}
+  - component: {fileID: 8128697438821907560}
   m_Layer: 0
   m_Name: NewWake
   m_TagString: Untagged
@@ -4830,7 +4830,7 @@ Transform:
   - {fileID: 2897209753481836065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5665726003427834057
+--- !u!114 &8128697438821907560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4839,7 +4839,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2892246444247152125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e6ed97c1c99f70419bcadc419235e03, type: 3}
+  m_Script: {fileID: 11500000, guid: 37e22f47f014cf047a074646158e96e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wakeParticleSystem: {fileID: 3091510102822060987}
@@ -4848,7 +4848,7 @@ MonoBehaviour:
   dayGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 0.4627451, g: 0.5803922, b: 0.5803922, a: 0.039215688}
+    key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4878,7 +4878,7 @@ MonoBehaviour:
   nightGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 0.4627451, g: 0.5803922, b: 0.5803922, a: 0.039215688}
+    key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4908,7 +4908,7 @@ MonoBehaviour:
   duskGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 0.4627451, g: 0.5803922, b: 0.5803922, a: 0.039215688}
+    key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
