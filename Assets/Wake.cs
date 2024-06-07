@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Wake : MonoBehaviour {
+public class NewWake : MonoBehaviour
+{
 
     public ParticleSystem wakeParticleSystem;
     float wakeThresholdSpeed = 0.77f;
@@ -19,7 +20,8 @@ public class Wake : MonoBehaviour {
 
     public Entity381 entity;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         wakeParticleSystem.Stop();
         entity = GetComponentInParent<Entity381>();
 
@@ -40,7 +42,7 @@ public class Wake : MonoBehaviour {
     }
 
     public bool shouldDisappear = false;
-    
+
     public void Disappear()
     {
         var cofm = wakeParticleSystem.colorOverLifetime;
@@ -49,28 +51,42 @@ public class Wake : MonoBehaviour {
 
 
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
 
-        if (entity.speed <= wakeThresholdSpeed) {
+        if (entity.speed <= wakeThresholdSpeed)
+        {
             wakeParticleSystem.Stop();
-        } else if (!wakeParticleSystem.isPlaying) {
+        }
+        else if (!wakeParticleSystem.isPlaying)
+        {
             wakeParticleSystem.Play();
         }
         wakeSpeed = entity.speed * wakeLengthFactor;// * sd.shipStatic.width;
-        if (shouldDisappear) {
+        var main = wakeParticleSystem.main;
+        main.startSpeed = wakeSpeed;
+        if (shouldDisappear)
+        {
             Disappear();
-        } else {
-           var cofm = wakeParticleSystem.colorOverLifetime;
-              if (isNight()) {
-                  cofm.color = nightMMGradient;
-              } else if (isDusk()) {
+        }
+        else
+        {
+            var cofm = wakeParticleSystem.colorOverLifetime;
+            if (isNight())
+            {
+                cofm.color = nightMMGradient;
+            }
+            else if (isDusk())
+            {
                 cofm.color = duskMMGradient;
-              } else {
+            }
+            else
+            {
                 cofm.color = dayMMGradient; // daytime
             }
-          }
         }
+    }
 
 
 

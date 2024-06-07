@@ -609,6 +609,65 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &318146385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 318146386}
+  - component: {fileID: 318146387}
+  m_Layer: 0
+  m_Name: VOMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &318146386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318146385}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2200, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1708907977}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &318146387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318146385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d2e248b9e1df44a9d33b08ce7bed81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownship: {fileID: 0}
+  target: {fileID: 0}
+  isInitialized: 0
+  test:
+    minusDelta: 0
+    plusDelta: 0
+    giveWay: 0
+    ownship: {fileID: 0}
+    target: {fileID: 0}
+    plusDeltaLine: {fileID: 0}
+    minusDeltaLine: {fileID: 0}
+    alphaLine: {fileID: 0}
+    radius: {fileID: 0}
+    visualizationInitialized: 0
+    visualizationEnabled: 0
 --- !u!1 &358051248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065ce964008046c4496f4bcaeaf31a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionRadius: 550
+  tcpaLimit: 200
   isPotentialFieldsMovement: 1
+  isVelocityObstaclesMovement: 0
   potentialDistanceThreshold: 1000
   attractionCoefficient: 20000
   attractiveExponent: -1
@@ -3767,6 +3829,7 @@ MonoBehaviour:
     type: 3}
   PotentialPrefab: {fileID: 7190143859791935742, guid: bfa38735ac7725c44979a7084bcd30c6,
     type: 3}
+  VOPrefab: {fileID: 0}
   lines: []
   tmp: {fileID: 0}
 --- !u!4 &1684696156 stripped
@@ -3813,6 +3876,7 @@ Transform:
   - {fileID: 1229635576}
   - {fileID: 1129782061}
   - {fileID: 684643217}
+  - {fileID: 318146386}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1766729324
