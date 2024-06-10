@@ -33,6 +33,10 @@ public class EntityMgr : MonoBehaviour
                 entities.Add(entity);
             }
         }
+
+        DistanceMgr.inst.Initialize();
+        VOMgr.inst.Initialize();
+
         return entity;
     }
 

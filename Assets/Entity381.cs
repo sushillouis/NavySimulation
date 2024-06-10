@@ -17,7 +17,8 @@ public enum EntityType
     JARIUSV,
     SeaHunter,
     Mykola,
-    SeaBaby
+    SeaBaby,
+    CVN75
 }
 
 

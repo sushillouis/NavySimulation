@@ -41,6 +41,7 @@ public class TestMgr : MonoBehaviour
             Destroy(ent.gameObject);
         }
         DistanceMgr.inst.Initialize();
+        VOMgr.inst.Initialize();
     }
 
     public void Crossing90()
