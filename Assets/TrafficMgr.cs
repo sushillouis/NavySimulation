@@ -24,53 +24,58 @@ public class TrafficMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-        Test();
+        SpawnShips();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SetWaypoints();
+        }
     }
 
-    /*
-    void SetSpawnCorners()
-    {
-        float x = laneDimensions.x / 2;
-        float y = laneDimensions.y / 2;
-        float theta = Utils.Degrees360(Mathf.Atan2(x, y) * Mathf.Rad2Deg);
-        float c = new Vector2(x, y).magnitude;
-        float topRightAngle = Utils.Degrees360(laneOrientation + theta);
-        float topLeftAngle = Utils.Degrees360(laneOrientation - theta);
-        float bottomRightAngle = Utils.Degrees360(laneOrientation + 180 - theta);
-        float bottomLeftAngle = Utils.Degrees360(laneOrientation + 180 - theta);
-
-        Vector3 topRightDirec = new Vector3(Mathf.Sin(topRightAngle * Mathf.Deg2Rad), 0, Mathf.Cos(topRightAngle * Mathf.Deg2Rad)).normalized;
-        Vector3 topLeftDirec = new Vector3(Mathf.Sin(topLeftAngle * Mathf.Deg2Rad), 0, Mathf.Cos(topLeftAngle * Mathf.Deg2Rad)).normalized;
-        Vector3 bottomRightDirec = new Vector3(Mathf.Sin(bottomRightAngle * Mathf.Deg2Rad), 0, Mathf.Cos(bottomRightAngle * Mathf.Deg2Rad)).normalized;
-        Vector3 bottomLeftDirec = new Vector3(Mathf.Sin(bottomLeftAngle * Mathf.Deg2Rad), 0, Mathf.Cos(bottomLeftAngle * Mathf.Deg2Rad)).normalized;
-
-        topRightCorner = laneCenter + (topRightDirec * c);
-        topLeftCorner = laneCenter + (topLeftDirec * c);
-        bottomRightCorner = laneCenter + (bottomRightDirec * c);
-        bottomLeftCorner = laneCenter + (bottomLeftDirec * c);
-    }
-    */
-
-    void Test()
+    void SpawnShips()
     {
         laneOrientation = Utils.Degrees360(laneOrientation);
         test.transform.position = laneCenter;
         test.transform.eulerAngles = new Vector3 (0, laneOrientation, 0);
+
         BoxCollider bounds = test.GetComponent<BoxCollider>();
         bounds.size = new Vector3(laneDimensions.x, 0,  laneDimensions.y);
+
+        List<Vector3> postions = new List<Vector3>();
+
         for(int i = 0; i < numShips; i++)
         {
-            EntityType vesselType = (EntityType)Random.Range(0, 9);
+            bool spreadOut = false;
+            Vector3 localPosition = Vector3.zero;
+
+            while (!spreadOut)
+            {
+                localPosition = RandomPointInBounds(bounds.bounds);
+                spreadOut = true;
+                foreach(Vector3 shipPos in postions)
+                {
+                    if(Vector3.Distance(shipPos, localPosition) < 2 * AIMgr.inst.collisionRadius)
+                    {
+                        spreadOut = false;
+                        break;
+                    }
+                }
+            }
+
+            postions.Add(localPosition);
+
             GameObject tmp = Instantiate(cube, test.transform);
-            tmp.transform.localPosition = RandomPointInBounds(bounds.bounds);
+            tmp.transform.localPosition = localPosition;
+
+            EntityType vesselType = (EntityType)Random.Range(0, 9);
             Entity381 entity = EntityMgr.inst.CreateEntity(vesselType, Vector3.zero, Vector3.zero);
             entity.transform.position = tmp.transform.position;
+
+
             Destroy(tmp);
 
             if(i % 2 == 0)
