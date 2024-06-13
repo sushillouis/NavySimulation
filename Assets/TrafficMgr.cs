@@ -24,7 +24,7 @@ public class TrafficMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-        SpawnShips();
+        //SpawnShips();
     }
 
     // Update is called once per frame
@@ -32,11 +32,11 @@ public class TrafficMgr : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            SetWaypoints();
+            //SetWaypoints();
         }
     }
 
-    void SpawnShips()
+    public void SpawnShips()
     {
         laneOrientation = Utils.Degrees360(laneOrientation);
         test.transform.position = laneCenter;
@@ -93,7 +93,7 @@ public class TrafficMgr : MonoBehaviour
         }
     }
 
-    void SetWaypoints()
+    public void SetWaypoints()
     {
         for (int i = 0; i < TrafficShips.Count; i++)
         {
