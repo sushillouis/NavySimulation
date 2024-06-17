@@ -123,6 +123,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &47724350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47724352}
+  - component: {fileID: 47724351}
+  m_Layer: 0
+  m_Name: SituationMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &47724351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47724350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc336714db720254d9beeb6e4bf8e7d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CVN75: {fileID: 0}
+  DDG51: {fileID: 0}
+  accomplice: {fileID: 0}
+  droneList: []
+--- !u!4 &47724352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47724350}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &163206661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4953438425785274624, guid: 7c067cc3ad7ca9349a62391a8bda4404,
@@ -778,8 +826,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numShips: 10
-  laneCenter: {x: 1000, y: 0, z: 1000}
-  laneDimensions: {x: 1000, y: 10000}
+  laneCenter: {x: 1000, y: 0, z: 2000}
+  laneDimensions: {x: 2000, y: 20000}
   laneOrientation: 75
   test: {fileID: 564867442}
   cube: {fileID: 1984131663}
@@ -986,7 +1034,7 @@ MonoBehaviour:
   PitchNode: {fileID: 1576919499}
   RollNode: {fileID: 1664575454}
   camera: {fileID: 534669904}
-  cameraMoveSpeed: 100
+  cameraMoveSpeed: 500
   cameraTurnRate: 30
   currentYawEulerAngles: {x: 0, y: 0, z: 0}
   currentPitchEulerAngles: {x: 0, y: 0, z: 0}
@@ -1295,8 +1343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionRadius: 550
   tcpaLimit: 200
-  isPotentialFieldsMovement: 1
-  isVelocityObstaclesMovement: 0
+  isPotentialFieldsMovement: 0
+  isVelocityObstaclesMovement: 1
   potentialDistanceThreshold: 1000
   attractionCoefficient: 20000
   attractiveExponent: -1
@@ -1323,7 +1371,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10000, y: 1, z: 10000}
+  m_Size: {x: 1000000, y: 1, z: 1000000}
   m_Center: {x: 0, y: -10, z: 0}
 --- !u!4 &661634719 stripped
 Transform:
@@ -4044,7 +4092,8 @@ MonoBehaviour:
     type: 3}
   PotentialPrefab: {fileID: 7190143859791935742, guid: bfa38735ac7725c44979a7084bcd30c6,
     type: 3}
-  VOPrefab: {fileID: 0}
+  VOPrefab: {fileID: 7731747306308124120, guid: 0e1edcdbb0df312479e861c9f178871b,
+    type: 3}
   lines: []
   tmp: {fileID: 0}
 --- !u!1 &1708907976
@@ -5427,3 +5476,4 @@ SceneRoots:
   - {fileID: 278379141}
   - {fileID: 411341603}
   - {fileID: 564867444}
+  - {fileID: 47724352}

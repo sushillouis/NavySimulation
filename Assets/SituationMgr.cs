@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -24,6 +25,9 @@ public class SituationMgr : MonoBehaviour
             ResetEntities();
             SpawnScenario();
         }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+            SetInitialWaypoints();
     }
 
     void SpawnScenario()
@@ -53,7 +57,7 @@ public class SituationMgr : MonoBehaviour
         accomplice.desiredHeading = Utils.Degrees360(accSpawnAngle);
 
         //Drones
-        Vector3 cornerDronePos = accSpawmPos - accomplice.transform.right * 700;
+        Vector3 cornerDronePos = accSpawmPos - accomplice.transform.right * 1000;
         droneList = new List<Entity381>();
         for (int i = 0; i < 3; i++)
         {
@@ -77,13 +81,30 @@ public class SituationMgr : MonoBehaviour
         TrafficMgr.inst.SetWaypoints();
 
         //CVN75
+        Vector3 direc = new Vector3(Mathf.Sin(CVN75.heading * Mathf.Deg2Rad), 0, Mathf.Cos(CVN75.heading * Mathf.Deg2Rad)).normalized;
+        Move m0 = new Move(CVN75, CVN75.position + direc * 100000);
+        CVN75.GetComponent<UnitAI>().SetCommand(m0);
 
         //DDG51
+        Follow f0 = new Follow(DDG51, CVN75, new Vector3(770, 0, 0));
+        DDG51.GetComponent<UnitAI>().SetCommand(f0);
 
         //Accomplice
+        direc = new Vector3(Mathf.Sin(accomplice.heading * Mathf.Deg2Rad), 0, Mathf.Cos(accomplice.heading * Mathf.Deg2Rad)).normalized;
+        Vector3 accomplice1stWaypoint = accomplice.position + direc * 10000;
+        Vector3 accomplice2ndWaypoint = accomplice1stWaypoint
+            + new Vector3(Mathf.Sin(TrafficMgr.inst.laneOrientation * Mathf.Deg2Rad), 0, Mathf.Cos(TrafficMgr.inst.laneOrientation * Mathf.Deg2Rad)).normalized * 100000;
+        Move m1 = new Move(accomplice, accomplice1stWaypoint);
+        Move m2 = new Move(accomplice, accomplice2ndWaypoint);
+        accomplice.GetComponent<UnitAI>().SetCommand(m1);
+        accomplice.GetComponent<UnitAI>().AddCommand(m2);
 
         //Drones
-
+        foreach(Entity381 drone in droneList)
+        {
+            Follow f1 = new Follow(drone, accomplice, new Vector3(1000, 0, 0));
+            drone.GetComponent<UnitAI>().SetCommand(f1);
+        }
     }
 
     public void ResetEntities()
