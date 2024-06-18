@@ -1602,8 +1602,8 @@
         "m_Position": {
             "serializedVersion": "2",
             "x": -305.9999694824219,
-            "y": -242.00001525878907,
-            "width": 208.0,
+            "y": -243.00001525878907,
+            "width": 207.99996948242188,
             "height": 326.0
         }
     },
@@ -1750,7 +1750,7 @@
         "m_SerializableColors": []
     },
     "m_TextureType": 0,
-    "m_NormalMapSpace": 0,
+    "m_NormalMapSpace": 1,
     "m_EnableGlobalMipBias": true,
     "m_MipSamplingMode": 0
 }
