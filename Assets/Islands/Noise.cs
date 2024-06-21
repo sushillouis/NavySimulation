@@ -91,18 +91,23 @@ public static class Noise
 
     public static Texture2D GetNoiseMap(int width, int height, float scale)
     {
+        //Create a new texture and set its size
         Texture2D noiseMapTexture = new Texture2D(width, height);
 
+        //Iterate over each pixel in the texture
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
+                //Generate a noise value
                 float noiseValue = Mathf.PerlinNoise((float)x / width * scale, (float)y / height * scale);
 
+                //Set the pixel color bsed on noise value
                 noiseMapTexture.SetPixel(x, y, new Color(0, noiseValue, 0));
             }
         }
 
+        //apply changes to texture
         noiseMapTexture.Apply();
 
         return noiseMapTexture;
