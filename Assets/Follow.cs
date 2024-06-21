@@ -7,6 +7,8 @@ public class Follow : Move
 {
     public Entity381 targetEntity;
     public Vector3 relativeOffset;
+    public bool useRegular = false;
+
     public Follow(Entity381 ent, Entity381 target, Vector3 delta): base(ent, target.transform.position)
     {
         targetEntity = target;
@@ -22,7 +24,7 @@ public class Follow : Move
         line.gameObject.SetActive(false);
     }
 
-    public float followThreshold = 2000;
+    public float followThreshold = 10000;
     public Vector3 offset;
     // Update is called once per frame
     public override void Tick()
@@ -30,12 +32,22 @@ public class Follow : Move
         offset = targetEntity.transform.TransformVector(relativeOffset);
         movePosition = targetEntity.transform.position + offset;
         //entity.desiredHeading = ComputePredictiveDH(relativeOffset);
-        entity.desiredHeading = ComputeDHDS().dh;
+        //entity.desiredHeading = ComputeDHDS().dh;
         if (diff.sqrMagnitude < followThreshold) {
             entity.desiredSpeed = targetEntity.speed;
             entity.desiredHeading = targetEntity.heading;
         } else {
-            entity.desiredSpeed = entity.maxSpeed;
+            DHDS dhds;
+            if (useRegular)
+                dhds = ComputeDHDS();
+            else if (AIMgr.inst.isPotentialFieldsMovement)
+                dhds = ComputePotentialDHDS();
+            else if (AIMgr.inst.isVelocityObstaclesMovement)
+                dhds = ComputeVODHDS(entity, EntityMgr.inst.entities);
+            else
+                dhds = ComputeDHDS();
+            entity.desiredSpeed = dhds.ds;
+            entity.desiredHeading = dhds.dh;
         }
 
     }

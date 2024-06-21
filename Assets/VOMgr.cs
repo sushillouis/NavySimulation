@@ -19,6 +19,8 @@ public class VO
     public Entity381 ownship;
     public Entity381 target;
 
+    public float collisionRadius;
+
     
     public LineRenderer plusDeltaLine;
     public LineRenderer minusDeltaLine;
@@ -35,6 +37,7 @@ public class VO
         this.target = target;
         giveWay = IsGiveWay(ownship, target);
         visualizationEnabled = false;
+        collisionRadius = ownship.length + target.length;
     }
 
     public bool IsGiveWay(Entity381 ownship, Entity381 target)
@@ -53,7 +56,7 @@ public class VO
         Vector3 diff = target.position - ownship.position;
 
         float relPosAngle = Mathf.Atan2(diff.x, diff.z) * Mathf.Rad2Deg; //theta
-        float maxVOAngle = Mathf.Asin(550f / diff.magnitude) * Mathf.Rad2Deg; //delta
+        float maxVOAngle = Mathf.Asin(collisionRadius / diff.magnitude) * Mathf.Rad2Deg; //delta
 
         theta = relPosAngle;
         delta = maxVOAngle;

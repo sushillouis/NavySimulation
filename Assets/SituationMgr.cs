@@ -11,10 +11,12 @@ public class SituationMgr : MonoBehaviour
     public Entity381 accomplice;
     public List<Entity381> droneList;
 
+    public int stage;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        stage = 0;
     }
 
     // Update is called once per frame
@@ -22,12 +24,25 @@ public class SituationMgr : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
-            ResetEntities();
-            SpawnScenario();
+            if (stage == 0)
+            {
+                ResetEntities();
+                SpawnScenario();
+                stage++;
+            }
+            else if (stage == 1)
+            {
+                SetInitialWaypoints();
+                stage++;
+            }
+            else if (stage == 2) 
+            {
+                SetSecondDroneWaypoints();
+                stage++;
+            }
+            else if (stage == 3)
+                SetSecondDDG51Waypoint();
         }
-
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-            SetInitialWaypoints();
     }
 
     void SpawnScenario()
@@ -44,7 +59,7 @@ public class SituationMgr : MonoBehaviour
         CVN75.desiredHeading = cvnSpawnAngle;
 
         //DDG51
-        Vector3 ddgSpawmPos = cvnSpawnPos + CVN75.transform.right * 770; 
+        Vector3 ddgSpawmPos = cvnSpawnPos + CVN75.transform.right * 770 - CVN75.transform.forward * 770; 
         DDG51 = EntityMgr.inst.CreateEntity(EntityType.DDG51, ddgSpawmPos, new Vector3(0, cvnSpawnAngle, 0));
         DDG51.heading = cvnSpawnAngle;
         DDG51.desiredHeading = cvnSpawnAngle;
@@ -71,6 +86,12 @@ public class SituationMgr : MonoBehaviour
             }
         }
 
+        //Camera
+        GameObject camera = GameObject.Find("YawMoveNode");
+        camera.transform.position = accSpawmPos + accomplice.transform.forward * 1000 + accomplice.transform.up * 500;
+        camera.transform.localRotation = Quaternion.identity;
+        camera.transform.Rotate(0, accSpawnAngle, 0);
+
         DistanceMgr.inst.Initialize();
         VOMgr.inst.Initialize();
     }
@@ -81,16 +102,14 @@ public class SituationMgr : MonoBehaviour
         TrafficMgr.inst.SetWaypoints();
 
         //CVN75
-        Vector3 direc = new Vector3(Mathf.Sin(CVN75.heading * Mathf.Deg2Rad), 0, Mathf.Cos(CVN75.heading * Mathf.Deg2Rad)).normalized;
-        Move m0 = new Move(CVN75, CVN75.position + direc * 100000);
-        CVN75.GetComponent<UnitAI>().SetCommand(m0);
+        CVN75.desiredSpeed = CVN75.maxSpeed;
 
         //DDG51
-        Follow f0 = new Follow(DDG51, CVN75, new Vector3(770, 0, 0));
+        Follow f0 = new Follow(DDG51, CVN75, new Vector3(770, 0, -770));
         DDG51.GetComponent<UnitAI>().SetCommand(f0);
 
         //Accomplice
-        direc = new Vector3(Mathf.Sin(accomplice.heading * Mathf.Deg2Rad), 0, Mathf.Cos(accomplice.heading * Mathf.Deg2Rad)).normalized;
+        Vector3 direc = new Vector3(Mathf.Sin(accomplice.heading * Mathf.Deg2Rad), 0, Mathf.Cos(accomplice.heading * Mathf.Deg2Rad)).normalized;
         Vector3 accomplice1stWaypoint = accomplice.position + direc * 10000;
         Vector3 accomplice2ndWaypoint = accomplice1stWaypoint
             + new Vector3(Mathf.Sin(TrafficMgr.inst.laneOrientation * Mathf.Deg2Rad), 0, Mathf.Cos(TrafficMgr.inst.laneOrientation * Mathf.Deg2Rad)).normalized * 100000;
@@ -105,6 +124,22 @@ public class SituationMgr : MonoBehaviour
             Follow f1 = new Follow(drone, accomplice, new Vector3(1000, 0, 0));
             drone.GetComponent<UnitAI>().SetCommand(f1);
         }
+    }
+
+    void SetSecondDroneWaypoints()
+    {
+        foreach(Entity381 drone in droneList)
+        {
+            Follow f1 = new Follow(drone, CVN75, new Vector3(-300, 0, 0));
+            drone.GetComponent<UnitAI>().SetCommand(f1);
+        }
+    }
+
+    void SetSecondDDG51Waypoint()
+    {
+        Follow f1 = new Follow(DDG51, CVN75, new Vector3(-550, 0, 0));
+        f1.useRegular = true;
+        DDG51.GetComponent<UnitAI>().SetCommand(f1);
     }
 
     public void ResetEntities()

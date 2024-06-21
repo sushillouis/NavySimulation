@@ -85,6 +85,7 @@ MonoBehaviour:
   maxSpeed: 14
   minSpeed: 0
   mass: 270
+  length: 40
   entityType: 10
   cameraRig: {fileID: 8242789660831846513}
   selectionCircle: {fileID: 4200741773716983676}

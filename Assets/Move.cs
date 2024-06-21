@@ -82,7 +82,7 @@ public class Move : Command
             //velObs.CalcVO();
             float alpha = velObs.CalcAlpha(velocity);
 
-            if (dist < AIMgr.inst.collisionRadius || (Utils.AngleBetween(alpha, velObs.minusDelta, velObs.plusDelta)))
+            if (dist < velObs.collisionRadius || (Utils.AngleBetween(alpha, velObs.minusDelta, velObs.plusDelta)))
             {
                 if (velObs.giveWay)
                     output.Add(target);
@@ -109,11 +109,13 @@ public class Move : Command
                 {
                     Vector3 prioRelPos = priorityEnt.position - ownship.position;
                     Vector3 prioRelVel = priorityEnt.velocity - newVelocity;
-                    float t = Mathf.Acos(Vector3.Dot(-prioRelPos, prioRelVel) / (prioRelPos.magnitude * prioRelVel.magnitude)); //i'm not sure really what this is supposed to represent
+                    float t = Mathf.Acos(Vector3.Dot(-prioRelPos, prioRelVel) / (prioRelPos.magnitude * prioRelVel.magnitude));
                     float DCPA = prioRelPos.magnitude * Mathf.Sin(t);
                     float TCPA = prioRelPos.magnitude * Mathf.Cos(t) / prioRelVel.magnitude;
 
-                    if (DCPA < bestDCPA && DCPA > AIMgr.inst.collisionRadius && TCPA > 0)
+                    VO velObs = VOMgr.inst.GetVO(ownship, priorityEnt);
+
+                    if (DCPA < bestDCPA && DCPA > velObs.collisionRadius && TCPA > 0)
                     {
                         bestAngle = newHeading;
                         bestSpeed = speed;

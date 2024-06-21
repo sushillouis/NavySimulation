@@ -156,6 +156,7 @@ MonoBehaviour:
   DDG51: {fileID: 0}
   accomplice: {fileID: 0}
   droneList: []
+  stage: 0
 --- !u!4 &47724352
 Transform:
   m_ObjectHideFlags: 0
@@ -2611,6 +2612,7 @@ MonoBehaviour:
     giveWay: 0
     ownship: {fileID: 0}
     target: {fileID: 0}
+    collisionRadius: 0
     plusDeltaLine: {fileID: 0}
     minusDeltaLine: {fileID: 0}
     alphaLine: {fileID: 0}
@@ -3838,8 +3840,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579351794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.13230172, y: 0.7388582, z: -0.15187809, w: -0.64305353}
+  m_LocalPosition: {x: 10203.779, y: 2546.4185, z: -3157.2747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
