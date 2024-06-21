@@ -86,7 +86,7 @@ public class AIMgr : MonoBehaviour
     public void HandleFollow(List<Entity381> entities, Entity381 ent)
     {
         foreach (Entity381 entity in SelectionMgr.inst.selectedEntities) {
-            Follow f = new Follow(entity, ent, new Vector3(100, 0, 0));
+            Follow f = new Follow(entity, ent, new Vector3(300, 0, 0));
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(f, uai);
         }

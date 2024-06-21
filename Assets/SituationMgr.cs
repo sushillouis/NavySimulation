@@ -20,7 +20,7 @@ public class SituationMgr : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
@@ -72,7 +72,7 @@ public class SituationMgr : MonoBehaviour
         accomplice.desiredHeading = Utils.Degrees360(accSpawnAngle);
 
         //Drones
-        Vector3 cornerDronePos = accSpawmPos - accomplice.transform.right * 1000;
+        Vector3 cornerDronePos = accSpawmPos - accomplice.transform.right * 750 - accomplice.transform.forward * 200;
         droneList = new List<Entity381>();
         for (int i = 0; i < 3; i++)
         {
@@ -121,7 +121,7 @@ public class SituationMgr : MonoBehaviour
         //Drones
         foreach(Entity381 drone in droneList)
         {
-            Follow f1 = new Follow(drone, accomplice, new Vector3(1000, 0, 0));
+            Follow f1 = new Follow(drone, accomplice, new Vector3(750, 0, 200));
             drone.GetComponent<UnitAI>().SetCommand(f1);
         }
     }
@@ -130,14 +130,14 @@ public class SituationMgr : MonoBehaviour
     {
         foreach(Entity381 drone in droneList)
         {
-            Follow f1 = new Follow(drone, CVN75, new Vector3(-300, 0, 0));
+            Follow f1 = new Follow(drone, CVN75, new Vector3(-500, 0, 0));
             drone.GetComponent<UnitAI>().SetCommand(f1);
         }
     }
 
     void SetSecondDDG51Waypoint()
     {
-        Follow f1 = new Follow(DDG51, CVN75, new Vector3(-550, 0, 0));
+        Follow f1 = new Follow(DDG51, CVN75, new Vector3(-300, 0, 0));
         f1.useRegular = true;
         DDG51.GetComponent<UnitAI>().SetCommand(f1);
     }

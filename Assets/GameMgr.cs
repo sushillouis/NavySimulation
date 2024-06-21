@@ -44,5 +44,15 @@ public class GameMgr : MonoBehaviour
             DistanceMgr.inst.Initialize();
             VOMgr.inst.Initialize();
         }
+
+        if(Input.GetKeyDown(KeyCode.Equals))
+        {
+            Time.timeScale = 10;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            Time.timeScale = 1;
+        }
     }
 }

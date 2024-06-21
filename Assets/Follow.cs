@@ -24,7 +24,7 @@ public class Follow : Move
         line.gameObject.SetActive(false);
     }
 
-    public float followThreshold = 10000;
+    public float followThreshold = 25000;
     public Vector3 offset;
     // Update is called once per frame
     public override void Tick()

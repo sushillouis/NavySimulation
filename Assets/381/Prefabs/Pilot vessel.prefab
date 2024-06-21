@@ -444,12 +444,12 @@ PrefabInstance:
     - target: {fileID: 3091510102822060987, guid: 6a4573edd6c320a4f8d559f91362c772,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 4
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3091510102822060987, guid: 6a4573edd6c320a4f8d559f91362c772,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
-      value: 2
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3091510102822060987, guid: 6a4573edd6c320a4f8d559f91362c772,
         type: 3}
