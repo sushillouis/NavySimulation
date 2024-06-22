@@ -25,8 +25,7 @@ public class IslandsMgr : MonoBehaviour
 
     public GameObject islandPrefab;
     public Transform islandsParent;
-    public GameObject treePrefab;
-
+    
     public Island[] islandParameters;
 
     public List<GameObject> islands;

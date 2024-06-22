@@ -48,8 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 1
-  terrainData: {fileID: 0}
-  noiseData: {fileID: 0}
   terrainMaterial: {fileID: 0}
   editorPreviewLOD: 0
   autoUpdate: 0
@@ -68,6 +66,10 @@ MonoBehaviour:
   textureRender: {fileID: 5349513195591534936}
   meshFilter: {fileID: 5542791964510689567}
   meshRenderer: {fileID: 4775501327691149240}
+  objects:
+  - {fileID: 7100953501696748250, guid: c9f8aa5f2dad13d46b507005cba07e08, type: 3}
+  - {fileID: 5002650048491465395, guid: 5b5b23218cd0db54e93166a54efa8e9e, type: 3}
+  - {fileID: 8049888957313753629, guid: 6da21d579356ae24f8d8990fac536ff4, type: 3}
 --- !u!1 &2733223895279023114
 GameObject:
   m_ObjectHideFlags: 0

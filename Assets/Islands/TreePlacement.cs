@@ -5,8 +5,11 @@ using Random = UnityEngine.Random;
 
 public class TreePlacement : EditorWindow
 {
+    /*
+
+    public IslandsMgr islands;
+
     private Texture2D noiseMapTexture;
-    //private GameObject[] treePrefabs;
     private GameObject prefab;
     private PlacementGenes genes;
 
@@ -68,6 +71,7 @@ public class TreePlacement : EditorWindow
                 //If the value is above threshold, instantiate a plant prefab at this location
                 if(Fitness(terrain, noiseMapTexture, genes, x, z) > 1 - genes.density)
                 {
+                    //Calculate pos on terrain and instantiate the object
                     Vector3 pos = new Vector3(x, 0, z);
                     pos.y = terrain.terrainData.GetInterpolatedHeight(x/241, z / 241);
 
@@ -107,4 +111,5 @@ public class TreePlacement : EditorWindow
         public float maxHeight;
         public float maxSteepness;
     }
+    */
 }
