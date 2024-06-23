@@ -46,23 +46,25 @@ public class MapDisplay : MonoBehaviour
             var noiseHeight = worldPt.y;
 
             //Stop generation if height difference between 2 vertices is too steep
-            if(System.Math.Abs(lastNoiseHeight - worldPt.y) < 25)
-            {
+            // if(System.Math.Abs(lastNoiseHeight - worldPt.y) < 25)
+            // {
                 //Min height for object generation
                 if (noiseHeight > 10)
                 {
                     //Chance to Generate
                     if (Random.Range(1, 5) == 1)
                     {
+                        print("local x: " + meshObj.vertices[i].x + " y: " + meshObj.vertices[i].y + " z: " + meshObj.vertices[i].z);
+                        print("world x: " + worldPt.x + " y: " + worldPt.y + " z: " + worldPt.z);
                         GameObject objectToSpawn = objects[Random.Range(0, objects.Length)];
                         var spawnAboveTerrainBy = noiseHeight * 2;
                         GameObject go = Instantiate(objectToSpawn, new Vector3(worldPt.x, spawnAboveTerrainBy, worldPt.z), Quaternion.identity);
                         go.transform.SetParent(parent);
                     }
-                }
+                // }
             }
             
-            lastNoiseHeight = noiseHeight;
+            // lastNoiseHeight = noiseHeight;
         }
     }
 
