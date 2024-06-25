@@ -13,6 +13,9 @@ public class MapDisplay : MonoBehaviour
 
     private float lastNoiseHeight;
 
+    // private IslandsMgr manager;
+    // private int islandCounter = 0;
+
     public void DrawTexture(Texture2D texture)
     {
         textureRender.sharedMaterial.SetTexture("_MainTex", texture);
@@ -27,14 +30,11 @@ public class MapDisplay : MonoBehaviour
 
         Mesh meshObj = meshData.CreateMesh();
 
-        MapEmbellishments(meshObj);
+        MapEmbellishments(meshObj, FindObjectOfType<MapGenerator>().terrainData.uniformScale);
     }
 
-
-    // Fenn Notes:
-    // Objs in the main prefabs folder
     
-    private void MapEmbellishments(Mesh meshObj)
+    private void MapEmbellishments(Mesh meshObj, float scale)
     {
         Transform parent = new GameObject("PlacedObjects").transform;
 
@@ -42,29 +42,43 @@ public class MapDisplay : MonoBehaviour
         for (int i = 0; i < meshObj.vertices.Length; i++)
         {
             //Check vertice's position in game
-            Vector3 worldPt = transform.TransformPoint(meshObj.vertices[i]);
+            Vector3 worldPt = transform.TransformPoint(meshObj.vertices[i] * scale);
             var noiseHeight = worldPt.y;
 
             //Stop generation if height difference between 2 vertices is too steep
-            // if(System.Math.Abs(lastNoiseHeight - worldPt.y) < 25)
-            // {
+            if(System.Math.Abs(lastNoiseHeight - worldPt.y) < 25)
+            {
                 //Min height for object generation
-                if (noiseHeight > 10)
+                if (noiseHeight > 30)
                 {
-                    //Chance to Generate
-                    if (Random.Range(1, 5) == 1)
+                    if(scale > 25)
                     {
-                        print("local x: " + meshObj.vertices[i].x + " y: " + meshObj.vertices[i].y + " z: " + meshObj.vertices[i].z);
-                        print("world x: " + worldPt.x + " y: " + worldPt.y + " z: " + worldPt.z);
-                        GameObject objectToSpawn = objects[Random.Range(0, objects.Length)];
-                        var spawnAboveTerrainBy = noiseHeight * 2;
-                        GameObject go = Instantiate(objectToSpawn, new Vector3(worldPt.x, spawnAboveTerrainBy, worldPt.z), Quaternion.identity);
-                        go.transform.SetParent(parent);
+                        if (Random.Range(1, 25) == 1)
+                        {
+                            GameObject objectToSpawn = objects[Random.Range(0, objects.Length-1)];
+                            float yTilt = Random.Range(1, 360);
+                            Quaternion target = Quaternion.Euler(0, yTilt, 0);
+                            GameObject go = Instantiate(objectToSpawn, new Vector3(worldPt.x, worldPt.y, worldPt.z), target);
+                            go.transform.SetParent(parent);
+                        }
                     }
-                // }
+                    else
+                    {
+                        //Chance to Generate
+                        if (Random.Range(1, 100) == 1)
+                        {
+                            GameObject objectToSpawn = objects[Random.Range(0, objects.Length)];
+                            float yTilt = Random.Range(1, 360);
+                            Quaternion target = Quaternion.Euler(0, yTilt, 0);
+                            GameObject go = Instantiate(objectToSpawn, new Vector3(worldPt.x, worldPt.y, worldPt.z), target);
+                            go.transform.SetParent(parent);
+                        }
+                    }
+                }
             }
             
-            // lastNoiseHeight = noiseHeight;
+            lastNoiseHeight = noiseHeight;
+            // islandCounter++;
         }
     }
 

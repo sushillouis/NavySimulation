@@ -67,9 +67,14 @@ MonoBehaviour:
   meshFilter: {fileID: 5542791964510689567}
   meshRenderer: {fileID: 4775501327691149240}
   objects:
-  - {fileID: 7100953501696748250, guid: c9f8aa5f2dad13d46b507005cba07e08, type: 3}
-  - {fileID: 5002650048491465395, guid: 5b5b23218cd0db54e93166a54efa8e9e, type: 3}
-  - {fileID: 8049888957313753629, guid: 6da21d579356ae24f8d8990fac536ff4, type: 3}
+  - {fileID: 2720608840982107499, guid: 16dcf656f71726844baafe1bb4b362ac, type: 3}
+  - {fileID: 8786515806504111687, guid: 4f2dd45bd3c9fac448b1ab2f7b807c72, type: 3}
+  - {fileID: 8786515806504111687, guid: 4f2dd45bd3c9fac448b1ab2f7b807c72, type: 3}
+  - {fileID: 2720608840982107499, guid: 16dcf656f71726844baafe1bb4b362ac, type: 3}
+  - {fileID: 6173341499977504312, guid: 9cf4cca6be6d72b4191cec509848f6ac, type: 3}
+  - {fileID: 3221854601935487914, guid: aaade2faa084f114cbdfe234bf1f6987, type: 3}
+  - {fileID: 2544590735837858754, guid: 749916bb5e6b8374099fb8159d449975, type: 3}
+  - {fileID: 6394734989432219442, guid: 4b4e7076b2fd032488df45528a3bb706, type: 3}
 --- !u!1 &2733223895279023114
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 2733223895279023114}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1802, y: 0, z: 5567}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
