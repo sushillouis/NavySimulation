@@ -59,9 +59,9 @@ public class TestMgr : MonoBehaviour
         ent1.desiredHeading = 180f;
         ent1.heading = 180f;
 
-        VOMgr.inst.ownship = ent0;
-        VOMgr.inst.target = ent1;
-        VOMgr.inst.test = new VO(ent0, ent1);
+        //VOMgr.inst.ownship = ent0;
+        //VOMgr.inst.target = ent1;
+        //VOMgr.inst.test = new VO(ent0, ent1);
 
         added = false;
 
@@ -98,9 +98,9 @@ public class TestMgr : MonoBehaviour
         ent1.heading = 270f;
         ent1.maxSpeed = 25;
 
-        VOMgr.inst.ownship = ent0;
-        VOMgr.inst.target = ent1;
-        VOMgr.inst.test = new VO(ent0, ent1);
+        //VOMgr.inst.ownship = ent0;
+        //VOMgr.inst.target = ent1;
+        //VOMgr.inst.test = new VO(ent0, ent1);
 
         added = false;
 
@@ -136,9 +136,9 @@ public class TestMgr : MonoBehaviour
         ent1.desiredHeading = 90f;
         ent1.heading = 90f;
 
-        VOMgr.inst.ownship = ent0;
-        VOMgr.inst.target = ent1;
-        VOMgr.inst.test = new VO(ent0, ent1);
+        //VOMgr.inst.ownship = ent0;
+        //VOMgr.inst.target = ent1;
+        //VOMgr.inst.test = new VO(ent0, ent1);
 
         added = false;
 

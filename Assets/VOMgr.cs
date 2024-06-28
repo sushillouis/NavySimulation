@@ -21,12 +21,8 @@ public class VO
 
     public float collisionRadius;
 
-    
     public LineRenderer plusDeltaLine;
     public LineRenderer minusDeltaLine;
-    public LineRenderer alphaLine;
-    public LineRenderer radius;
-
 
     public bool visualizationInitialized;
     public bool visualizationEnabled;
@@ -37,7 +33,10 @@ public class VO
         this.target = target;
         giveWay = IsGiveWay(ownship, target);
         visualizationEnabled = false;
-        collisionRadius = ownship.length + target.length;
+        if(!AIMgr.inst.useSetCollisionRadius)
+            collisionRadius = ownship.length + target.length;
+        else
+            collisionRadius = AIMgr.inst.collisionRadius;
     }
 
     public bool IsGiveWay(Entity381 ownship, Entity381 target)
@@ -121,27 +120,20 @@ public class VO
         minusDeltaLine = LineMgr.inst.CreateVOLine(ownship.position, ownship.position);
         minusDeltaLine.gameObject.SetActive(true);
 
-        //alphaLine = LineMgr.inst.CreateVOLine(ownship.position, ownship.position);
-        //alphaLine.gameObject.SetActive(true);
-
         visualizationInitialized = true;
     }
 
     public void DrawVO()
     {
-        //CalcVO();
-        //float alpha = CalcAlpha(ownship.velocity);
 
         float plusDeltaAngle = Utils.Degrees360(theta + delta);
         float minusDeltaAngle = Utils.Degrees360(theta - delta);
 
         Vector3 plusDeltaDirec = new Vector3(Mathf.Sin(plusDeltaAngle * Mathf.Deg2Rad), 0, Mathf.Cos(plusDeltaAngle * Mathf.Deg2Rad)).normalized;
         Vector3 minusDeltaDirec = new Vector3(Mathf.Sin(minusDeltaAngle * Mathf.Deg2Rad), 0, Mathf.Cos(minusDeltaAngle * Mathf.Deg2Rad)).normalized;
-        //Vector3 alphaDirec = new Vector3(Mathf.Sin(alpha * Mathf.Deg2Rad), 0, Mathf.Cos(alpha * Mathf.Deg2Rad)).normalized;
 
         Vector3 plusDeltaEndpoint = ownship.position + (plusDeltaDirec * (ownship.position - target.position).magnitude);
         Vector3 minusDeltaEndpoint = ownship.position + (minusDeltaDirec * (ownship.position - target.position).magnitude);
-        //Vector3 alphaEndpoint = ownship.position + (alphaDirec * 500);
 
         plusDeltaLine.SetPosition(0, ownship.position);
         plusDeltaLine.SetPosition(1, plusDeltaEndpoint);
@@ -151,17 +143,7 @@ public class VO
         minusDeltaLine.SetPosition(1, minusDeltaEndpoint);
         minusDeltaLine.gameObject.SetActive(true);
 
-        //alphaLine.SetPosition(0, ownship.position);
-        //alphaLine.SetPosition(1, alphaEndpoint);
     }
-
-    /*
-    public void DrawRadius()
-    {
-        radius = LineMgr.inst.CreateVOLine(target.position, target.position + (new Vector3(1,0,1).normalized * 550));
-        radius.gameObject.SetActive(true);
-    }
-    */
 }
 
 public class VOMgr : MonoBehaviour
@@ -172,8 +154,6 @@ public class VOMgr : MonoBehaviour
     public bool isInitialized = false;
 
     public Dictionary<Entity381, Dictionary<Entity381, VO>> vosDictionary;
-    public VO[,] vos2D;
-    public List<List<VO>> vosList;
 
     public VO test;
 
@@ -219,26 +199,18 @@ public class VOMgr : MonoBehaviour
     {
         isInitialized = true;
         vosDictionary = new Dictionary<Entity381, Dictionary<Entity381, VO>>();
-        vos2D = new VO[EntityMgr.inst.entities.Count, EntityMgr.inst.entities.Count];
-        //vosList = new List<List<VO>>();
 
-        int i = 0;
         foreach(Entity381 ownship in EntityMgr.inst.entities)
         {
             Dictionary<Entity381, VO> ownshipDictionary = new Dictionary<Entity381, VO>();
-            //List<VO> ownshipVOList = new List<VO>();
             vosDictionary.Add(ownship, ownshipDictionary);
 
-            int j = 0;
             foreach(Entity381 target in EntityMgr.inst.entities)
             {
                 VO vo = new VO(ownship, target);
                 vo.CalcVO();
                 ownshipDictionary.Add(target, vo);
-                vos2D[i,j] = vo;
-                j++;
             }
-            i++;
         }
     }
 

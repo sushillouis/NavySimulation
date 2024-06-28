@@ -26,6 +26,7 @@ public class AIMgr : MonoBehaviour
     [Header("VO Parameters")]
     public float collisionRadius = 550;
     public float tcpaLimit = 200;
+    public bool useSetCollisionRadius = false;
 
     [Header("Potential Parameters")]
     public bool isPotentialFieldsMovement = false;

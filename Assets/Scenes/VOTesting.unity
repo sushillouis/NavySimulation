@@ -647,10 +647,9 @@ MonoBehaviour:
     giveWay: 0
     ownship: {fileID: 0}
     target: {fileID: 0}
+    collisionRadius: 0
     plusDeltaLine: {fileID: 0}
     minusDeltaLine: {fileID: 0}
-    alphaLine: {fileID: 0}
-    radius: {fileID: 0}
     visualizationInitialized: 0
     visualizationEnabled: 0
 --- !u!4 &333382289
@@ -1333,8 +1332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065ce964008046c4496f4bcaeaf31a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionRadius: 180
+  collisionRadius: 550
   tcpaLimit: 200
+  useSetCollisionRadius: 0
   isPotentialFieldsMovement: 0
   isVelocityObstaclesMovement: 1
   potentialDistanceThreshold: 1000
