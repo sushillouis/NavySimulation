@@ -129,8 +129,6 @@ public class MapDisplay : MonoBehaviour
         float maxHeight = 0, maxLength = 0, minHeight = 0, minLength = 0;
         int spawncount = 0;
 
-        print(scale);
-
         switch(scale)
         {
             case 50:

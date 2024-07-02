@@ -34,7 +34,7 @@ public class IslandsMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RedrawIslands();
+        //RedrawIslands();
     }
 
     GameObject CreateIsland(IslandSize size, Vector3 position)
