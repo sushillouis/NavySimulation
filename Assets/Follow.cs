@@ -40,9 +40,9 @@ public class Follow : Move
             DHDS dhds;
             if (useRegular)
                 dhds = ComputeDHDS();
-            else if (AIMgr.inst.isPotentialFieldsMovement)
+            else if (AIMgr.inst.movementType == MovementType.PotentialFields)
                 dhds = ComputePotentialDHDS();
-            else if (AIMgr.inst.isVelocityObstaclesMovement)
+            else if (AIMgr.inst.movementType == MovementType.VelocityObstacles)
                 dhds = ComputeVODHDS(entity, EntityMgr.inst.entities);
             else
                 dhds = ComputeDHDS();

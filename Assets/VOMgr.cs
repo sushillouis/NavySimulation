@@ -168,7 +168,7 @@ public class VOMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(AIMgr.inst.isVelocityObstaclesMovement) 
+        if(AIMgr.inst.movementType == MovementType.VelocityObstacles) 
         {
             if (!isInitialized)
                 Initialize();

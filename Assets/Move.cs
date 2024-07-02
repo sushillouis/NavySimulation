@@ -17,7 +17,7 @@ public class Move : Command
         //Debug.Log("MoveInit:\tMoving to: " + movePosition);
         line = LineMgr.inst.CreateMoveLine(entity.position, movePosition);
         line.gameObject.SetActive(false);
-        if(AIMgr.inst.isPotentialFieldsMovement)
+        if(AIMgr.inst.movementType == MovementType.PotentialFields)
             potentialLine = LineMgr.inst.CreatePotentialLine(entity.position);
         line.gameObject.SetActive(true);
     }
@@ -25,9 +25,9 @@ public class Move : Command
     public override void Tick()
     {
         DHDS dhds;
-        if (AIMgr.inst.isPotentialFieldsMovement)
+        if (AIMgr.inst.movementType == MovementType.PotentialFields)
             dhds = ComputePotentialDHDS();
-        else if (AIMgr.inst.isVelocityObstaclesMovement)
+        else if (AIMgr.inst.movementType == MovementType.VelocityObstacles)
             dhds = ComputeVODHDS(entity, EntityMgr.inst.entities);
         else
             dhds = ComputeDHDS();

@@ -135,7 +135,7 @@ public class DistanceMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(AIMgr.inst.isPotentialFieldsMovement)
+        if(AIMgr.inst.movementType == MovementType.PotentialFields)
         {
             if (isInitialized)
                 UpdatePotentials();

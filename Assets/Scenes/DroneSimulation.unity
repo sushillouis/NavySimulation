@@ -1342,10 +1342,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065ce964008046c4496f4bcaeaf31a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementType: 2
   collisionRadius: 550
   tcpaLimit: 200
-  isPotentialFieldsMovement: 0
-  isVelocityObstaclesMovement: 1
+  useSetCollisionRadius: 0
   potentialDistanceThreshold: 1000
   attractionCoefficient: 20000
   attractiveExponent: -1
@@ -2615,8 +2615,6 @@ MonoBehaviour:
     collisionRadius: 0
     plusDeltaLine: {fileID: 0}
     minusDeltaLine: {fileID: 0}
-    alphaLine: {fileID: 0}
-    radius: {fileID: 0}
     visualizationInitialized: 0
     visualizationEnabled: 0
 --- !u!1001 &1201875980
