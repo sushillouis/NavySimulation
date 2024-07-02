@@ -3683,7 +3683,7 @@
         "m_SerializableColors": []
     },
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"d069fd24738b8a649bee22138921de77\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"cbacd653e2107de46b4a90c96dee3f28\",\"type\":3}}",
         "m_Guid": ""
     }
 }
@@ -3930,7 +3930,7 @@
         "m_SerializableColors": []
     },
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"d069fd24738b8a649bee22138921de77\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"ecd58062236e35c4db553250a0e15279\",\"type\":3}}",
         "m_Guid": ""
     }
 }

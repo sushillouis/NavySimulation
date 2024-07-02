@@ -66,15 +66,17 @@ MonoBehaviour:
   textureRender: {fileID: 5349513195591534936}
   meshFilter: {fileID: 5542791964510689567}
   meshRenderer: {fileID: 4775501327691149240}
-  objects:
-  - {fileID: 2720608840982107499, guid: 16dcf656f71726844baafe1bb4b362ac, type: 3}
-  - {fileID: 8786515806504111687, guid: 4f2dd45bd3c9fac448b1ab2f7b807c72, type: 3}
-  - {fileID: 8786515806504111687, guid: 4f2dd45bd3c9fac448b1ab2f7b807c72, type: 3}
-  - {fileID: 2720608840982107499, guid: 16dcf656f71726844baafe1bb4b362ac, type: 3}
-  - {fileID: 6173341499977504312, guid: 9cf4cca6be6d72b4191cec509848f6ac, type: 3}
-  - {fileID: 3221854601935487914, guid: aaade2faa084f114cbdfe234bf1f6987, type: 3}
-  - {fileID: 2544590735837858754, guid: 749916bb5e6b8374099fb8159d449975, type: 3}
+  meshCollider: {fileID: 1590509521452111217}
+  Trees:
   - {fileID: 6394734989432219442, guid: 4b4e7076b2fd032488df45528a3bb706, type: 3}
+  - {fileID: 6394734989432219442, guid: 4b4e7076b2fd032488df45528a3bb706, type: 3}
+  rocks:
+  - {fileID: 3221854601935487914, guid: aaade2faa084f114cbdfe234bf1f6987, type: 3}
+  - {fileID: 3221854601935487914, guid: aaade2faa084f114cbdfe234bf1f6987, type: 3}
+  grass:
+  - {fileID: 2720608840982107499, guid: 16dcf656f71726844baafe1bb4b362ac, type: 3}
+  - {fileID: 8786515806504111687, guid: 4f2dd45bd3c9fac448b1ab2f7b807c72, type: 3}
+  - {fileID: 5103027732156833435, guid: d73655e62b1e048419994cd1b4ebb662, type: 3}
 --- !u!1 &2733223895279023114
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +88,7 @@ GameObject:
   - component: {fileID: 9173881837829199680}
   - component: {fileID: 5542791964510689567}
   - component: {fileID: 4775501327691149240}
+  - component: {fileID: 1590509521452111217}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -158,6 +161,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1590509521452111217
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733223895279023114}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &8473582114381063185
 GameObject:
   m_ObjectHideFlags: 0
