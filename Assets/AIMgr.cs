@@ -100,7 +100,7 @@ public class AIMgr : MonoBehaviour
         }
     }
 
-    void HandleIntercept(List<Entity381> entities, Entity381 ent)
+    public void HandleIntercept(List<Entity381> entities, Entity381 ent)
     {
         foreach (Entity381 entity in SelectionMgr.inst.selectedEntities) {
             Intercept intercept = new Intercept(entity, ent);

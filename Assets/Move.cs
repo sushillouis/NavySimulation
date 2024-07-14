@@ -125,8 +125,6 @@ public class Move : Command
             }
         }
 
-        //Debug.Log(bestAngle + " " + (ownship.maxSpeed * bestSpeed));
-
         return new DHDS(bestAngle, ownship.maxSpeed * bestSpeed);
     }
 

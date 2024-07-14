@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OpenOcean.unity
     guid: 3546b75a9d83d404d8c4f5703c0a2d99
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b490ca207f0475540b7fe281493b2a7b,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 352130d0b56d84d4b88509118e5c7319,
+      type: 2}
