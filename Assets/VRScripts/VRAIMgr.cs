@@ -5,11 +5,12 @@ using UnityEngine;
 public class VRAIMgr : MonoBehaviour
 {
     public LineRenderer rightRay;
+    public static VRAIMgr inst;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        inst = this;
     }
 
     // Update is called once per frame
