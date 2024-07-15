@@ -31,21 +31,6 @@ public class VRControlMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool trigger = leftTriggerPress.action.IsPressed();
-        bool grip = leftGripPress.action.IsPressed();
-        bool xButton = XButtonPress.action.IsPressed();
-        bool yButton = YButtonPress.action.IsPressed();
-        Vector2 thumbstick = leftThumbstickMove.action.ReadValue<Vector2>();
-
-        if (trigger)
-            Debug.Log("Left Trigger");
-        if (grip)
-            Debug.Log("Left Grip");
-        if (xButton)
-            Debug.Log("X Button");
-        if (yButton)
-            Debug.Log("Y Button");
-        if (thumbstick != Vector2.zero)
-            Debug.Log("Left Thumbstick");
+        
     }
 }

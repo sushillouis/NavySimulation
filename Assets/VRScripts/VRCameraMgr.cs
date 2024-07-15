@@ -35,5 +35,7 @@ public class VRCameraMgr : MonoBehaviour
             
 
         vrCameraRig.transform.Translate(moveVector);
+
+        vrCameraRig.transform.position = new Vector3(vrCameraRig.transform.position.x, Mathf.Clamp(vrCameraRig.transform.position.y, 100, 1000), vrCameraRig.transform.position.z);
     }
 }

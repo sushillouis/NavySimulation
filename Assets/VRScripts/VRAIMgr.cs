@@ -18,7 +18,7 @@ public class VRAIMgr : MonoBehaviour
     {
         if (VRControlMgr.inst.rightGripPress.action.IsPressed())
         {
-            if (VRControlMgr.inst.rightTriggerPress.action.IsPressed())
+            if (VRControlMgr.inst.rightTriggerPress.action.WasPressedThisFrame())
             {
                 if(Physics.OverlapSphere(rightRay.GetPosition(1), 50) != null)
                 {
