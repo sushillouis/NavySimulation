@@ -24,6 +24,9 @@ public class AIMgr : MonoBehaviour
         layerMask = 1 << 9;// LayerMask.GetMask("Water");
         input = new GameInputs();
         input.Enable();
+        input.Entities.Move.started += OnMoveStarted;
+        input.Entities.Move.performed += OnMovePerformed;
+        input.Entities.Move.canceled += OnMoveCanceled;
         input.Entities.Intercept.performed += OnInterceptPerformed;
         input.Entities.Intercept.canceled += OnInterceptCanceled;
         input.Entities.ClearSelection.performed += OnClearSelectionPerformed;
@@ -52,7 +55,12 @@ public class AIMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) {
+        if (followStep != CommandSteps.finished)
+        {
+            SelectingFollow(followEnt);
+        }
+        else if(moveClicked) {
+            moveClicked = false;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask)) {
                 //Debug.DrawLine(Camera.main.transform.position, hit.point, Color.yellow, 2); //for debugging
                 Vector3 pos = hit.point;
@@ -64,11 +72,52 @@ public class AIMgr : MonoBehaviour
                     if (interceptDown)
                         HandleIntercept(SelectionMgr.inst.selectedEntities, ent);
                     else
-                        HandleFollow(SelectionMgr.inst.selectedEntities, ent);
+                    {
+                        followEnt = ent;
+                        followStep = CommandSteps.started;
+                    }
                 }
             } else {
                 //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward) * 1000, Color.white, 2);
             }
+        }
+    }
+
+    Entity381 followEnt;
+    List<LineRenderer> followSelectLines;
+    CommandSteps followStep = CommandSteps.finished;
+
+    void SelectingFollow(Entity381 target)
+    {
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask);
+        if (followStep == CommandSteps.started)
+        {
+            followSelectLines = new List<LineRenderer>();
+            foreach (Entity381 ent in SelectionMgr.inst.selectedEntities)
+            {
+                followSelectLines.Add(LineMgr.inst.CreateFollowLine(ent.position, hit.point, target.position));
+            }
+            followStep = CommandSteps.selecting;
+        }
+        if (followStep == CommandSteps.selecting)
+        {
+            for (int i = 0; i < followSelectLines.Count; i++)
+            {
+                LineRenderer l = followSelectLines[i];
+                l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                l.SetPosition(1, hit.point);
+                l.SetPosition(2, target.position);
+            }
+            if (!moveDown)
+            {
+                AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, hit.point - target.position);
+                followStep = CommandSteps.finished;
+                for (int i = followSelectLines.Count - 1; i > -1; i--)
+                {
+                    LineMgr.inst.DestroyLR(followSelectLines[i]);
+                }
+            }
+
         }
     }
 
@@ -91,10 +140,10 @@ public class AIMgr : MonoBehaviour
 
 
 
-    public void HandleFollow(List<Entity381> entities, Entity381 ent)
+    public void HandleFollow(List<Entity381> entities, Entity381 ent, Vector3 offset)
     {
         foreach (Entity381 entity in SelectionMgr.inst.selectedEntities) {
-            Follow f = new Follow(entity, ent, new Vector3(300, 0, 0));
+            Follow f = new Follow(entity, ent, offset);
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(f, uai);
         }
@@ -147,5 +196,21 @@ public class AIMgr : MonoBehaviour
     private void OnClearSelectionCanceled(InputAction.CallbackContext context)
     {
         addDown = false;
+    }
+
+    bool moveClicked = false;
+    bool moveDown = false;
+    private void OnMoveStarted(InputAction.CallbackContext context)
+    {
+        moveClicked = true;
+    }
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        moveDown = true;
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        moveDown = false;
     }
 }

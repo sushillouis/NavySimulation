@@ -14,10 +14,10 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -54,12 +54,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_5f946caa67e24eecacf7275296adf09f: 1
-    - Vector1_dd7ee82520664e6389c273e46a689cce: 0.886
+    - Vector1_5f946caa67e24eecacf7275296adf09f: 0.617
+    - Vector1_dd7ee82520664e6389c273e46a689cce: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_433ca0fc579049a8a54a0a6fd1da0332: {r: 0.09028123, g: 0.10797439, b: 0.1509434,
+    - Color_433ca0fc579049a8a54a0a6fd1da0332: {r: 0.22653365, g: 0.2442282, b: 0.28930807,
         a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6567919198680457905

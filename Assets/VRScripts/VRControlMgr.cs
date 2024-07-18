@@ -31,6 +31,11 @@ public class VRControlMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (VRControlMgr.inst.rightTriggerPress.action.WasPressedThisFrame()){
+            Debug.Log("Started");
+        }
+        if (VRControlMgr.inst.rightTriggerPress.action.WasCompletedThisFrame()){
+            Debug.Log("Finished");
+        }
     }
 }

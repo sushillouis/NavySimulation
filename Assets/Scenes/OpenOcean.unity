@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.3731195, g: 0.3807401, b: 0.35872737, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414754, b: 0.12107867, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -785,7 +785,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1189,10 +1189,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065ce964008046c4496f4bcaeaf31a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementType: 0
   collisionRadius: 550
   tcpaLimit: 200
-  isPotentialFieldsMovement: 1
-  isVelocityObstaclesMovement: 0
+  useSetCollisionRadius: 0
   potentialDistanceThreshold: 1000
   attractionCoefficient: 20000
   attractiveExponent: -1
@@ -2459,10 +2459,9 @@ MonoBehaviour:
     giveWay: 0
     ownship: {fileID: 0}
     target: {fileID: 0}
+    collisionRadius: 0
     plusDeltaLine: {fileID: 0}
     minusDeltaLine: {fileID: 0}
-    alphaLine: {fileID: 0}
-    radius: {fileID: 0}
     visualizationInitialized: 0
     visualizationEnabled: 0
 --- !u!1001 &1201875980

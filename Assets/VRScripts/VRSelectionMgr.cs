@@ -58,7 +58,9 @@ public class VRSelectionMgr : MonoBehaviour
             selectionCircle.transform.position = selectionCenter;
             Entity381 ent = AIMgr.inst.FindClosestEntInRadius(selectionCenter, AIMgr.inst.rClickRadiusSq);
 
-            if (ent == null)
+            if(VRAIMgr.inst.followStep != CommandSteps.finished)
+                selectionCircle.GetComponent<Renderer>().material = followMaterial;
+            else if (ent == null)
                 selectionCircle.GetComponent<Renderer>().material = moveMaterial;
             else
             {
