@@ -82,7 +82,9 @@ public class VRAIMgr : MonoBehaviour
             }
             if (!VRControlMgr.inst.rightTriggerPress.action.IsPressed())
             {
-                AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, rightRay.GetPosition(1) - target.position);
+                Vector3 offset = target.transform.InverseTransformPoint(rightRay.GetPosition(1));
+
+                AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, offset);
                 followStep = CommandSteps.finished;
                 for(int i = followSelectLines.Count - 1; i > -1; i--)
                 {

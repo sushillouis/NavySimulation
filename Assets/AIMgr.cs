@@ -110,7 +110,9 @@ public class AIMgr : MonoBehaviour
             }
             if (!moveDown)
             {
-                AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, hit.point - target.position);
+                Vector3 offset = target.transform.InverseTransformPoint(hit.point);
+
+                AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, offset);
                 followStep = CommandSteps.finished;
                 for (int i = followSelectLines.Count - 1; i > -1; i--)
                 {
