@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public enum CommandSteps
 {
@@ -18,6 +19,9 @@ public class VRAIMgr : MonoBehaviour
     List<LineRenderer> followSelectLines;
     public CommandSteps followStep = CommandSteps.finished;
 
+    List<LineRenderer> moveSelectLines;
+    public CommandSteps moveStep = CommandSteps.finished;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,22 +31,22 @@ public class VRAIMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(followStep != CommandSteps.finished)
-        {
+        if (followStep != CommandSteps.finished)
             SelectingFollow(followEnt);
-        }
+        else if (moveStep != CommandSteps.finished)
+            SelectingMove();
         else if (VRControlMgr.inst.rightGripPress.action.IsPressed())
         {
             if (VRControlMgr.inst.rightTriggerPress.action.WasPressedThisFrame())
             {
-                if(Physics.OverlapSphere(rightRay.GetPosition(1), 50) != null)
+                if (Physics.OverlapSphere(rightRay.GetPosition(1), 50) != null)
                 {
                     Vector3 pos = rightRay.GetPosition(1);
                     pos.y = 0;
                     Entity381 ent = AIMgr.inst.FindClosestEntInRadius(pos, AIMgr.inst.rClickRadiusSq);
                     if (ent == null)
                     {
-                        AIMgr.inst.HandleMove(SelectionMgr.inst.selectedEntities, pos);
+                        moveStep = CommandSteps.started;
                     }
                     else
                     {
@@ -55,7 +59,6 @@ public class VRAIMgr : MonoBehaviour
                         }
                     }
                 }
-
             }
         }
     }
@@ -73,18 +76,33 @@ public class VRAIMgr : MonoBehaviour
         }
         if(followStep == CommandSteps.selecting)
         {
-            for(int i = 0; i < followSelectLines.Count; i++)
+            if(rightRay.GetPosition(1).y < Utils.EPSILON)
             {
-                LineRenderer l = followSelectLines[i];
-                l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
-                l.SetPosition(1, rightRay.GetPosition(1));
-                l.SetPosition(2, target.position);
+                for (int i = 0; i < followSelectLines.Count; i++)
+                {
+                    LineRenderer l = followSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, rightRay.GetPosition(1));
+                    l.SetPosition(2, target.position);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < followSelectLines.Count; i++)
+                {
+                    LineRenderer l = followSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(2, SelectionMgr.inst.selectedEntities[i].position);
+                }
             }
             if (!VRControlMgr.inst.rightTriggerPress.action.IsPressed())
             {
-                Vector3 offset = target.transform.InverseTransformPoint(rightRay.GetPosition(1));
-
-                AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, offset);
+                if(rightRay.GetPosition(1).y < Utils.EPSILON)
+                {
+                    Vector3 offset = target.transform.InverseTransformPoint(rightRay.GetPosition(1));
+                    AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, offset);
+                }
                 followStep = CommandSteps.finished;
                 for(int i = followSelectLines.Count - 1; i > -1; i--)
                 {
@@ -97,6 +115,48 @@ public class VRAIMgr : MonoBehaviour
 
     void SelectingMove()
     {
+        if (moveStep == CommandSteps.started)
+        {
+            moveSelectLines = new List<LineRenderer>();
+            foreach (Entity381 ent in SelectionMgr.inst.selectedEntities)
+            {
+                moveSelectLines.Add(LineMgr.inst.CreateMoveLine(ent.position, rightRay.GetPosition(1)));
+            }
+            moveStep = CommandSteps.selecting;
+        }
+        if (moveStep == CommandSteps.selecting)
+        {
+            if (rightRay.GetPosition(1).y < Utils.EPSILON)
+            {
+                for (int i = 0; i < moveSelectLines.Count; i++)
+                {
+                    LineRenderer l = moveSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, rightRay.GetPosition(1));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < moveSelectLines.Count; i++)
+                {
+                    LineRenderer l = moveSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, SelectionMgr.inst.selectedEntities[i].position);
+                }
+            }
+            if (!VRControlMgr.inst.rightTriggerPress.action.IsPressed())
+            {
+                if (rightRay.GetPosition(1).y < Utils.EPSILON)
+                {
+                    AIMgr.inst.HandleMove(SelectionMgr.inst.selectedEntities, rightRay.GetPosition(1));
+                }
+                moveStep = CommandSteps.finished;
+                for (int i = moveSelectLines.Count - 1; i > -1; i--)
+                {
+                    LineMgr.inst.DestroyLR(moveSelectLines[i]);
+                }
+            }
 
+        }
     }
 }

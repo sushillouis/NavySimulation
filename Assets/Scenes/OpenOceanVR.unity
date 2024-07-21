@@ -2008,6 +2008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightRay: {fileID: 47093177139532407}
   followStep: 2
+  moveStep: 2
 --- !u!4 &661634719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2020023502598012820, guid: 4eadb14a1eece2a44a7ae893943f3d9f,

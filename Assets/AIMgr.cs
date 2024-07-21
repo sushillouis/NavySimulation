@@ -56,19 +56,22 @@ public class AIMgr : MonoBehaviour
     void Update()
     {
         if (followStep != CommandSteps.finished)
-        {
             SelectingFollow(followEnt);
-        }
-        else if(moveClicked) {
+        else if (moveStep != CommandSteps.finished)
+            SelectingMove();
+        else if (moveClicked)
+        {
             moveClicked = false;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask)) {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask))
+            {
                 //Debug.DrawLine(Camera.main.transform.position, hit.point, Color.yellow, 2); //for debugging
                 Vector3 pos = hit.point;
                 pos.y = 0;
                 Entity381 ent = FindClosestEntInRadius(pos, rClickRadiusSq);
-                if (ent == null) {
-                    HandleMove(SelectionMgr.inst.selectedEntities, pos);
-                } else {
+                if (ent == null)
+                    moveStep = CommandSteps.started;
+                else
+                {
                     if (interceptDown)
                         HandleIntercept(SelectionMgr.inst.selectedEntities, ent);
                     else
@@ -77,7 +80,9 @@ public class AIMgr : MonoBehaviour
                         followStep = CommandSteps.started;
                     }
                 }
-            } else {
+            }
+            else
+            {
                 //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward) * 1000, Color.white, 2);
             }
         }
@@ -101,22 +106,89 @@ public class AIMgr : MonoBehaviour
         }
         if (followStep == CommandSteps.selecting)
         {
-            for (int i = 0; i < followSelectLines.Count; i++)
+            if (hit.point.y < 0)
             {
-                LineRenderer l = followSelectLines[i];
-                l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
-                l.SetPosition(1, hit.point);
-                l.SetPosition(2, target.position);
+                for (int i = 0; i < followSelectLines.Count; i++)
+                {
+                    LineRenderer l = followSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, hit.point);
+                    l.SetPosition(2, target.position);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < followSelectLines.Count; i++)
+                {
+                    LineRenderer l = followSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(2, SelectionMgr.inst.selectedEntities[i].position);
+                }
             }
             if (!moveDown)
             {
-                Vector3 offset = target.transform.InverseTransformPoint(hit.point);
+                if(hit.point.y < 0)
+                {
+                    Vector3 offset = target.transform.InverseTransformPoint(hit.point);
+                    AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, offset);
+                }
 
-                AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, offset);
                 followStep = CommandSteps.finished;
                 for (int i = followSelectLines.Count - 1; i > -1; i--)
                 {
                     LineMgr.inst.DestroyLR(followSelectLines[i]);
+                }
+            }
+
+        }
+    }
+
+    List<LineRenderer> moveSelectLines;
+    public CommandSteps moveStep = CommandSteps.finished;
+
+    void SelectingMove()
+    {
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask);
+        if (moveStep == CommandSteps.started)
+        {
+            moveSelectLines = new List<LineRenderer>();
+            foreach (Entity381 ent in SelectionMgr.inst.selectedEntities)
+            {
+                moveSelectLines.Add(LineMgr.inst.CreateMoveLine(ent.position, hit.point));
+            }
+            moveStep = CommandSteps.selecting;
+        }
+        if (moveStep == CommandSteps.selecting)
+        {
+            if (hit.point.y < 0)
+            {
+                for (int i = 0; i < moveSelectLines.Count; i++)
+                {
+                    LineRenderer l = moveSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, hit.point);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < moveSelectLines.Count; i++)
+                {
+                    LineRenderer l = moveSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, SelectionMgr.inst.selectedEntities[i].position);
+                }
+            }
+            if (!moveDown)
+            {
+                if (hit.point.y < 0)
+                {
+                    AIMgr.inst.HandleMove(SelectionMgr.inst.selectedEntities, hit.point);
+                }
+                moveStep = CommandSteps.finished;
+                for (int i = moveSelectLines.Count - 1; i > -1; i--)
+                {
+                    LineMgr.inst.DestroyLR(moveSelectLines[i]);
                 }
             }
 
