@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class Move : Command
 {
-    public Vector3 movePosition;
     public Move(Entity381 ent, Vector3 pos) : base(ent)
     {
         movePosition = pos;

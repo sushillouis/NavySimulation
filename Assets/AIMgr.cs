@@ -94,29 +94,46 @@ public class AIMgr : MonoBehaviour
 
     void SelectingFollow(Entity381 target)
     {
+        //Update hit
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask);
+
+        //Initializes selecting lines
         if (followStep == CommandSteps.started)
         {
             followSelectLines = new List<LineRenderer>();
-            foreach (Entity381 ent in SelectionMgr.inst.selectedEntities)
+            foreach (Entity381 ent in SelectionMgr.inst.selectedEntities) //iterates through selected ents and creates a selecting line for each
             {
                 followSelectLines.Add(LineMgr.inst.CreateFollowLine(ent.position, hit.point, target.position));
             }
             followStep = CommandSteps.selecting;
         }
+
+        //After initializing
         if (followStep == CommandSteps.selecting)
         {
-            if (hit.point.y < 0)
+            if (hit.point.y < 0) //Checks if the raycast hit is hitting the ocean
             {
                 for (int i = 0; i < followSelectLines.Count; i++)
                 {
                     LineRenderer l = followSelectLines[i];
-                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    if (addDown) //Checks whether or not the command is an add or a set
+                    {
+                        //add command logic
+                        UnitAI uai = SelectionMgr.inst.selectedEntities[i].GetComponent<UnitAI>();
+                        int lastCommandIndex = uai.commands.Count - 1;
+
+                        if (lastCommandIndex > -1)
+                            l.SetPosition(0, uai.commands[lastCommandIndex].movePosition);
+                        else //if there are no prexisting commands, start the line at ownship
+                            l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    }
+                    else //set command logic
+                        l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
                     l.SetPosition(1, hit.point);
                     l.SetPosition(2, target.position);
                 }
             }
-            else
+            else //if the raycast hit isn't hitting the ocean, don't show the lines
             {
                 for (int i = 0; i < followSelectLines.Count; i++)
                 {
@@ -126,16 +143,18 @@ public class AIMgr : MonoBehaviour
                     l.SetPosition(2, SelectionMgr.inst.selectedEntities[i].position);
                 }
             }
-            if (!moveDown)
+
+            //Once the mouse is released, finalize the command
+            if (!moveDown) 
             {
-                if(hit.point.y < 0)
+                if(hit.point.y < 0) //Checks if the raycast hit is hitting the ocean, only set the command if it is
                 {
                     Vector3 offset = target.transform.InverseTransformPoint(hit.point);
                     AIMgr.inst.HandleFollow(SelectionMgr.inst.selectedEntities, target, offset);
                 }
 
                 followStep = CommandSteps.finished;
-                for (int i = followSelectLines.Count - 1; i > -1; i--)
+                for (int i = followSelectLines.Count - 1; i > -1; i--) //destroys the selection lines
                 {
                     LineMgr.inst.DestroyLR(followSelectLines[i]);
                 }
@@ -149,28 +168,45 @@ public class AIMgr : MonoBehaviour
 
     void SelectingMove()
     {
+        //Update hit
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask);
+
+        //Initializes selecting lines
         if (moveStep == CommandSteps.started)
         {
             moveSelectLines = new List<LineRenderer>();
-            foreach (Entity381 ent in SelectionMgr.inst.selectedEntities)
+            foreach (Entity381 ent in SelectionMgr.inst.selectedEntities) //iterates through selected ents and creates a selecting line for each
             {
                 moveSelectLines.Add(LineMgr.inst.CreateMoveLine(ent.position, hit.point));
             }
             moveStep = CommandSteps.selecting;
         }
+
+        //After initializing
         if (moveStep == CommandSteps.selecting)
         {
-            if (hit.point.y < 0)
+            if (hit.point.y < 0) //Checks if the raycast hit is hitting the ocean
             {
                 for (int i = 0; i < moveSelectLines.Count; i++)
                 {
                     LineRenderer l = moveSelectLines[i];
-                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    if (addDown) //Checks whether or not the command is an add or a set
+                    {
+                        //add command logic
+                        UnitAI uai = SelectionMgr.inst.selectedEntities[i].GetComponent<UnitAI>();
+                        int lastCommandIndex = uai.commands.Count - 1;
+                        
+                        if (lastCommandIndex > -1)
+                            l.SetPosition(0, uai.commands[lastCommandIndex].movePosition);
+                        else //if there are no prexisting commands, start the line at ownship
+                            l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    }
+                    else //set command logic
+                        l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
                     l.SetPosition(1, hit.point);
                 }
             }
-            else
+            else //if the raycast hit isn't hitting the ocean, don't show the lines
             {
                 for (int i = 0; i < moveSelectLines.Count; i++)
                 {
@@ -179,16 +215,17 @@ public class AIMgr : MonoBehaviour
                     l.SetPosition(1, SelectionMgr.inst.selectedEntities[i].position);
                 }
             }
-            if (!moveDown)
+
+            //Once the mouse is released, finalize the command
+            if (!moveDown) 
             {
-                if (hit.point.y < 0)
-                {
+                if (hit.point.y < 0) //Checks if the raycast hit is hitting the ocean, only set the command if it is
                     AIMgr.inst.HandleMove(SelectionMgr.inst.selectedEntities, hit.point);
-                }
+
                 moveStep = CommandSteps.finished;
-                for (int i = moveSelectLines.Count - 1; i > -1; i--)
+                for (int i = moveSelectLines.Count - 1; i > -1; i--) //destroys the selection lines
                 {
-                    LineMgr.inst.DestroyLR(moveSelectLines[i]);
+                    LineMgr.inst.DestroyLR(moveSelectLines[i]); 
                 }
             }
 
@@ -261,7 +298,7 @@ public class AIMgr : MonoBehaviour
         interceptDown = false;
     }
 
-    bool addDown = false;
+    public static bool addDown = false;
     private void OnClearSelectionPerformed(InputAction.CallbackContext context)
     {
         addDown = true;

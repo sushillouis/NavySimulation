@@ -22,6 +22,7 @@ public class Command
     public Entity381 entity;
     public LineRenderer line;
     public bool isRunning = false;
+    public Vector3 movePosition;
     public Command(Entity381 ent)
     {
         entity = ent;
