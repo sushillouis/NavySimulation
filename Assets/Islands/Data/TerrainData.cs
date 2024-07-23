@@ -11,4 +11,9 @@ public class TerrainData //used to be ScriptableObject
 
     public float meshHeightMultiplier;
     public AnimationCurve meshHeightCurve;
+
+    public GameObject[] treeHolder;
+
+    public int treeCluster = 0;
+    public float treeDensity = 100;
 }
