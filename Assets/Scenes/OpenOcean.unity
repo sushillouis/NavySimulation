@@ -1199,6 +1199,7 @@ MonoBehaviour:
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
   layerMask: 0
+  moveStep: 2
   rClickRadiusSq: 10000
 --- !u!65 &639876784
 BoxCollider:

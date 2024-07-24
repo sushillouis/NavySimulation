@@ -1,6 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+
+public enum CommandCondition
+{
+    NoCondition,
+    InRangeOfASpecificEntity,
+    InRangeOfTypeOfEntity,
+    TimeFromCommandStart,
+    TimeFromFollowing,
+    DistanceTraveled,
+    DistanceFromStart,
+    DistanceFromFollowing
+}
 
 [System.Serializable]
 public class Move : Command
@@ -33,6 +46,10 @@ public class Move : Command
 
         entity.desiredHeading = dhds.dh;
         entity.desiredSpeed = dhds.ds;
+
+        commandTime += Time.deltaTime;
+        distanceTraveled += entity.speed * Time.deltaTime;
+
         line.SetPosition(1, movePosition);
     }
 
@@ -175,13 +192,35 @@ public class Move : Command
     public float cosValue;
     public float ds;
 
+    bool CheckIfEntityTypeInRange(EntityType entityType, float range)
+    {
+        Collider[] colliders = Physics.OverlapSphere(entity.position, range);
 
+        foreach(Collider collider in colliders)
+        {
+            Entity381 target = collider.transform.GetComponent<Entity381>();
+            if (target != null && target != entity && target.entityType == entityType)
+                return true;
+        }
+
+        return false;
+    }
 
     public float doneDistanceSq = 1000;
     public override bool IsDone()
     {
+        bool baseCondition = ((entity.position - movePosition).sqrMagnitude < doneDistanceSq);
 
-        return ((entity.position - movePosition).sqrMagnitude < doneDistanceSq);
+        if (condition == CommandCondition.InRangeOfASpecificEntity)
+            return baseCondition || ((entity.position - conditionEntity.position).sqrMagnitude < (distanceThreshold * distanceThreshold));
+        else if (condition == CommandCondition.InRangeOfTypeOfEntity)
+            return baseCondition || CheckIfEntityTypeInRange(conditionEntityType, distanceThreshold);
+        else if (condition == CommandCondition.TimeFromCommandStart)
+            return baseCondition || (commandTime > timeThreshold);
+        else if (condition == CommandCondition.DistanceTraveled)
+            return baseCondition || (distanceTraveled > distanceThreshold);
+        else 
+            return baseCondition;
     }
 
     public override void Stop()
