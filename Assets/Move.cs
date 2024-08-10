@@ -32,6 +32,7 @@ public class Move : Command
         if(AIMgr.inst.movementType == MovementType.PotentialFields)
             potentialLine = LineMgr.inst.CreatePotentialLine(entity.position);
         line.gameObject.SetActive(true);
+        startPosition = entity.position;
     }
 
     public override void Tick()
@@ -219,7 +220,9 @@ public class Move : Command
             return baseCondition || (commandTime > timeThreshold);
         else if (condition == CommandCondition.DistanceTraveled)
             return baseCondition || (distanceTraveled > distanceThreshold);
-        else 
+        else if (condition == CommandCondition.DistanceFromStart)
+            return baseCondition || ((entity.position - startPosition).sqrMagnitude > distanceThreshold * distanceThreshold);
+        else
             return baseCondition;
     }
 

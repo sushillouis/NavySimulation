@@ -23,6 +23,7 @@ public class Command
     public LineRenderer line;
     public bool isRunning = false;
     public Vector3 movePosition;
+    public Vector3 startPosition;
     public float commandTime = 0;
     public float distanceTraveled = 0;
     public float distanceThreshold;
