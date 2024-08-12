@@ -4,22 +4,42 @@ using UnityEngine;
 
 public class CommandsMgr : MonoBehaviour
 {
+    [Header("Command Parameters")]
+    public CommandCondition commandCondition;
     public float distanceThreshold;
     public float timeThreshold;
-    public string entityName;
-    
+    public Entity381 entity;
+    public EntityType entityType;
+
+    [Header("Menu")]
+    public GameObject commandMenu;
+
+    public static CommandsMgr inst;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        inst = this;
+
+        commandCondition = CommandCondition.NoCondition;
         distanceThreshold = 1000;
         timeThreshold = 60;
-        entityName = "none";
+        entity = null;
+        entityType = EntityType.DDG51;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            commandMenu.SetActive(!commandMenu.activeSelf);
+        }
+    }
+
+    public void SetCommandCondition(int input)
+    {
+        commandCondition = (CommandCondition) input;
     }
 
     public void SetDistanceThreshold(string input)
@@ -46,15 +66,20 @@ public class CommandsMgr : MonoBehaviour
 
     public void SetEntityName(string input)
     {
-        entityName = "none";
+        entity = null;
 
-        foreach(Entity381 entity in EntityMgr.inst.entities)
+        foreach(Entity381 ent in EntityMgr.inst.entities)
         {
-            if (entity.name.ToLower().Equals(input.ToLower()))
+            if (ent.name.ToLower().Equals(input.ToLower()))
             {
-                entityName = entity.name;
+                entity = ent;
                 break;
             }
         }
+    }
+
+    public void SetEntityType(int input)
+    {
+        entityType = (EntityType) input;
     }
 }

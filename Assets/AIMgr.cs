@@ -236,6 +236,12 @@ public class AIMgr : MonoBehaviour
     {
         foreach (Entity381 entity in entities) {
             Move m = new Move(entity, point);
+            m.condition = CommandsMgr.inst.commandCondition;
+            m.distanceThreshold = CommandsMgr.inst.distanceThreshold;
+            m.timeThreshold = CommandsMgr.inst.timeThreshold;
+            m.conditionEntity = CommandsMgr.inst.entity;
+            m.conditionEntityType = CommandsMgr.inst.entityType;
+
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(m, uai);
         }

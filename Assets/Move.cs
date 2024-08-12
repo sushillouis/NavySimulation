@@ -9,9 +9,9 @@ public enum CommandCondition
     InRangeOfASpecificEntity,
     InRangeOfTypeOfEntity,
     TimeFromCommandStart,
-    TimeFromFollowing,
     DistanceTraveled,
     DistanceFromStart,
+    TimeFromFollowing,
     DistanceFromFollowing
 }
 
