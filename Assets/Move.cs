@@ -193,7 +193,7 @@ public class Move : Command
     public float cosValue;
     public float ds;
 
-    bool CheckIfEntityTypeInRange(EntityType entityType, float range)
+    protected bool CheckIfEntityTypeInRange(EntityType entityType, float range)
     {
         Collider[] colliders = Physics.OverlapSphere(entity.position, range);
 

@@ -50,13 +50,114 @@ public class Follow : Move
             entity.desiredHeading = dhds.dh;
         }
 
+        commandTime += Time.deltaTime;
+        distanceTraveled += entity.speed * Time.deltaTime;
+
     }
 
     public bool done = false;//user can set it to done
 
+    public bool caughtUp = false;
+    public float timeSinceFollowingThreshold = 0;
+    public float distanceSinceFollowingThreshold = 0;
+    public Vector3 startPositionSinceFollowing = Vector3.zero;
+    public bool fromCaughtUp;
     public override bool IsDone()
     {
-        return done;
+        if (!caughtUp && diff.sqrMagnitude < followThreshold)
+        {
+            timeSinceFollowingThreshold = commandTime + timeThreshold;
+            distanceSinceFollowingThreshold = distanceTraveled + distanceThreshold;
+            startPositionSinceFollowing = entity.position;
+            caughtUp = true;
+        }
+
+        if (condition == CommandCondition.InRangeOfASpecificEntity)
+        {
+            if (fromCaughtUp)
+            {
+                if (caughtUp)
+                    return done || ((entity.position - conditionEntity.position).sqrMagnitude < (distanceThreshold * distanceThreshold));
+                else
+                    return done;
+            }
+            else
+                return done || ((entity.position - conditionEntity.position).sqrMagnitude < (distanceThreshold * distanceThreshold));
+        }
+        else if (condition == CommandCondition.InRangeOfTypeOfEntity)
+        {
+            if (fromCaughtUp)
+            {
+                if (caughtUp)
+                    return done || CheckIfEntityTypeInRange(conditionEntityType, distanceThreshold);
+                else
+                    return done;
+            }
+            else
+                return done || CheckIfEntityTypeInRange(conditionEntityType, distanceThreshold);
+        }
+        else if (condition == CommandCondition.TimeFromCommandStart)
+        {
+            if (fromCaughtUp)
+            {
+                if (caughtUp)
+                    return done || commandTime > timeSinceFollowingThreshold;
+                else
+                    return done;
+            }
+            else
+                return done || (commandTime > timeThreshold);
+        }
+        else if (condition == CommandCondition.DistanceTraveled)
+        {
+            if (fromCaughtUp)
+            {
+                if (caughtUp)
+                    return done || distanceTraveled > distanceSinceFollowingThreshold;
+                else
+                    return done;
+            }
+            else
+                return done || (distanceTraveled > distanceThreshold);
+        }
+        else if (condition == CommandCondition.DistanceFromStart)
+        {
+            if (fromCaughtUp)
+            {
+                if (caughtUp)
+                    return done || ((entity.position - startPositionSinceFollowing).sqrMagnitude > distanceThreshold * distanceThreshold);
+                else
+                    return done;
+            }
+            else
+                return done || ((entity.position - startPosition).sqrMagnitude > distanceThreshold * distanceThreshold);
+        }
+        /*else if (condition == CommandCondition.TimeFromFollowing)
+        {
+            if (!caughtUp && diff.sqrMagnitude < followThreshold)
+            {
+                caughtUp = true;
+                timeSinceFollowingThreshold = commandTime + timeThreshold;
+            }
+            if (caughtUp)
+                return done || commandTime > timeSinceFollowingThreshold;
+            else
+                return done;
+        }
+        else if (condition == CommandCondition.DistanceFromFollowing)
+        {
+            if (!caughtUp && diff.sqrMagnitude < followThreshold)
+            {
+                caughtUp = true;
+                distanceSinceFollowingThreshold = distanceTraveled + distanceThreshold;
+            }
+            if (caughtUp)
+                return done || distanceTraveled > distanceSinceFollowingThreshold;
+            else
+                return done;
+        }*/
+        else
+            return done;
     }
 
     public override void Stop()

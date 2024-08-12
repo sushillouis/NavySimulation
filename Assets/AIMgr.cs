@@ -236,11 +236,11 @@ public class AIMgr : MonoBehaviour
     {
         foreach (Entity381 entity in entities) {
             Move m = new Move(entity, point);
-            m.condition = CommandsMgr.inst.commandCondition;
-            m.distanceThreshold = CommandsMgr.inst.distanceThreshold;
-            m.timeThreshold = CommandsMgr.inst.timeThreshold;
-            m.conditionEntity = CommandsMgr.inst.entity;
-            m.conditionEntityType = CommandsMgr.inst.entityType;
+            m.condition = CommandsMgr.inst.moveCommandCondition;
+            m.distanceThreshold = CommandsMgr.inst.moveDistanceThreshold;
+            m.timeThreshold = CommandsMgr.inst.moveTimeThreshold;
+            m.conditionEntity = CommandsMgr.inst.moveEntity;
+            m.conditionEntityType = CommandsMgr.inst.moveEntityType;
 
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(m, uai);
@@ -261,6 +261,13 @@ public class AIMgr : MonoBehaviour
     {
         foreach (Entity381 entity in SelectionMgr.inst.selectedEntities) {
             Follow f = new Follow(entity, ent, offset);
+            f.condition = CommandsMgr.inst.followCommandCondition;
+            f.distanceThreshold = CommandsMgr.inst.followDistanceThreshold;
+            f.timeThreshold = CommandsMgr.inst.followTimeThreshold;
+            f.conditionEntity = CommandsMgr.inst.followEntity;
+            f.conditionEntityType = CommandsMgr.inst.followEntityType;
+            f.fromCaughtUp = CommandsMgr.inst.fromFollow;
+
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(f, uai);
         }
