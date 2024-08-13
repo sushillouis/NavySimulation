@@ -19,10 +19,13 @@ public class DHDS {
 [System.Serializable]
 public class Command 
 {
+    [Header("Base Parameters")]
     public Entity381 entity;
     public LineRenderer line;
     public bool isRunning = false;
     public Vector3 movePosition;
+
+    [Header("End Command Parameters")]
     public Vector3 startPosition;
     public float commandTime = 0;
     public float distanceTraveled = 0;
@@ -30,7 +33,17 @@ public class Command
     public float timeThreshold;
     public Entity381 conditionEntity;
     public EntityType conditionEntityType;
-    public CommandCondition condition;
+    public CommandCondition condition; //end condition
+
+    [Header("Command Start Parameters")]
+    public CommandCondition startCondition;
+    public bool startCommand;
+    public bool clearQueueWhenStart;
+    public bool insertWhenAdded;
+    public float startDistanceThreshold;
+    public Entity381 startConditionEntity;
+    public EntityType startConditionEntityType;
+
     public Command(Entity381 ent)
     {
         entity = ent;

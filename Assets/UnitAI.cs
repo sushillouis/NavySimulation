@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
 public class UnitAI : MonoBehaviour
@@ -17,6 +18,7 @@ public class UnitAI : MonoBehaviour
     public List<Move> moves;
     public List<Command> commands;
     public List<Intercept> intercepts;
+    public List<Command> startCommands;
 
     // Update is called once per frame
     void Update()
@@ -68,6 +70,67 @@ public class UnitAI : MonoBehaviour
         AddCommand(c);
 
     }
+
+    public void HandleStartCommand(Command c)
+    {
+        startCommands.Add(c);
+        if (c.insertWhenAdded)
+            AddCommand(c);
+        else
+            c.Init();
+    }
+
+    public void CheckStartCommands()
+    {
+        List<Command> triggeredCommands = new List<Command>();
+        
+        foreach(Command command in startCommands)
+        {
+            if (command.startCondition == CommandCondition.InRangeOfASpecificEntity)
+            {
+                if((entity.position - command.startConditionEntity.position).sqrMagnitude < (command.startDistanceThreshold * command.startDistanceThreshold))
+                {
+                    // bump to front
+                    triggeredCommands.Add(command);
+                }
+            }
+            else if (command.startCondition == CommandCondition.InRangeOfTypeOfEntity)
+            {
+                Collider[] colliders = Physics.OverlapSphere(entity.position, command.startDistanceThreshold);
+
+                foreach (Collider collider in colliders)
+                {
+                    Entity381 target = collider.transform.GetComponent<Entity381>();
+                    if (target != null && target != entity && target.entityType == command.startConditionEntityType)
+                    {
+                        //bump to front
+                        triggeredCommands.Add(command);
+                    }  
+                }
+            }
+        }
+
+        foreach (Command command in triggeredCommands)
+        {
+            startCommands.Remove(command);
+        }
+    }
+
+    public void SetStartCommand(Command c)
+    {
+        if (commands.Contains(c))
+            commands.Remove(c);
+        if (moves.Contains(c as Move))
+            moves.Remove(c as Move);
+        if (intercepts.Contains(c as Intercept))
+            intercepts.Remove(c as Intercept);
+
+        if (c.clearQueueWhenStart)
+            StopAndRemoveAllCommands();
+
+        commands.Insert(0, c);
+    }
+
     //---------------------------------
 
     public void DecorateAll()

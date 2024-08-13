@@ -21,12 +21,22 @@ public class CommandsMgr : MonoBehaviour
     public EntityType followEntityType;
     public bool fromFollow;
 
+    [Header("Start Parameters")]
+    public CommandCondition startCommandCondition;
+    public float startDistanceThreshold;
+    public Entity381 startEntity;
+    public EntityType startEntityType;
+    public bool clearQueueWhenStart;
+    public bool insertWhenAdded;
+
     [Header("Menu")]
     public GameObject commandMenu;
     public GameObject moveMenu;
     public GameObject followMenu;
+    public GameObject startMenu;
     public Button moveButton;
     public Button followButton;
+    public Button startButton;
     public Color selectedColor;
     public Color passiveColor;
 
@@ -36,6 +46,8 @@ public class CommandsMgr : MonoBehaviour
     public TMP_Dropdown moveEntityDropdown;
     public TextMeshProUGUI followDistanceSliderText;
     public TextMeshProUGUI followTimeSliderText;
+    public TextMeshProUGUI startDistanceSliderText;
+    public TextMeshProUGUI startTimeSliderText;
     public TMP_Dropdown followEntityDropdown;
     bool initialized;
 
@@ -59,6 +71,13 @@ public class CommandsMgr : MonoBehaviour
         followEntityType = EntityType.DDG51;
         fromFollow = false;
 
+        startCommandCondition = CommandCondition.NoCondition;
+        startDistanceThreshold = 1000;
+        startEntity = null;
+        startEntityType = EntityType.DDG51;
+        clearQueueWhenStart = false;
+        insertWhenAdded = false;
+
         if (moveEntityDropdown != null || followEntityDropdown != null)
             initialized = false;
         else
@@ -80,6 +99,8 @@ public class CommandsMgr : MonoBehaviour
         }
     }
 
+    //--------------------------------------------------------------------
+    //Move UI
     public void SetMoveCommandCondition(int input)
     {
         moveCommandCondition = (CommandCondition)input;
@@ -143,6 +164,9 @@ public class CommandsMgr : MonoBehaviour
         moveEntityType = (EntityType)input;
     }
 
+
+    //--------------------------------------------------------------------
+    //Follow UI
     public void SetFollowCommandCondition(int input)
     {
         followCommandCondition = (CommandCondition)input;
@@ -214,6 +238,68 @@ public class CommandsMgr : MonoBehaviour
             fromFollow = true;
     }
 
+    //--------------------------------------------------------------------
+    //Start UI
+
+    public void SetStartCommandCondition(int input)
+    {
+        startCommandCondition = (CommandCondition)input;
+    }
+
+    public void SetStartDistanceThreshold(string input)
+    {
+        if (input != "")
+        {
+            float distance = float.Parse(input);
+            startDistanceThreshold = distance;
+        }
+        else
+            startDistanceThreshold = 1000;
+    }
+
+    public void SetStartDistanceThresholdSlider(float input)
+    {
+        startDistanceThreshold = input;
+        startDistanceSliderText.text = "" + input;
+    }
+
+    public void SetStartEntity(string input)
+    {
+        startEntity = null;
+
+        foreach (Entity381 ent in EntityMgr.inst.entities)
+        {
+            if (ent.name.ToLower().Equals(input.ToLower()))
+            {
+                startEntity = ent;
+                break;
+            }
+        }
+    }
+
+    public void SetStartEntity(int input)
+    {
+        startEntity = EntityMgr.inst.entities[input];
+    }
+
+    public void SetStartEntityType(int input)
+    {
+        startEntityType = (EntityType)input;
+    }
+
+    public void SetClearQueueWhenStart(bool input)
+    {
+        clearQueueWhenStart = input;
+    }
+
+    public void SetInsertWhenAdded(bool input)
+    {
+        insertWhenAdded = input;
+    }
+
+    //--------------------------------------------------------------------
+    //Menu Control
+
     public void InitializeEntityDropdown()
     {
         if(moveEntityDropdown != null)
@@ -241,15 +327,29 @@ public class CommandsMgr : MonoBehaviour
     {
         moveButton.image.color = selectedColor;
         followButton.image.color = passiveColor;
+        startButton.image.color = passiveColor;
         moveMenu.SetActive(true);
         followMenu.SetActive(false);
+        startMenu.SetActive(false);
     }
 
     public void OpenFollowMenu()
     {
         moveButton.image.color = passiveColor;
         followButton.image.color = selectedColor;
+        startButton.image.color = passiveColor;
         moveMenu.SetActive(false);
         followMenu.SetActive(true);
+        startMenu.SetActive(false);
+    }
+
+    public void OpenStartMenu()
+    {
+        moveButton.image.color = passiveColor;
+        followButton.image.color = passiveColor;
+        startButton.image.color = selectedColor;
+        moveMenu.SetActive(false);
+        followMenu.SetActive(false);
+        startMenu.SetActive(true);
     }
 }

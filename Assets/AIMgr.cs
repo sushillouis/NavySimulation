@@ -249,6 +249,8 @@ public class AIMgr : MonoBehaviour
 
     void AddOrSet(Command c, UnitAI uai)
     {
+        if (c.startCommand)
+            uai.HandleStartCommand(c);
         if (addDown)
             uai.AddCommand(c);
         else
