@@ -31,9 +31,12 @@ public class CommandsMgr : MonoBehaviour
     public Color passiveColor;
 
     [Header("VR Menu")]
-    public TextMeshProUGUI distanceSliderText;
-    public TextMeshProUGUI timeSliderText;
-    public TMP_Dropdown entityDropdown;
+    public TextMeshProUGUI moveDistanceSliderText;
+    public TextMeshProUGUI moveTimeSliderText;
+    public TMP_Dropdown moveEntityDropdown;
+    public TextMeshProUGUI followDistanceSliderText;
+    public TextMeshProUGUI followTimeSliderText;
+    public TMP_Dropdown followEntityDropdown;
     bool initialized;
 
     public static CommandsMgr inst;
@@ -56,7 +59,7 @@ public class CommandsMgr : MonoBehaviour
         followEntityType = EntityType.DDG51;
         fromFollow = false;
 
-        if (entityDropdown != null)
+        if (moveEntityDropdown != null || followEntityDropdown != null)
             initialized = false;
         else
             initialized = true;
@@ -96,7 +99,7 @@ public class CommandsMgr : MonoBehaviour
     public void SetMoveDistanceThresholdSlider(float input)
     {
         moveDistanceThreshold = input;
-        distanceSliderText.text = "" + input;
+        moveDistanceSliderText.text = "" + input;
     }
 
     public void SetMoveTimeThreshold(string input)
@@ -113,7 +116,7 @@ public class CommandsMgr : MonoBehaviour
     public void SetMoveTimeThresholdSlider(float input)
     {
         moveTimeThreshold = input;
-        timeSliderText.text = "" + input;
+        moveTimeSliderText.text = "" + input;
     }
 
     public void SetMoveEntity(string input)
@@ -128,6 +131,11 @@ public class CommandsMgr : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void SetMoveEntity(int input)
+    {
+        moveEntity = EntityMgr.inst.entities[input];
     }
 
     public void SetMoveEntityType(int input)
@@ -151,6 +159,12 @@ public class CommandsMgr : MonoBehaviour
             followDistanceThreshold = 1000;
     }
 
+    public void SetFollowDistanceThresholdSlider(float input)
+    {
+        followDistanceThreshold = input;
+        followDistanceSliderText.text = "" + input;
+    }
+
     public void SetFollowTimeThreshold(string input)
     {
         if (input != "")
@@ -160,6 +174,12 @@ public class CommandsMgr : MonoBehaviour
         }
         else
             followTimeThreshold = 60;
+    }
+
+    public void SetFollowTimeThresholdSlider(float input)
+    {
+        followTimeThreshold = input;
+        followTimeSliderText.text = "" + input;
     }
 
     public void SetFollowEntity(string input)
@@ -174,6 +194,11 @@ public class CommandsMgr : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void SetFollowEntity(int input)
+    {
+        followEntity = EntityMgr.inst.entities[input];
     }
 
     public void SetFollowEntityType(int input)
@@ -191,12 +216,25 @@ public class CommandsMgr : MonoBehaviour
 
     public void InitializeEntityDropdown()
     {
-        entityDropdown.ClearOptions();
-        foreach(Entity381 ent in EntityMgr.inst.entities)
+        if(moveEntityDropdown != null)
         {
-            entityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
+            moveEntityDropdown.ClearOptions();
+            foreach (Entity381 ent in EntityMgr.inst.entities)
+            {
+                moveEntityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
+            }
+            moveEntityDropdown.RefreshShownValue();
         }
-        entityDropdown.RefreshShownValue();
+
+        if (followEntityDropdown != null)
+        {
+            followEntityDropdown.ClearOptions();
+            foreach (Entity381 ent in EntityMgr.inst.entities)
+            {
+                followEntityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
+            }
+            followEntityDropdown.RefreshShownValue();
+        }
     }
 
     public void OpenMoveMenu()
