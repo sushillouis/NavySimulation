@@ -90,7 +90,7 @@ public class VRAIMgr : MonoBehaviour
                 {
                     //add command logic
                     LineRenderer l = followSelectLines[i];
-                    if (AIMgr.addDown) //Checks whether or not the command is an add or a set
+                    if (AIMgr.addDown || (CommandsMgr.inst.startCommandCondition != CommandCondition.NoCondition && CommandsMgr.inst.insertWhenAdded)) //Checks whether or not the command is an add or a set
                     {
                         UnitAI uai = SelectionMgr.inst.selectedEntities[i].GetComponent<UnitAI>();
                         int lastCommandIndex = uai.commands.Count - 1;
@@ -156,7 +156,7 @@ public class VRAIMgr : MonoBehaviour
                 for (int i = 0; i < moveSelectLines.Count; i++)
                 {
                     LineRenderer l = moveSelectLines[i];
-                    if (AIMgr.addDown) //Checks whether or not the command is an add or a set
+                    if (AIMgr.addDown || (CommandsMgr.inst.startCommandCondition != CommandCondition.NoCondition && CommandsMgr.inst.insertWhenAdded)) //Checks whether or not the command is an add or a set
                     {
                         UnitAI uai = SelectionMgr.inst.selectedEntities[i].GetComponent<UnitAI>();
                         int lastCommandIndex = uai.commands.Count - 1;

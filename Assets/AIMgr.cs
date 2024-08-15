@@ -116,7 +116,7 @@ public class AIMgr : MonoBehaviour
                 for (int i = 0; i < followSelectLines.Count; i++)
                 {
                     LineRenderer l = followSelectLines[i];
-                    if (addDown) //Checks whether or not the command is an add or a set
+                    if (addDown || (CommandsMgr.inst.startCommandCondition != CommandCondition.NoCondition && CommandsMgr.inst.insertWhenAdded)) //Checks whether or not the command is an add or a set
                     {
                         //add command logic
                         UnitAI uai = SelectionMgr.inst.selectedEntities[i].GetComponent<UnitAI>();
@@ -190,7 +190,7 @@ public class AIMgr : MonoBehaviour
                 for (int i = 0; i < moveSelectLines.Count; i++)
                 {
                     LineRenderer l = moveSelectLines[i];
-                    if (addDown) //Checks whether or not the command is an add or a set
+                    if (addDown || (CommandsMgr.inst.startCommandCondition != CommandCondition.NoCondition && CommandsMgr.inst.insertWhenAdded)) //Checks whether or not the command is an add or a set
                     {
                         //add command logic
                         UnitAI uai = SelectionMgr.inst.selectedEntities[i].GetComponent<UnitAI>();
@@ -242,6 +242,17 @@ public class AIMgr : MonoBehaviour
             m.conditionEntity = CommandsMgr.inst.moveEntity;
             m.conditionEntityType = CommandsMgr.inst.moveEntityType;
 
+            if (CommandsMgr.inst.startCommandCondition != CommandCondition.NoCondition)
+                m.startCommand = true;
+            else
+                m.startCommand = false;
+            m.startCondition = CommandsMgr.inst.startCommandCondition;
+            m.startDistanceThreshold = CommandsMgr.inst.startDistanceThreshold;
+            m.clearQueueWhenStart = CommandsMgr.inst.clearQueueWhenStart;
+            m.insertWhenAdded = CommandsMgr.inst.insertWhenAdded;
+            m.startConditionEntity = CommandsMgr.inst.startEntity;
+            m.startConditionEntityType = CommandsMgr.inst.startEntityType;
+
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(m, uai);
         }
@@ -251,7 +262,7 @@ public class AIMgr : MonoBehaviour
     {
         if (c.startCommand)
             uai.HandleStartCommand(c);
-        if (addDown)
+        else if (addDown)
             uai.AddCommand(c);
         else
             uai.SetCommand(c);
@@ -269,6 +280,17 @@ public class AIMgr : MonoBehaviour
             f.conditionEntity = CommandsMgr.inst.followEntity;
             f.conditionEntityType = CommandsMgr.inst.followEntityType;
             f.fromCaughtUp = CommandsMgr.inst.fromFollow;
+
+            if(CommandsMgr.inst.startCommandCondition != CommandCondition.NoCondition)
+                f.startCommand = true;
+            else
+                f.startCommand = false;
+            f.startCondition = CommandsMgr.inst.startCommandCondition;
+            f.startDistanceThreshold = CommandsMgr.inst.startDistanceThreshold;
+            f.clearQueueWhenStart = CommandsMgr.inst.clearQueueWhenStart;
+            f.insertWhenAdded = CommandsMgr.inst.insertWhenAdded;
+            f.startConditionEntity = CommandsMgr.inst.startEntity;
+            f.startConditionEntityType = CommandsMgr.inst.startEntityType;
 
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(f, uai);

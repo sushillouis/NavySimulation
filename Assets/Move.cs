@@ -32,6 +32,8 @@ public class Move : Command
         if(AIMgr.inst.movementType == MovementType.PotentialFields)
             potentialLine = LineMgr.inst.CreatePotentialLine(entity.position);
         line.gameObject.SetActive(true);
+        if (startCommand && !insertWhenAdded)
+            line.gameObject.SetActive(false);
         startPosition = entity.position;
     }
 

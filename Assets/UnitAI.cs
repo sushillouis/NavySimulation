@@ -32,6 +32,8 @@ public class UnitAI : MonoBehaviour
                 DecorateAll();
             }
         }
+
+        CheckStartCommands();
     }
 
     void StopAndRemoveCommand(int index)
@@ -90,7 +92,7 @@ public class UnitAI : MonoBehaviour
             {
                 if((entity.position - command.startConditionEntity.position).sqrMagnitude < (command.startDistanceThreshold * command.startDistanceThreshold))
                 {
-                    // bump to front
+                    SetStartCommand(command);
                     triggeredCommands.Add(command);
                 }
             }
@@ -103,7 +105,7 @@ public class UnitAI : MonoBehaviour
                     Entity381 target = collider.transform.GetComponent<Entity381>();
                     if (target != null && target != entity && target.entityType == command.startConditionEntityType)
                     {
-                        //bump to front
+                        SetStartCommand(command);
                         triggeredCommands.Add(command);
                     }  
                 }

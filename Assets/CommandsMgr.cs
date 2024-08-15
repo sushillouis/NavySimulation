@@ -40,15 +40,18 @@ public class CommandsMgr : MonoBehaviour
     public Color selectedColor;
     public Color passiveColor;
 
+    [Header("Entity Dropdowns")]
+    public TMP_Dropdown moveEntityDropdown;
+    public TMP_Dropdown followEntityDropdown;
+    public TMP_Dropdown startEntityDropdown;
+
     [Header("VR Menu")]
     public TextMeshProUGUI moveDistanceSliderText;
     public TextMeshProUGUI moveTimeSliderText;
-    public TMP_Dropdown moveEntityDropdown;
     public TextMeshProUGUI followDistanceSliderText;
     public TextMeshProUGUI followTimeSliderText;
     public TextMeshProUGUI startDistanceSliderText;
-    public TextMeshProUGUI startTimeSliderText;
-    public TMP_Dropdown followEntityDropdown;
+    
     bool initialized;
 
     public static CommandsMgr inst;
@@ -78,10 +81,7 @@ public class CommandsMgr : MonoBehaviour
         clearQueueWhenStart = false;
         insertWhenAdded = false;
 
-        if (moveEntityDropdown != null || followEntityDropdown != null)
-            initialized = false;
-        else
-            initialized = true;
+        initialized = false;
 }
 
     // Update is called once per frame
@@ -140,6 +140,8 @@ public class CommandsMgr : MonoBehaviour
         moveTimeSliderText.text = "" + input;
     }
 
+    //Not used anynore
+    /*
     public void SetMoveEntity(string input)
     {
         moveEntity = null;
@@ -153,6 +155,7 @@ public class CommandsMgr : MonoBehaviour
             }
         }
     }
+    */
 
     public void SetMoveEntity(int input)
     {
@@ -206,6 +209,8 @@ public class CommandsMgr : MonoBehaviour
         followTimeSliderText.text = "" + input;
     }
 
+    //Not used anynore
+    /*
     public void SetFollowEntity(string input)
     {
         followEntity = null;
@@ -219,6 +224,7 @@ public class CommandsMgr : MonoBehaviour
             }
         }
     }
+    */
 
     public void SetFollowEntity(int input)
     {
@@ -263,6 +269,8 @@ public class CommandsMgr : MonoBehaviour
         startDistanceSliderText.text = "" + input;
     }
 
+    //Not used anynore
+    /*
     public void SetStartEntity(string input)
     {
         startEntity = null;
@@ -276,6 +284,7 @@ public class CommandsMgr : MonoBehaviour
             }
         }
     }
+    */
 
     public void SetStartEntity(int input)
     {
@@ -302,26 +311,19 @@ public class CommandsMgr : MonoBehaviour
 
     public void InitializeEntityDropdown()
     {
-        if(moveEntityDropdown != null)
+        moveEntityDropdown.ClearOptions();
+        followEntityDropdown.ClearOptions();
+        startEntityDropdown.ClearOptions();
+        foreach (Entity381 ent in EntityMgr.inst.entities)
         {
-            moveEntityDropdown.ClearOptions();
-            foreach (Entity381 ent in EntityMgr.inst.entities)
-            {
-                moveEntityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
-            }
-            moveEntityDropdown.RefreshShownValue();
+            moveEntityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
+            followEntityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
+            startEntityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
         }
-
-        if (followEntityDropdown != null)
-        {
-            followEntityDropdown.ClearOptions();
-            foreach (Entity381 ent in EntityMgr.inst.entities)
-            {
-                followEntityDropdown.options.Add(new TMP_Dropdown.OptionData(ent.name));
-            }
-            followEntityDropdown.RefreshShownValue();
-        }
-    }
+        moveEntityDropdown.RefreshShownValue();
+        followEntityDropdown.RefreshShownValue();
+        startEntityDropdown.RefreshShownValue();
+}
 
     public void OpenMoveMenu()
     {
