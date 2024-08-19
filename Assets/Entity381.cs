@@ -59,7 +59,36 @@ public class Entity381 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void LoadData(GameData data)
     {
+        /*
+        entityIndex = data.entityIndex[0];
+        entityType = (EntityType) data.entityType[0];
+        position = data.position[0];
+        velocity = data.velocity[0];
+        speed = data.speed[0];
+        desiredSpeed = data.ds[0];
+        heading = data.heading[0];
+        desiredHeading = data.dh[0];
+        */
     }
+
+    public void SaveData(GameData data)
+    {
+        Debug.Log("save test");
+        EntityMgr.inst.entities.IndexOf(this);
+
+
+
+        data.entityIndex.Add(EntityMgr.inst.entities.IndexOf(this));
+        data.entityType.Add((int) entityType);
+        data.position.Add(position);
+        data.velocity.Add(velocity);
+        data.speed.Add(speed);
+        data.ds.Add(desiredSpeed);
+        data.heading.Add(heading);
+        data.dh.Add(desiredHeading);
+    }
+
+
 }

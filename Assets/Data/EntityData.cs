@@ -21,7 +21,7 @@ public class EntityData
         position = new float[3];
         position[0] = entity.position.x;
         position[1] = entity.position.y; 
-        position[2] = entity.velocity.z;
+        position[2] = entity.position.z;
 
         velocity = new float[3];
         velocity[0] = entity.velocity.x;
