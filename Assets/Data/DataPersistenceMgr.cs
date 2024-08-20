@@ -24,9 +24,11 @@ public class DataPersistenceMgr : MonoBehaviour
     {
         Debug.Log(Application.persistentDataPath);
 
+        NewGame();
+
         this.dataHandler = new FileDataHandler("C:/Users/liamf.UNR/Documents", fileName);
         this.dataPersistenceObjects = FindAllPersistenceObjects();
-        LoadGame();
+
     }
 
     private void Update()
@@ -34,6 +36,11 @@ public class DataPersistenceMgr : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.F2)) 
         { 
             SaveGame();
+        }
+
+        if(Input.GetKeyUp(KeyCode.F3))
+        {
+            LoadGame();
         }
     }
 

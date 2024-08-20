@@ -37,6 +37,19 @@ public class EntityMgr : MonoBehaviour
         return entity;
     }
 
+    public void ResetEntities()
+    {
+        int count = entities.Count;
+        for (int i = count - 1; i >= 0; i--)
+        {
+            Entity381 ent = entities[i];
+            entities.RemoveAt(i);
+            Destroy(ent.gameObject);
+        }
+        DistanceMgr.inst.Initialize();
+        VOMgr.inst.Initialize();
+    }
+
 
     // Start is called before the first frame update
     void Start()

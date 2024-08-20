@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameData
 {
-    public EntityData entity;
+    public int entityID;
 
     public List<int> entityIndex;
     public List<int> entityType;

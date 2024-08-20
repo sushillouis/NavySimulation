@@ -28,31 +28,30 @@ public class SaveTest : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        entityIndex = data.entityIndex[0];
-        entityType = data.entityType[0];
-        position = data.position[0];
-        velocity = data.velocity[0];
-        speed = data.speed[0];
-        ds = data.ds[0];
-        heading = data.heading[0];
-        dh = data.dh[0];
+        EntityMgr.inst.ResetEntities();
+
+        EntityMgr.entityId = data.entityID - (data.entityIndex.Count);
+
+        for(int i = 0; i < data.entityIndex.Count; i++)
+        {
+            Entity381 ent = EntityMgr.inst.CreateEntity((EntityType) data.entityType[i], data.position[i], Vector3.zero);
+            ent.velocity = data.velocity[i];
+            ent.speed = data.speed[i];
+            ent.desiredSpeed = data.ds[i];
+            ent.heading = data.heading[i];
+            ent.desiredHeading = data.dh[i];
+        }
 }
 
     public void SaveData(GameData data)
     {
         Entity381 entity = EntityMgr.inst.entities[id];
 
+        data.Clear();
+
         Debug.Log("save test");
 
-        /*
-        data.entityIndex[0] = (int) entity.entityType;
-        data.position[0] = entity.position;
-        data.velocity[0] = entity.velocity;
-        data.speed[0] = entity.speed;
-        data.ds[0] = entity.desiredSpeed;
-        data.heading[0] = entity.heading;
-        data.dh[0] = entity.desiredHeading;
-        */
+        data.entityID = EntityMgr.entityId;
 
         foreach(Entity381 ent in EntityMgr.inst.entities)
         {
