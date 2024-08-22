@@ -58,7 +58,10 @@ public class AIMgr : MonoBehaviour
         if (followStep != CommandSteps.finished)
             SelectingFollow(followEnt);
         else if (moveStep != CommandSteps.finished)
+        {
+            Debug.Log("move selecting running");
             SelectingMove();
+        }
         else if (moveClicked)
         {
             moveClicked = false;
@@ -165,6 +168,7 @@ public class AIMgr : MonoBehaviour
 
     List<LineRenderer> moveSelectLines;
     public CommandSteps moveStep = CommandSteps.finished;
+    Vector3 movePos = Vector3.zero;
 
     void SelectingMove()
     {
@@ -217,18 +221,62 @@ public class AIMgr : MonoBehaviour
             }
 
             //Once the mouse is released, finalize the command
-            if (!moveDown) 
+            if (!moveDown && moveStep != CommandSteps.selectingTarget) 
             {
-                if (hit.point.y < 0) //Checks if the raycast hit is hitting the ocean, only set the command if it is
-                    AIMgr.inst.HandleMove(SelectionMgr.inst.selectedEntities, hit.point);
-
-                moveStep = CommandSteps.finished;
-                for (int i = moveSelectLines.Count - 1; i > -1; i--) //destroys the selection lines
+                Debug.Log("found movePos");
+                movePos = hit.point;
+                if (!Input.GetKey(KeyCode.LeftAlt))
                 {
-                    LineMgr.inst.DestroyLR(moveSelectLines[i]); 
+                    if (hit.point.y < 0) //Checks if the raycast hit is hitting the ocean, only set the command if it is
+                        AIMgr.inst.HandleMove(SelectionMgr.inst.selectedEntities, movePos);
+
+                    moveStep = CommandSteps.finished;
+                    for (int i = moveSelectLines.Count - 1; i > -1; i--) //destroys the selection lines
+                    {
+                        LineMgr.inst.DestroyLR(moveSelectLines[i]);
+                    }
+                    Debug.Log("finshed no com move");
+                }
+                else
+                {
+                    moveStep = CommandSteps.selectingTarget;
+                    Debug.Log("selecting target");
                 }
             }
+        }
 
+        if (moveStep == CommandSteps.selectingTarget)
+        {
+            Debug.Log("in selecting target");
+            if (moveClicked)
+            {
+                Debug.Log("selecting target clicked");
+                moveClicked = false;
+                Vector3 pos = hit.point;
+                pos.y = 0;
+                Entity381 ent = FindClosestEntInRadius(pos, rClickRadiusSq);
+
+                if (ent != null)
+                {
+                    foreach (Entity381 ownship in SelectionMgr.inst.selectedEntities)
+                    {
+                        LineRenderer lr = LineMgr.inst.CreateCommandRangeLine(ownship, ent);
+                        CommandRangeLine crl = lr.GetComponent<CommandRangeLine>();
+                        crl.ownship = ownship;
+                        crl.target = ent;
+                        AIMgr.inst.HandleMove(ownship, ent, movePos, crl);
+                    } 
+                }
+
+                for (int i = 0; i < moveSelectLines.Count; i++)
+                {
+                    LineRenderer l = moveSelectLines[i];
+                    l.SetPosition(0, SelectionMgr.inst.selectedEntities[i].position);
+                    l.SetPosition(1, SelectionMgr.inst.selectedEntities[i].position);
+                }
+
+                moveStep = CommandSteps.finished;
+            }
         }
     }
 
@@ -256,6 +304,30 @@ public class AIMgr : MonoBehaviour
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(m, uai);
         }
+    }
+
+    public void HandleMove(Entity381 entity, Entity381 target, Vector3 point, CommandRangeLine crl)
+    {
+        Move m = new Move(entity, point);
+        m.condition = CommandCondition.InRangeOfASpecificEntity;
+        m.distanceThreshold = Vector3.Distance(entity.position, target.position)/2f;
+        m.conditionEntity = target;
+
+        if (CommandsMgr.inst.startCommandCondition != CommandCondition.NoCondition)
+            m.startCommand = true;
+        else
+            m.startCommand = false;
+        m.startCondition = CommandsMgr.inst.startCommandCondition;
+        m.startDistanceThreshold = CommandsMgr.inst.startDistanceThreshold;
+        m.clearQueueWhenStart = CommandsMgr.inst.clearQueueWhenStart;
+        m.insertWhenAdded = CommandsMgr.inst.insertWhenAdded;
+        m.startConditionEntity = CommandsMgr.inst.startEntity;
+        m.startConditionEntityType = CommandsMgr.inst.startEntityType;
+
+        crl.command = m;
+
+        UnitAI uai = entity.GetComponent<UnitAI>();
+        AddOrSet(m, uai);
     }
 
     void AddOrSet(Command c, UnitAI uai)

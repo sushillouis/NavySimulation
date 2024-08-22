@@ -7,7 +7,8 @@ public enum CommandSteps
 {
     started,
     selecting,
-    finished
+    finished,
+    selectingTarget
 }
 
 public class VRAIMgr : MonoBehaviour

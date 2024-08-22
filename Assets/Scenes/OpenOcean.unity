@@ -19107,6 +19107,8 @@ MonoBehaviour:
   PotentialPrefab: {fileID: 7190143859791935742, guid: bfa38735ac7725c44979a7084bcd30c6,
     type: 3}
   VOPrefab: {fileID: 0}
+  CommandRangePrefab: {fileID: 7731747306308124120, guid: 4ad640aa7503b494ea943d89dbd75a82,
+    type: 3}
   lines: []
   tmp: {fileID: 0}
 --- !u!1 &1708907976

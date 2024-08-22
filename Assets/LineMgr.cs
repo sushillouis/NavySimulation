@@ -28,6 +28,7 @@ public class LineMgr : MonoBehaviour
     public LineRenderer InterceptPrefab;
     public LineRenderer PotentialPrefab;
     public LineRenderer VOPrefab;
+    public LineRenderer CommandRangePrefab;
 
     public List<LineRenderer> lines = new List<LineRenderer>();
     public LineRenderer CreateMoveLine(Vector3 p1, Vector3 p2)
@@ -73,6 +74,15 @@ public class LineMgr : MonoBehaviour
         lr.SetPosition(0, p1);
         lr.SetPosition(1, p2);
         lr.SetPosition(2, p3);
+        lines.Add(lr);
+        return lr;
+    }
+
+    public LineRenderer CreateCommandRangeLine(Entity381 ownship, Entity381 target)
+    {
+        LineRenderer lr = Instantiate(CommandRangePrefab, transform);
+        lr.SetPosition(0, ownship.position);
+        lr.SetPosition(1, target.position);
         lines.Add(lr);
         return lr;
     }
