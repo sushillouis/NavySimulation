@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEditor.PackageManager;
 
 public class SelectionMgr : MonoBehaviour
 {
@@ -44,24 +46,26 @@ public class SelectionMgr : MonoBehaviour
         {
             if (input.Entities.NextEntity.triggered)
                 SelectNextEntity();
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                if (start)
+                { //start box selecting
+                    isSelecting = true;
+                    mouseUp = false;
+                    start = false;
+                    StartBoxSelecting();
+                }
 
-            if (start)
-            { //start box selecting
-                isSelecting = true;
-                mouseUp = false;
-                start = false;
-                StartBoxSelecting();
+                if (mouseUp)
+                { //end box selecting
+                    isSelecting = false;
+                    EndBoxSelecting();
+                    mouseUp = false;
+                }
+
+                if (isSelecting) // while box selecting
+                    UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
             }
-
-            if (mouseUp)
-            { //end box selecting
-                isSelecting = false;
-                EndBoxSelecting();
-                mouseUp = false;
-            }
-
-            if (isSelecting) // while box selecting
-                UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
         }
 
     }
@@ -184,5 +188,4 @@ public class SelectionMgr : MonoBehaviour
     {
         lShiftDown = false;
     }
-
 }
