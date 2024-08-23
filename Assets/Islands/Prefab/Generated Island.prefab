@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2454523697786320435}
   m_Layer: 0
   m_Name: Generated Island
-  m_TagString: Untagged
+  m_TagString: CreatedIsland
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,16 +67,7 @@ MonoBehaviour:
   meshFilter: {fileID: 5542791964510689567}
   meshRenderer: {fileID: 4775501327691149240}
   meshCollider: {fileID: 1590509521452111217}
-  Trees:
-  - {fileID: 6394734989432219442, guid: 4b4e7076b2fd032488df45528a3bb706, type: 3}
-  - {fileID: 6394734989432219442, guid: 4b4e7076b2fd032488df45528a3bb706, type: 3}
-  rocks:
-  - {fileID: 3221854601935487914, guid: aaade2faa084f114cbdfe234bf1f6987, type: 3}
-  - {fileID: 3221854601935487914, guid: aaade2faa084f114cbdfe234bf1f6987, type: 3}
-  grass:
-  - {fileID: 2720608840982107499, guid: 16dcf656f71726844baafe1bb4b362ac, type: 3}
-  - {fileID: 8786515806504111687, guid: 4f2dd45bd3c9fac448b1ab2f7b807c72, type: 3}
-  - {fileID: 5103027732156833435, guid: d73655e62b1e048419994cd1b4ebb662, type: 3}
+  meshObj: {fileID: 0}
 --- !u!1 &2733223895279023114
 GameObject:
   m_ObjectHideFlags: 0

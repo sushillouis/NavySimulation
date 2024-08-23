@@ -17,9 +17,6 @@ public struct Island
 {
     public IslandSize size;
     public Vector3 position;
-    public GameObject[] trees;
-    public int treeClusters;    //How many tree groups will spawn
-    public int treeCount;   //How many trees spawn per group
 }
 
 public class IslandsMgr : MonoBehaviour
@@ -35,23 +32,22 @@ public class IslandsMgr : MonoBehaviour
 
     public List<GameObject> islands;
     public int islandCount = 0;
-    public int treeClustersDropdown = 0;
-    public float treeDensitySlider = 0;
 
     public int islandSizeMenu = 2;
 
-    GameObject CreateIsland(int size, Vector3 position, GameObject[] islandTrees, int treeClusters, float treeCount)
+    public int textureChoice = 0;
+
+    GameObject CreateIsland(int size, Vector3 position)
     {
-        // print(islandSizeMenu);
-        // islandSizeMenu = 2;
+        FindObjectOfType<TextureChanger>().UpdateTexture(textureChoice);
         GameObject island = Instantiate(islandPrefab, position, Quaternion.identity, islandsParent);
         MapGenerator islandGenerator = island.GetComponent<MapGenerator>();
         if(islandSizeMenu == 0)
-            islandGenerator.terrainData = GenerateTerrainData(IslandSize.Small, smallIslandCurve, islandTrees, treeClusters, treeCount);
+            islandGenerator.terrainData = GenerateTerrainData(IslandSize.Small, smallIslandCurve);
         else if(islandSizeMenu == 1)
-            islandGenerator.terrainData = GenerateTerrainData(IslandSize.Medium, mediumIslandCurve, islandTrees, treeClusters, treeCount);
+            islandGenerator.terrainData = GenerateTerrainData(IslandSize.Medium, mediumIslandCurve);
         else
-            islandGenerator.terrainData = GenerateTerrainData(IslandSize.Large, largeIslandCurve, islandTrees, treeClusters, treeCount);
+            islandGenerator.terrainData = GenerateTerrainData(IslandSize.Large, largeIslandCurve);
         islandGenerator.noiseData = GenerateNoiseData();
         islandGenerator.DrawMap();
         islandCount++;
@@ -68,13 +64,11 @@ public class IslandsMgr : MonoBehaviour
             if (Application.isPlaying)
             {
                 Destroy(islands[i]);
-                Destroy(GameObject.Find("PlacedObjs"+ i));
                 islandCount = 0;
             }
             else
             {
                 DestroyImmediate(islands[i]);
-                DestroyImmediate(GameObject.Find("PlacedObjs"+i));
                 islandCount = 0;
             }
         }
@@ -83,24 +77,10 @@ public class IslandsMgr : MonoBehaviour
 
     public void RedrawIslands()
     {
-        DeleteAllIslands();
-
         foreach (Island island in islandParameters)
         {
-            CreateIsland(islandSizeMenu, island.position, island.trees, island.treeClusters, island.treeCount);
+            CreateIsland(islandSizeMenu, island.position);
         }
-
-    }
-
-    public void RedrawButtonIslands()
-    {
-        DeleteAllIslands();
-
-        foreach (Island island in islandParameters)
-        {
-            CreateIsland(islandSizeMenu, island.position, island.trees, treeClustersDropdown, treeDensitySlider);
-        }
-
     }
 
     NoiseData GenerateNoiseData()
@@ -119,7 +99,7 @@ public class IslandsMgr : MonoBehaviour
         return noiseData;
     }
 
-    TerrainData GenerateTerrainData(IslandSize size, AnimationCurve meshHeightCurve, GameObject[] currentTrees, int treeClusters, float treeCount)
+    TerrainData GenerateTerrainData(IslandSize size, AnimationCurve meshHeightCurve)
     {
         TerrainData terrainData = new TerrainData();
         terrainData.uniformScale = (int)size;
@@ -127,9 +107,6 @@ public class IslandsMgr : MonoBehaviour
         terrainData.useFalloff = true;
         terrainData.meshHeightMultiplier = 20;
         terrainData.meshHeightCurve = meshHeightCurve;
-        terrainData.treeHolder = currentTrees;
-        terrainData.treeCluster = treeClusters;
-        terrainData.treeDensity = treeCount;
         return terrainData;
     }
 }

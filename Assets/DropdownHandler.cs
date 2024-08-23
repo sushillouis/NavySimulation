@@ -7,50 +7,44 @@ using TMPro;
 public class DropdownHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown dropdown;
+    public TreeMaker TreeCluster;
+    public Material baseMat;
 
     private void Start()
     {
-        int pickedEntryIndex = dropdown.value;
-        FindObjectOfType<IslandsMgr>().islandSizeMenu = pickedEntryIndex;
+        GetSizeValue();
+        GetClusterValue();
+        GetTextureValue();
     }
 
     public void GetSizeValue()
     {
         int pickedEntryIndex = dropdown.value;
         FindObjectOfType<IslandsMgr>().islandSizeMenu = pickedEntryIndex;
+        switch(pickedEntryIndex)
+        {
+            case 0:
+                baseMat.SetFloat("_HeightCutoff", 86);
+            break;
+            case 1:
+                baseMat.SetFloat("_HeightCutoff", 100);
+            break;
+            case 2:
+                baseMat.SetFloat("_HeightCutoff", 120);
+            break;
+        }
     }
 
     public void GetClusterValue()
     {
         int pickedEntryIndex = dropdown.value;
-        FindObjectOfType<IslandsMgr>().treeClustersDropdown = pickedEntryIndex;
+        TreeCluster.clusterNum = pickedEntryIndex;
     }
 
-
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     var dropdown = transform.GetComponent<Dropdown>();
-
-    //     dropdown.options.Clear();
-        
-    //     List<string> items = new List<string>();
-    //     items.Add("Item 1");
-    //     items.Add("Item 2");
-
-    //     foreach(var item in items)
-    //     {
-    //         dropdown.options.Add(new Dropdown.OptionData() {text = item});
-    //     }
-
-    //     DropdownItemSelected(dropdown);
-
-    //     dropdown.onValueChanged.AddListener(delegate {DropdownItemSelected(dropdown);});
-    // }
-
-    // void DropdownItemSelected(Dropdown dropdown)
-    // {
-    //     int index = dropdown.value;
-    //     textBox.text = dropdown.options[index].text;
-    // }
+    public void GetTextureValue()
+    {
+        int pickedEntryIndex = dropdown.value;
+        FindObjectOfType<IslandsMgr>().textureChoice = pickedEntryIndex;
+        FindObjectOfType<TreeMaker>().leafTexture = pickedEntryIndex;
+    }
 }

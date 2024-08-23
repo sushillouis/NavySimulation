@@ -53,6 +53,8 @@ public class CameraMgr : MonoBehaviour
     public GameObject RollNode;  // Child of PitchNode
     public Camera camera;
     //Camera is child of RollNode
+    //Test overhead camera
+    public Camera cameraOverhead;
 
     public float cameraMoveSpeed = 500;
     public float cameraTurnRate = 10;
@@ -116,5 +118,29 @@ public class CameraMgr : MonoBehaviour
     private void CamZoom(float increment)
     {
         camera.fieldOfView = Mathf.Clamp(camera.fieldOfView + increment, 0, 100);
+    }
+
+    public void ShowOverheadView() {
+        camera.enabled = false;
+        cameraOverhead.enabled = true;
+    }
+    
+    // Call this function to enable FPS camera,
+    // and disable overhead camera.
+    public void ShowFirstPersonView() {
+        camera.enabled = true;
+        cameraOverhead.enabled = false;
+    }
+
+    [ContextMenu("Overhead")]
+    public void Overhead()
+    {
+        ShowOverheadView();
+    }
+
+    [ContextMenu("ThirdPerson")]
+    public void ThirdPerson()
+    {
+        ShowFirstPersonView();
     }
 }
