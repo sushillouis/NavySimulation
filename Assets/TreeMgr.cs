@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class TreeMgr : MonoBehaviour
@@ -7,23 +8,42 @@ public class TreeMgr : MonoBehaviour
     [ContextMenu("ClusterMove")]
     public void ClusterMove()
     {
-        clusterMover();
+        multipleIslands();
     }
 
     public GameObject TreeTray;
-    public GameObject Islands;
+    // public GameObject Islands;
     public IslandsMgr islandMgr;
     public RaycastHandler rayHandler;
     public int spawnHeight = 180;
 
     public float scale = 0;
 
+    // public GameObject[] islandClusters;
 
+    public void multipleIslands()
+    {
+        List<GameObject> islands = islandMgr.islands;
+        GameObject[] clusterCounter = GameObject.FindGameObjectsWithTag("TreeCluster"); 
+        List<GameObject> islandClusters = new List<GameObject>();
+        int currentCluster = 0;
+        int totalClusters = TreeTray.GetComponent<TreeMaker>().clusterNum - 1;
+        foreach(GameObject i in islands)
+        {
+            for(; currentCluster <= totalClusters; currentCluster++)
+            {
+                islandClusters.Add(clusterCounter[currentCluster]); 
+            }
+            clusterMover(i, islandClusters);
+            islandClusters.Clear();
+            totalClusters = totalClusters + TreeTray.GetComponent<TreeMaker>().clusterNum;
+        }
+
+    }
 
     //Find the random point on which to move the prefab to
-    public void clusterMover()
+    public void clusterMover(GameObject island, List<GameObject> clusterCount)
     {
-        GameObject island = Islands.transform.GetChild(0).gameObject;
         int islandScale = islandMgr.islandSizeMenu;
         switch(islandScale)
         {
@@ -43,8 +63,6 @@ public class TreeMgr : MonoBehaviour
         float minPtX = island.transform.position.x - scale;
         float minPtZ = island.transform.position.z - scale;
         float noiseRef = 0;
-
-        GameObject[] clusterCount = GameObject.FindGameObjectsWithTag("TreeCluster");
         
         foreach(GameObject treeTray in clusterCount)
         {

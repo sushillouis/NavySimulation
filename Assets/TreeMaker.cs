@@ -44,7 +44,7 @@ public class TreeMaker : MonoBehaviour
 
             if(clusterNum > 1)
             {
-                for(int i = 0; i < clusterNum - 1; i++)
+                for(int i = 0; i < (clusterNum * FindObjectOfType<IslandsMgr>().islandCount) - 1; i++)
                 {
                     GameObject cluster = Instantiate(treeTray, new Vector3(25500, 0, 25500), Quaternion.identity, clusterParent);
                     duplicateClusterList.Add(cluster);

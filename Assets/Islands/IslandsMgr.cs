@@ -16,7 +16,7 @@ public enum IslandSize
 public struct Island
 {
     public IslandSize size;
-    public Vector3 position;
+    // public  position;
 }
 
 public class IslandsMgr : MonoBehaviour
@@ -37,9 +37,16 @@ public class IslandsMgr : MonoBehaviour
 
     public int textureChoice = 0;
 
+    public TextureChanger textureChanger;
+
+    public int formation;
+    
+    [HideInInspector]
+    public List<Vector3> position;
+
     GameObject CreateIsland(int size, Vector3 position)
     {
-        FindObjectOfType<TextureChanger>().UpdateTexture(textureChoice);
+        textureChanger.UpdateTexture(textureChoice);
         GameObject island = Instantiate(islandPrefab, position, Quaternion.identity, islandsParent);
         MapGenerator islandGenerator = island.GetComponent<MapGenerator>();
         if(islandSizeMenu == 0)
@@ -77,9 +84,10 @@ public class IslandsMgr : MonoBehaviour
 
     public void RedrawIslands()
     {
-        foreach (Island island in islandParameters)
+        FormationDeclaration(formation);
+        foreach (Vector3 pos in position)
         {
-            CreateIsland(islandSizeMenu, island.position);
+            CreateIsland(islandSizeMenu, pos);
         }
     }
 
@@ -108,5 +116,24 @@ public class IslandsMgr : MonoBehaviour
         terrainData.meshHeightMultiplier = 20;
         terrainData.meshHeightCurve = meshHeightCurve;
         return terrainData;
+    }
+
+    void FormationDeclaration(int format)
+    {
+        position.Clear();
+        int randomizationPos = Random.Range(-500, 500);
+        switch(format)
+        {
+            case 0:
+                position.Add(new Vector3(5000, 0, 0));
+            break;
+            case 1:
+                position.Add(new Vector3(5000 + randomizationPos, 0, 0));
+                position.Add(new Vector3(-5000, 0, 0));
+                position.Add(new Vector3(15000 + randomizationPos, 0, 0));
+            break;
+
+        }
+
     }
 }

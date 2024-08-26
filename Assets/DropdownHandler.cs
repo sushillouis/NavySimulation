@@ -47,4 +47,10 @@ public class DropdownHandler : MonoBehaviour
         FindObjectOfType<IslandsMgr>().textureChoice = pickedEntryIndex;
         FindObjectOfType<TreeMaker>().leafTexture = pickedEntryIndex;
     }
+
+    public void GetFormatValue()
+    {
+        int pickedEntryIndex = dropdown.value;
+        FindObjectOfType<IslandsMgr>().formation = pickedEntryIndex;
+    }
 }
