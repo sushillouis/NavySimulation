@@ -19,10 +19,10 @@ public class DHDS {
 [System.Serializable]
 public class Command 
 {
-    public Entity381 entity;
+    public Entity entity;
     public LineRenderer line;
     public bool isRunning = false;
-    public Command(Entity381 ent)
+    public Command(Entity ent)
     {
         entity = ent;
     }

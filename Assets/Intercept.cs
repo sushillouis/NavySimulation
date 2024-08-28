@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Intercept : Follow
 {
-    public Intercept(Entity381 ent, Entity381 target): base(ent, target, Vector3.zero)
+    public Intercept(Entity ent, Entity target): base(ent, target, Vector3.zero)
     {
         //Follow does all the work
     }

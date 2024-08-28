@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UnitAI : MonoBehaviour
 {
-    public Entity381 entity; //public only for ease of debugging
+    public Entity entity; //public only for ease of debugging
     // Start is called before the first frame update
     void Start()
     {
-        entity = GetComponentInParent<Entity381>();
+        entity = GetComponentInParent<Entity>();
         commands = new List<Command>();
         intercepts = new List<Intercept>();
         moves = new List<Move>();

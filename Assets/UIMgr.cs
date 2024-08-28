@@ -34,7 +34,7 @@ public class UIMgr : MonoBehaviour
     void Update()
     {
         if(SelectionMgr.inst.selectedEntity != null) {
-            Entity381 ent = SelectionMgr.inst.selectedEntity;
+            Entity ent = SelectionMgr.inst.selectedEntity;
             entityName.text = ent.gameObject.name;
             speed.text = ent.speed.ToString("F2") + " m/s";
             desiredSpeed.text = ent.desiredSpeed.ToString("F2") + " m/s";

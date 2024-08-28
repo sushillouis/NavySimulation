@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class Potential
 {
-    public Entity381 ownship;
-    public Entity381 target;
+    public Entity ownship;
+    public Entity target;
     public float distance;
     public Vector3 diff;
     public Vector3 relativeVelocity; //Your vel relative to me (yourVel - myVel)
@@ -15,7 +15,7 @@ public class Potential
     public CPAInfo cpaInfo;
     public float targetAngle;
 
-    public Potential(Entity381 own, Entity381 tgt)
+    public Potential(Entity own, Entity tgt)
     {
         ownship = own;
         target = tgt;
@@ -37,8 +37,8 @@ public class Potential
 [System.Serializable]
 public class CPAInfo
 {
-    public Entity381 ownship;
-    public Entity381 target;
+    public Entity ownship;
+    public Entity target;
     public Vector3 ownShipPosition = Vector3.zero;
     public Vector3 targetPosition = Vector3.zero;
     public float time = 0;
@@ -53,7 +53,7 @@ public class CPAInfo
     float relSpeedSquared = 0;
     Vector3 diff;
 
-    public CPAInfo(Entity381 e1, Entity381 e2)
+    public CPAInfo(Entity e1, Entity e2)
     {
         ownship = e1;
         target = e2;
@@ -91,7 +91,7 @@ public class DistanceMgr : MonoBehaviour
     }
 
     public Potential[,] potentials2D;
-    public Dictionary<Entity381, Dictionary<Entity381, Potential>> potentialsDictionary;
+    public Dictionary<Entity, Dictionary<Entity, Potential>> potentialsDictionary;
     public List<List<Potential>> potentialsList;
 
     // Start is called before the first frame update
@@ -106,18 +106,18 @@ public class DistanceMgr : MonoBehaviour
     public void Initialize()
     {
         isInitialized = true;
-        potentialsDictionary = new Dictionary<Entity381, Dictionary<Entity381, Potential>>();
+        potentialsDictionary = new Dictionary<Entity, Dictionary<Entity, Potential>>();
         potentialsList = new List<List<Potential>>();
         int n = EntityMgr.inst.entities.Count;
         potentials2D = new Potential[n, n];
         i = 0;
-        foreach (Entity381 ent1 in EntityMgr.inst.entities) {
-            Dictionary<Entity381, Potential> ent1PotDictionary = new Dictionary<Entity381, Potential>();
+        foreach (Entity ent1 in EntityMgr.inst.entities) {
+            Dictionary<Entity, Potential> ent1PotDictionary = new Dictionary<Entity, Potential>();
             List<Potential> ent1PotList = new List<Potential>();
             potentialsDictionary.Add(ent1, ent1PotDictionary);
             potentialsList.Add(ent1PotList);
             j = 0;
-            foreach (Entity381 ent2 in EntityMgr.inst.entities) {
+            foreach (Entity ent2 in EntityMgr.inst.entities) {
                 Potential pot = new Potential(ent1, ent2);
                 ent1PotDictionary.Add(ent2, pot);
                 ent1PotList.Add(pot);
@@ -145,7 +145,7 @@ public class DistanceMgr : MonoBehaviour
     void UpdatePotentials()
     {
         Potential p1, p2;
-        Entity381 ent1, ent2;
+        Entity ent1, ent2;
         for(int i = 0; i < EntityMgr.inst.entities.Count - 1; i++) {
             ent1 = EntityMgr.inst.entities[i];
             if (ent1 == SelectionMgr.inst.selectedEntity)
@@ -177,7 +177,7 @@ public class DistanceMgr : MonoBehaviour
         }
     }
 
-    public Potential GetPotential(Entity381 e1, Entity381 e2)
+    public Potential GetPotential(Entity e1, Entity e2)
     {
         Potential p = null;
         if (isInitialized)

@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Follow : Move
 {
-    public Entity381 targetEntity;
+    public Entity targetEntity;
     public Vector3 relativeOffset;
-    public Follow(Entity381 ent, Entity381 target, Vector3 delta): base(ent, target.transform.position)
+    public Follow(Entity ent, Entity target, Vector3 delta): base(ent, target.transform.position)
     {
         targetEntity = target;
         relativeOffset = delta;

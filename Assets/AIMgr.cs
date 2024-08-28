@@ -42,7 +42,7 @@ public class AIMgr : MonoBehaviour
                 //Debug.DrawLine(Camera.main.transform.position, hit.point, Color.yellow, 2); //for debugging
                 Vector3 pos = hit.point;
                 pos.y = 0;
-                Entity381 ent = FindClosestEntInRadius(pos, rClickRadiusSq);
+                Entity ent = FindClosestEntInRadius(pos, rClickRadiusSq);
                 if (ent == null) {
                     HandleMove(SelectionMgr.inst.selectedEntities, pos);
                 } else {
@@ -57,9 +57,9 @@ public class AIMgr : MonoBehaviour
         }
     }
 
-    public void HandleMove(List<Entity381> entities, Vector3 point)
+    public void HandleMove(List<Entity> entities, Vector3 point)
     {
-        foreach (Entity381 entity in entities) {
+        foreach (Entity entity in entities) {
             Move m = new Move(entity, hit.point);
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(m, uai);
@@ -76,18 +76,18 @@ public class AIMgr : MonoBehaviour
 
 
 
-    public void HandleFollow(List<Entity381> entities, Entity381 ent)
+    public void HandleFollow(List<Entity> entities, Entity ent)
     {
-        foreach (Entity381 entity in SelectionMgr.inst.selectedEntities) {
+        foreach (Entity entity in SelectionMgr.inst.selectedEntities) {
             Follow f = new Follow(entity, ent, new Vector3(100, 0, 0));
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(f, uai);
         }
     }
 
-    void HandleIntercept(List<Entity381> entities, Entity381 ent)
+    void HandleIntercept(List<Entity> entities, Entity ent)
     {
-        foreach (Entity381 entity in SelectionMgr.inst.selectedEntities) {
+        foreach (Entity entity in SelectionMgr.inst.selectedEntities) {
             Intercept intercept = new Intercept(entity, ent);
             UnitAI uai = entity.GetComponent<UnitAI>();
             AddOrSet(intercept, uai);
@@ -96,11 +96,11 @@ public class AIMgr : MonoBehaviour
     }
 
     public float rClickRadiusSq = 10000;
-    public Entity381 FindClosestEntInRadius(Vector3 point, float rsq)
+    public Entity FindClosestEntInRadius(Vector3 point, float rsq)
     {
-        Entity381 minEnt = null;
+        Entity minEnt = null;
         float min = float.MaxValue;
-        foreach (Entity381 ent in EntityMgr.inst.entities) {
+        foreach (Entity ent in EntityMgr.inst.entities) {
             float distanceSq = (ent.transform.position - point).sqrMagnitude;
             if (distanceSq < rsq) {
                 if (distanceSq < min) {

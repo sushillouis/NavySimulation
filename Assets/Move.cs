@@ -6,7 +6,7 @@ using UnityEngine;
 public class Move : Command
 {
     public Vector3 movePosition;
-    public Move(Entity381 ent, Vector3 pos) : base(ent)
+    public Move(Entity ent, Vector3 pos) : base(ent)
     {
         movePosition = pos;
     }
@@ -50,7 +50,7 @@ public class Move : Command
     {
         Potential p;
         repulsivePotential = Vector3.one; repulsivePotential.y = 0;
-        foreach (Entity381 ent in EntityMgr.inst.entities) {
+        foreach (Entity ent in EntityMgr.inst.entities) {
             if (ent == entity) continue;
             p = DistanceMgr.inst.GetPotential(entity, ent);
             if (p.distance < AIMgr.inst.potentialDistanceThreshold) {

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Selector : MonoBehaviour
 {
-    public Entity381 entity;
+    public Entity entity;
     // Start is called before the first frame update
     void Start()
     {
-        entity = GetComponentInParent<Entity381>();
+        entity = GetComponentInParent<Entity>();
     }
 
     // Update is called once per frame

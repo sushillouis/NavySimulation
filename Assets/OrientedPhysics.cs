@@ -7,11 +7,11 @@ public class OrientedPhysics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        entity = GetComponentInParent<Entity381>();
+        entity = GetComponentInParent<Entity>();
         entity.position = transform.localPosition;
     }
 
-    public Entity381 entity;
+    public Entity entity;
 
 
     // Update is called once per frame
