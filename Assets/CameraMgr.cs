@@ -51,7 +51,7 @@ public class CameraMgr : MonoBehaviour
     public GameObject YawNode;   // Child of RTSCameraRig
     public GameObject PitchNode; // Child of YawNode
     public GameObject RollNode;  // Child of PitchNode
-    public Camera camera;
+    public Camera myCamera;
     //Camera is child of RollNode
 
     public float cameraMoveSpeed = 500;
@@ -115,6 +115,6 @@ public class CameraMgr : MonoBehaviour
 
     private void CamZoom(float increment)
     {
-        camera.fieldOfView = Mathf.Clamp(camera.fieldOfView + increment, 0, 100);
+        myCamera.fieldOfView = Mathf.Clamp(myCamera.fieldOfView + increment, 0, 100);
     }
 }
