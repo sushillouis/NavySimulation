@@ -16,6 +16,12 @@ public class ButtonMgr : MonoBehaviour
         StartCoroutine(IslandGenerate());
     }
 
+    [ContextMenu("TestRandomIsland")]
+    public void TestRandomIsland()
+    {
+        StartCoroutine(IslandGenerate());
+    }
+
     [ContextMenu("TestDelete")]
     public void TestDelete()
     {
