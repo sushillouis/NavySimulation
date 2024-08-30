@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum MovementType
+{
+    Regular,
+    PotentialFields,
+    VelocityObstacles
+}
+
 public class AIMgr : MonoBehaviour
 {
     public static AIMgr inst;
@@ -23,16 +30,23 @@ public class AIMgr : MonoBehaviour
         input.Entities.ClearSelection.canceled += OnClearSelectionCanceled;
     }
 
-    public bool isPotentialFieldsMovement = false;
+    public MovementType movementType = MovementType.Regular;
+
+    [Header("VO Parameters")]
+    public float collisionRadius = 550;
+    public float tcpaLimit = 200;
+    public bool useSetCollisionRadius = false;
+
+    [Header("Potential Parameters")]
     public float potentialDistanceThreshold = 1000;
     public float attractionCoefficient = 500;
     public float attractiveExponent = -1;
     public float repulsiveCoefficient = 60000;
     public float repulsiveExponent = -2.0f;
 
-
-    public RaycastHit hit;
+    [Header("Other Parameters")]
     public int layerMask;
+    public RaycastHit hit;
 
     // Update is called once per frame
     void Update()

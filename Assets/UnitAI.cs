@@ -107,7 +107,7 @@ public class UnitAI : MonoBehaviour
         }
 
         //potential fields lines
-        if(!(current is Follow) && !(current is Intercept) && AIMgr.inst.isPotentialFieldsMovement){ 
+        if(!(current is Follow) && !(current is Intercept) && AIMgr.inst.movementType == MovementType.PotentialFields){ 
             Move m = current as Move;
             m.potentialLine.SetPosition(0, entity.position);
             Vector3 newpos = Vector3.zero;
@@ -118,6 +118,12 @@ public class UnitAI : MonoBehaviour
             m.potentialLine.SetPosition(1, entity.position + newpos);
             m.potentialLine.gameObject.SetActive(entity.isSelected);
         }
+        else
+        {
+            Move m = current as Move;
+            m.potentialLine.gameObject.SetActive(false);
+        }
+           
 
 
     }

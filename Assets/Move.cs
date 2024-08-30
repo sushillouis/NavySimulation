@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 [System.Serializable]
@@ -24,13 +25,16 @@ public class Move : Command
     public override void Tick()
     {
         DHDS dhds;
-        if (AIMgr.inst.isPotentialFieldsMovement)
+        if (AIMgr.inst.movementType == MovementType.PotentialFields)
             dhds = ComputePotentialDHDS();
+        else if (AIMgr.inst.movementType == MovementType.VelocityObstacles)
+            dhds = ComputeVODHDS(entity, EntityMgr.inst.entities);
         else
             dhds = ComputeDHDS();
 
         entity.desiredHeading = dhds.dh;
         entity.desiredSpeed = dhds.ds;
+
         line.SetPosition(1, movePosition);
     }
 
@@ -82,7 +86,96 @@ public class Move : Command
     public float cosValue;
     public float ds;
 
+    Entity priorityEnt = null;
 
+    public DHDS ComputeVODHDS(Entity ownship, List<Entity> entities)
+    {
+        List<Entity> riskObstacles = DetectRiskEntities(ownship.velocity, ownship, entities);
+
+        float tcpaPrio = priorityEnt != null ? Utils.TCPA(entity, priorityEnt) : 0f;
+        if (tcpaPrio < 0f)
+            priorityEnt = null;
+
+        foreach (Entity target in riskObstacles)
+        {
+            float TCPA = Utils.TCPA(ownship, target);
+
+            if (TCPA >= 0 && TCPA < AIMgr.inst.tcpaLimit)
+            {
+                if (priorityEnt == null || TCPA < tcpaPrio)
+                {
+                    priorityEnt = target;
+                    tcpaPrio = TCPA;
+                }
+            }
+        }
+
+        if (priorityEnt != null)
+            return FindVODHDS(ownship, priorityEnt, entities);
+        else
+            return ComputeDHDS();
+    }
+
+    public List<Entity> DetectRiskEntities(Vector3 velocity, Entity ownship, List<Entity> entities)
+    {
+        List<Entity> output = new List<Entity>();
+
+        foreach (Entity target in entities)
+        {
+            if (target == ownship) continue;
+
+            float dist = Vector3.Distance(ownship.position, target.position);
+
+            VO velObs = VOMgr.inst.GetVO(ownship, target);
+            //VO velObs = new VO(ownship, target);
+            //velObs.CalcVO();
+            float alpha = velObs.CalcAlpha(velocity);
+
+            if (dist < velObs.collisionRadius || (Utils.AngleBetween(alpha, velObs.minusDelta, velObs.plusDelta)))
+            {
+                if (velObs.giveWay)
+                    output.Add(target);
+            }
+        }
+        return output;
+    }
+
+    public DHDS FindVODHDS(Entity ownship, Entity priorityEnt, List<Entity> entities)
+    {
+        float bestAngle = ownship.heading;
+        float bestSpeed = 0;
+        float bestDCPA = Mathf.Infinity;
+
+        for (float angle = 0; angle <= 120; angle += 5)
+        {
+            for (float speed = 1; speed >= 0; speed -= 0.25f)
+            {
+                float newHeading = Utils.Degrees360(ownship.heading + angle);
+                Vector3 newVelocity = ownship.maxSpeed * speed * new Vector3(Mathf.Sin(newHeading * Mathf.Deg2Rad), 0, Mathf.Cos(newHeading * Mathf.Deg2Rad));
+                List<Entity> newRiskObstacles = DetectRiskEntities(newVelocity, ownship, entities);
+
+                if (newRiskObstacles.Count == 0 && speed >= bestSpeed)
+                {
+                    Vector3 prioRelPos = priorityEnt.position - ownship.position;
+                    Vector3 prioRelVel = priorityEnt.velocity - newVelocity;
+                    float t = Mathf.Acos(Vector3.Dot(-prioRelPos, prioRelVel) / (prioRelPos.magnitude * prioRelVel.magnitude));
+                    float DCPA = prioRelPos.magnitude * Mathf.Sin(t);
+                    float TCPA = prioRelPos.magnitude * Mathf.Cos(t) / prioRelVel.magnitude;
+
+                    VO velObs = VOMgr.inst.GetVO(ownship, priorityEnt);
+
+                    if (DCPA < bestDCPA && DCPA > velObs.collisionRadius && TCPA > 0)
+                    {
+                        bestAngle = newHeading;
+                        bestSpeed = speed;
+                        bestDCPA = DCPA;
+                    }
+                }
+            }
+        }
+
+        return new DHDS(bestAngle, ownship.maxSpeed * bestSpeed);
+    }
 
     public float doneDistanceSq = 1000;
     public override bool IsDone()
