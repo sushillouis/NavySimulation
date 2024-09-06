@@ -46,26 +46,23 @@ public class SelectionMgr : MonoBehaviour
         {
             if (input.Entities.NextEntity.triggered)
                 SelectNextEntity();
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                if (start)
-                { //start box selecting
-                    isSelecting = true;
-                    mouseUp = false;
-                    start = false;
-                    StartBoxSelecting();
-                }
-
-                if (mouseUp)
-                { //end box selecting
-                    isSelecting = false;
-                    EndBoxSelecting();
-                    mouseUp = false;
-                }
-
-                if (isSelecting) // while box selecting
-                    UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
+            if (start)
+            { //start box selecting
+                isSelecting = true;
+                mouseUp = false;
+                start = false;
+                StartBoxSelecting();
             }
+
+            if (mouseUp)
+            { //end box selecting
+                isSelecting = false;
+                EndBoxSelecting();
+                mouseUp = false;
+            }
+
+            if (isSelecting) // while box selecting
+                UpdateSelectionBox(startMousePosition, input.Entities.CursorPosition.ReadValue<Vector2>());
         }
 
     }

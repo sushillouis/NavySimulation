@@ -5,9 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class Follow : Move
 {
+    public bool useRegular = false;
+
     public Entity381 targetEntity;
     public Vector3 relativeOffset;
-    public bool useRegular = false;
 
     public Follow(Entity381 ent, Entity381 target, Vector3 delta): base(ent, target.transform.position)
     {
@@ -22,6 +23,8 @@ public class Follow : Move
         offset = targetEntity.transform.TransformVector(relativeOffset);
         line = LineMgr.inst.CreateFollowLine(entity.position, targetEntity.position + offset, targetEntity.position);
         line.gameObject.SetActive(false);
+
+        startPosition = entity.position;
     }
 
     public float followThreshold = 25000;

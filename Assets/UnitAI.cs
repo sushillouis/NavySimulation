@@ -25,7 +25,10 @@ public class UnitAI : MonoBehaviour
     {
         if (commands.Count > 0) {
             if (commands[0].IsDone()) {
+                if (commands.Count > 1)
+                    commands[1].Init();
                 StopAndRemoveCommand(0);
+                Debug.Log("command done");
             } else {
                 commands[0].Tick();
                 commands[0].isRunning = true;
@@ -51,8 +54,8 @@ public class UnitAI : MonoBehaviour
 
     public void AddCommand(Command c)
     {
-        //print("Adding command; " + c.ToString());
         c.Init();
+        //print("Adding command; " + c.ToString());
         commands.Add(c);
         if (c is Intercept)
             intercepts.Add(c as Intercept);
