@@ -14,16 +14,39 @@ public class SaveTest : MonoBehaviour, IDataPersistence
     public float heading;
     public float dh;
 
+    public List<UnitAI> uais;
+    public List<Command> commands;
+    public List<int> commandsIndex;
+
+    bool add;
+
     // Start is called before the first frame update
     void Start()
     {
         id = Random.Range(0, 10);
+        uais = new List<UnitAI>();
+        commands = new List<Command>();
+        commandsIndex = new List<int>();
+        add = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        if (add)
+        {
+            for (int i = 0; i < uais.Count; i++)
+            {
+                if (commandsIndex[i] != -1)
+                {
+                    commands[i].Init();
+                    uais[i].commands.Insert(commandsIndex[i], commands[i]);
+                }
+                if (commands[i].startCommand)
+                    uais[i].HandleStartCommand(commands[i]);
+            }
+            add = false;
+        }
     }
 
     public void LoadData(GameData data)
@@ -43,23 +66,19 @@ public class SaveTest : MonoBehaviour, IDataPersistence
         }
 
         foreach(Entity381 ent in EntityMgr.inst.entities)
-        {
-            Debug.Log("searchign for " + ent.name + " commands");
-            
+        {  
             List<int> dataIndexes = new List<int>();
 
             for (int j = 0; j < data.commandEntIndex.Count; j++)
             {
                 if (data.commandEntIndex[j] == EntityMgr.inst.entities.IndexOf(ent))
                 {
-                    Debug.Log("command found");
                     dataIndexes.Add(j);
                 }
             }
 
             foreach (int dataIndex in dataIndexes)
             {
-                Debug.Log("command #" + dataIndex);
 
                 Command newCmd;
 
@@ -94,21 +113,18 @@ public class SaveTest : MonoBehaviour, IDataPersistence
                     newCmd.startConditionEntity = null;
                 newCmd.startConditionEntityType = (EntityType) data.startConditionEntityType[dataIndex];
 
-                if (data.commandIndex[dataIndex] != -1)
-                {
-                    ent.GetComponent<UnitAI>().AddCommand(newCmd);
-                    Debug.Log("command #" + dataIndex + " added to " + ent.name);
-                    Debug.Log(ent.GetComponent<UnitAI>().commands.Count);
-                }
-                if (data.startCommand[dataIndex] == true)
-                    ent.GetComponent<UnitAI>().startCommands.Add(newCmd);
+                UnitAI uai = ent.GetComponent<UnitAI>();
+                
+                uais.Add(uai);
+                commands.Add(newCmd);
+                commandsIndex.Add(data.commandIndex[dataIndex]);
             }
         }
-}
+        add = true;
+    }
 
     public void SaveData(GameData data)
     {
-        Entity381 entity = EntityMgr.inst.entities[id];
 
         data.Clear();
 

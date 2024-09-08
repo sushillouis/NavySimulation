@@ -12,8 +12,12 @@ public class DataPersistenceMgr : MonoBehaviour
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
+    [SerializeField] private bool useEncryption;
 
     FileDataHandler dataHandler;
+
+    private int stateID;
+    private string selectedProfileID = "test";
 
     private void Awake()
     {
@@ -26,7 +30,7 @@ public class DataPersistenceMgr : MonoBehaviour
 
         NewGame();
 
-        this.dataHandler = new FileDataHandler("C:/Users/liamf.UNR/Documents", fileName);
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         this.dataPersistenceObjects = FindAllPersistenceObjects();
 
     }
@@ -51,7 +55,7 @@ public class DataPersistenceMgr : MonoBehaviour
 
     public void LoadGame()
     {
-        this.gameData = dataHandler.Load();
+        this.gameData = dataHandler.Load(selectedProfileID);
         
         if(this.gameData == null)
         {
@@ -74,7 +78,7 @@ public class DataPersistenceMgr : MonoBehaviour
             p.SaveData(gameData);
         }
 
-        dataHandler.Save(gameData);
+        dataHandler.Save(gameData, selectedProfileID);
     }
 
     private List<IDataPersistence> FindAllPersistenceObjects()

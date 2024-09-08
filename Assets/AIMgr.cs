@@ -59,7 +59,6 @@ public class AIMgr : MonoBehaviour
             SelectingFollow(followEnt);
         else if (moveStep != CommandSteps.finished)
         {
-            Debug.Log("move selecting running");
             SelectingMove();
         }
         else if (moveClicked)
@@ -223,7 +222,6 @@ public class AIMgr : MonoBehaviour
             //Once the mouse is released, finalize the command
             if (!moveDown && moveStep != CommandSteps.selectingTarget) 
             {
-                Debug.Log("found movePos");
                 movePos = hit.point;
                 if (!Input.GetKey(KeyCode.LeftAlt))
                 {
@@ -235,22 +233,18 @@ public class AIMgr : MonoBehaviour
                     {
                         LineMgr.inst.DestroyLR(moveSelectLines[i]);
                     }
-                    Debug.Log("finshed no com move");
                 }
                 else
                 {
                     moveStep = CommandSteps.selectingTarget;
-                    Debug.Log("selecting target");
                 }
             }
         }
 
         if (moveStep == CommandSteps.selectingTarget)
         {
-            Debug.Log("in selecting target");
             if (moveClicked)
             {
-                Debug.Log("selecting target clicked");
                 moveClicked = false;
                 Vector3 pos = hit.point;
                 pos.y = 0;

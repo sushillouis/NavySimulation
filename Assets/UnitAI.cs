@@ -19,6 +19,7 @@ public class UnitAI : MonoBehaviour
     public List<Command> commands;
     public List<Intercept> intercepts;
     public List<Command> startCommands;
+    public bool check;
 
     // Update is called once per frame
     void Update()
@@ -28,7 +29,6 @@ public class UnitAI : MonoBehaviour
                 if (commands.Count > 1)
                     commands[1].Init();
                 StopAndRemoveCommand(0);
-                Debug.Log("command done");
             } else {
                 commands[0].Tick();
                 commands[0].isRunning = true;
