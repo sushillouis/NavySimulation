@@ -35,22 +35,28 @@ public class SaveTest : MonoBehaviour, IDataPersistence
     {
         if (add)
         {
+            LineMgr.inst.DestroyAllLines();
             for (int i = 0; i < uais.Count; i++)
             {
                 if (commandsIndex[i] != -1)
                 {
-                    commands[i].Init();
-                    uais[i].commands.Insert(commandsIndex[i], commands[i]);
+                    uais[i].AddCommand(commands[i]);
                 }
                 if (commands[i].startCommand)
                     uais[i].HandleStartCommand(commands[i]);
             }
             add = false;
+
+            commands.Clear();
+            uais.Clear();
+            commandsIndex.Clear();
         }
     }
 
     public void LoadData(GameData data)
     {
+        LineMgr.inst.DestroyAllLines();
+
         EntityMgr.inst.ResetEntities();
 
         EntityMgr.entityId = data.entityID - (data.entityIndex.Count);

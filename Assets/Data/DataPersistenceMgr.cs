@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
 
 public class DataPersistenceMgr : MonoBehaviour
 {
@@ -16,12 +17,15 @@ public class DataPersistenceMgr : MonoBehaviour
 
     FileDataHandler dataHandler;
 
-    private int stateID;
-    private string selectedProfileID = "test";
+    public int stateID;
+    public int maxStateID;
+    public string selectedProfileID = "test";
 
     private void Awake()
     {
         inst = this;
+        stateID = 0;
+        maxStateID = 0;
     }
 
     private void Start()
@@ -30,6 +34,8 @@ public class DataPersistenceMgr : MonoBehaviour
 
         NewGame();
 
+        string path = Path.Combine(Application.persistentDataPath, "saves");
+
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         this.dataPersistenceObjects = FindAllPersistenceObjects();
 
@@ -37,14 +43,14 @@ public class DataPersistenceMgr : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.F2)) 
-        { 
-            SaveGame();
+        if(Input.GetKeyUp(KeyCode.RightBracket)) 
+        {
+            LoadForward();
         }
 
-        if(Input.GetKeyUp(KeyCode.F3))
+        if(Input.GetKeyUp(KeyCode.LeftBracket))
         {
-            LoadGame();
+            LoadBackward();
         }
     }
 
@@ -79,6 +85,46 @@ public class DataPersistenceMgr : MonoBehaviour
         }
 
         dataHandler.Save(gameData, selectedProfileID);
+    }
+
+    public void HandleSaveState()
+    {
+        selectedProfileID = "state" + (stateID + 1);
+
+        SaveGame();
+
+        stateID++;
+        maxStateID = stateID;
+
+    }
+
+    public void LoadForward()
+    {
+        if (stateID == maxStateID)
+        {
+            Debug.Log("At max state");
+            return;
+        }
+
+        stateID++;
+        selectedProfileID = "state" + stateID;
+        LoadGame();
+        
+    }
+
+    public void LoadBackward()
+    {
+        if (stateID <= 1)
+        {
+            Debug.Log("At min state");
+        }
+        else
+        {
+            stateID--;
+            selectedProfileID = "state" + stateID;
+        }
+
+        LoadGame();
     }
 
     private List<IDataPersistence> FindAllPersistenceObjects()

@@ -46,9 +46,11 @@ public class FileDataHandler
             }
             catch (Exception e)
             {
-                Debug.LogError("Error occured when trying to save file: " + fullPath + "\n" + e);
+                Debug.LogError("Error occured when trying to load file: " + fullPath + "\n" + e);
             }
         }
+        else
+            Debug.Log(fullPath + " doesn't haave a file");
         return loadedData;
     }
 

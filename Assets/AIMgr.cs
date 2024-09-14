@@ -160,6 +160,8 @@ public class AIMgr : MonoBehaviour
                 {
                     LineMgr.inst.DestroyLR(followSelectLines[i]);
                 }
+
+                DataPersistenceMgr.inst.HandleSaveState();
             }
 
         }
@@ -233,6 +235,8 @@ public class AIMgr : MonoBehaviour
                     {
                         LineMgr.inst.DestroyLR(moveSelectLines[i]);
                     }
+
+                    DataPersistenceMgr.inst.HandleSaveState();
                 }
                 else
                 {
@@ -270,6 +274,8 @@ public class AIMgr : MonoBehaviour
                 }
 
                 moveStep = CommandSteps.finished;
+
+                DataPersistenceMgr.inst.HandleSaveState();
             }
         }
     }

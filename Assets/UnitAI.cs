@@ -26,8 +26,6 @@ public class UnitAI : MonoBehaviour
     {
         if (commands.Count > 0) {
             if (commands[0].IsDone()) {
-                if (commands.Count > 1)
-                    commands[1].Init();
                 StopAndRemoveCommand(0);
             } else {
                 commands[0].Tick();

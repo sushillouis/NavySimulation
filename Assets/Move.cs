@@ -26,8 +26,8 @@ public class Move : Command
     public LineRenderer potentialLine;
     public override void Init()
     {
-        LineMgr.inst.DestroyLR(line);
-        LineMgr.inst.DestroyLR(potentialLine);
+        //LineMgr.inst.DestroyLR(line);
+        //LineMgr.inst.DestroyLR(potentialLine);
         //Debug.Log("MoveInit:\tMoving to: " + movePosition);
         line = LineMgr.inst.CreateMoveLine(entity.position, movePosition);
         line.gameObject.SetActive(false);
