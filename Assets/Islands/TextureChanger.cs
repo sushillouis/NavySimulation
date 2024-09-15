@@ -21,6 +21,7 @@ public class TextureChanger : MonoBehaviour
 
 
     public IslandsMgr islandMgr;
+    public TreeMaker treeMaker;
 
     private float scale1 = .14f;
     private float scale3 = .07f;
@@ -39,7 +40,7 @@ public class TextureChanger : MonoBehaviour
         switch (playerChoice)
         {
             case 0:
-            if(islandMgr.islandSizeMenu > 0)
+            if(islandMgr.islandParameters[treeMaker.islandChoice].islandSizeMenu > 0)
                 baseMat.SetTexture("_TextureA", GrassySand);
             else
                 baseMat.SetTexture("_TextureA", Sand);
@@ -47,7 +48,7 @@ public class TextureChanger : MonoBehaviour
                 baseMat.SetFloat("_Scale", scale1);
             break;
             case 1:
-            if(islandMgr.islandSizeMenu > 0)
+            if(islandMgr.islandParameters[treeMaker.islandChoice].islandSizeMenu > 0)
                 baseMat.SetTexture("_TextureA", VeryGrassySand);
             else
                 baseMat.SetTexture("_TextureA", Sand);
@@ -55,7 +56,7 @@ public class TextureChanger : MonoBehaviour
                 baseMat.SetFloat("_Scale", scale4);
             break;
             case 2:
-            if(islandMgr.islandSizeMenu > 0)
+            if(islandMgr.islandParameters[treeMaker.islandChoice].islandSizeMenu > 0)
                 baseMat.SetTexture("_TextureA", DirtSand);
             else
                 baseMat.SetTexture("_TextureA", Sand);
@@ -63,7 +64,7 @@ public class TextureChanger : MonoBehaviour
                 baseMat.SetFloat("_Scale", scale3);
             break;
             case 3:
-            if(islandMgr.islandSizeMenu > 0)
+            if(islandMgr.islandParameters[treeMaker.islandChoice].islandSizeMenu > 0)
                 baseMat.SetTexture("_TextureA", BlackSandy);
             else
                 baseMat.SetTexture("_TextureA", BlackSand);
@@ -71,7 +72,7 @@ public class TextureChanger : MonoBehaviour
                 baseMat.SetFloat("_Scale", scale3);
             break;
             case 4:
-            if(islandMgr.islandSizeMenu > 0)
+            if(islandMgr.islandParameters[treeMaker.islandChoice].islandSizeMenu > 0)
                 baseMat.SetTexture("_TextureA", PaintedSand);
             else
                 baseMat.SetTexture("_TextureA", Sand);

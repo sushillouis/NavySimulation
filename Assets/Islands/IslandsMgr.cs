@@ -12,10 +12,17 @@ public enum IslandSize
     Large = 50,
 }
 
+public enum IslandFormation
+{
+    Single, Line, Triangle
+}
+
 [System.Serializable]
 public struct Island
 {
     public IslandSize size;
+    public int islandSizeMenu;
+    public int textureChoice;
     // public  position;
 }
 
@@ -33,25 +40,31 @@ public class IslandsMgr : MonoBehaviour
     public List<GameObject> islands;
     public int islandCount = 0;
 
-    public int islandSizeMenu = 2;
+    // public int islandSizeMenu = 2;
 
-    public int textureChoice = 0;
+    // public int textureChoice = 0;
 
     public TextureChanger textureChanger;
-
-    public int formation;
+    public IslandFormation formation;
+    public int globalIndex;
     
     [HideInInspector]
     public List<Vector3> position;
 
-    GameObject CreateIsland(int size, Vector3 position)
+    [ContextMenu("IslandGenerate")]
+    public void ClusterMove()
     {
-        textureChanger.UpdateTexture(textureChoice);
+        RedrawIslands();
+    }
+
+    GameObject CreateIsland(int size, Vector3 position, int texture)
+    {
+        textureChanger.UpdateTexture(texture);
         GameObject island = Instantiate(islandPrefab, position, Quaternion.identity, islandsParent);
         MapGenerator islandGenerator = island.GetComponent<MapGenerator>();
-        if(islandSizeMenu == 0)
+        if(size == 0)
             islandGenerator.terrainData = GenerateTerrainData(IslandSize.Small, smallIslandCurve);
-        else if(islandSizeMenu == 1)
+        else if(size == 1)
             islandGenerator.terrainData = GenerateTerrainData(IslandSize.Medium, mediumIslandCurve);
         else
             islandGenerator.terrainData = GenerateTerrainData(IslandSize.Large, largeIslandCurve);
@@ -85,9 +98,11 @@ public class IslandsMgr : MonoBehaviour
     public void RedrawIslands()
     {
         FormationDeclaration(formation);
+        int index = 0;
         foreach (Vector3 pos in position)
         {
-            CreateIsland(islandSizeMenu, pos);
+            CreateIsland(islandParameters[index].islandSizeMenu, pos, islandParameters[index].textureChoice);
+            index++;
         }
     }
 
@@ -118,19 +133,25 @@ public class IslandsMgr : MonoBehaviour
         return terrainData;
     }
 
-    void FormationDeclaration(int format)
+    void FormationDeclaration(IslandFormation format)
     {
         position.Clear();
         int randomizationPos = Random.Range(-500, 500);
         switch(format)
         {
-            case 0:
+            case IslandFormation.Single:
                 position.Add(new Vector3(5000, 0, 0));
             break;
-            case 1:
+            case IslandFormation.Line:
                 position.Add(new Vector3(5000 + randomizationPos, 0, 0));
                 position.Add(new Vector3(-5000, 0, 0));
                 position.Add(new Vector3(15000 + randomizationPos, 0, 0));
+            break;
+
+            case IslandFormation.Triangle:
+                position.Add(new Vector3(5000 + randomizationPos, 0, 0));
+                position.Add(new Vector3(-5000, 0, 0));
+                position.Add(new Vector3(5000 + randomizationPos, 0, -7000));
             break;
 
         }

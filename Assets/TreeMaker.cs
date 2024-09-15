@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UIElements;
 
 public class TreeMaker : MonoBehaviour
@@ -19,46 +20,72 @@ public class TreeMaker : MonoBehaviour
         DeleteAllTrees();
     }
 
-    public float treeCount;
-    public int clusterNum;
+    [System.Serializable]
+    public class Trees
+    {
+        public float treeCount;
+        public int clusterNum;
+    }
+    public int islandChoice;
+    public IslandsMgr islandMgr;
     public GameObject[] treePrefab;
     public GameObject treeTray;
+
+    public List<Trees> islandTrees;
+    public List<Trees> islandTrees2;
+    public Transform clusterParent;
 
     [HideInInspector]
     public List<GameObject> treeList = new List<GameObject>();
 
     [HideInInspector]
     public List<GameObject> duplicateClusterList;
-    public Transform clusterParent;
-
-    public int islandSizeTest = 0;
     public int leafTexture = 0;
     public float scale;
+
+    public int totalClusters = 0;
     
+    private void Start()
+    {
+        islandTrees.Clear();
+        // Trees newTree = new Trees();
+        for(int i = 0; i <= 2; i++){
+            Trees newTree = new Trees();
+            islandTrees.Add(newTree);}
+    }
+
+
     //Create the given number of clusters
     public void CreateClusters()
     {
-        if(clusterNum != 0)
-        {
-            MakeTrees(treeCount);
+        for(int i = 0; i < islandMgr.islandCount; i++)
+            islandTrees2.Add(islandTrees[i]);
 
-            if(clusterNum > 1)
+        int j = 0;
+        foreach(Trees t in islandTrees2)
+        {
+            if(t.clusterNum != 0)
             {
-                for(int i = 0; i < (clusterNum * FindObjectOfType<IslandsMgr>().islandCount) - 1; i++)
+                // MakeTrees(treeCount);
+                for(int i = 0; i < t.clusterNum; i++)
                 {
+                    int islandScale = islandMgr.islandParameters[j].islandSizeMenu;
+                    MakeTrees(t.treeCount, islandScale);
                     GameObject cluster = Instantiate(treeTray, new Vector3(25500, 0, 25500), Quaternion.identity, clusterParent);
                     duplicateClusterList.Add(cluster);
+                    totalClusters++;
+                    DeleteMainTrees();
                 }
+                j++;
             }
         }
     }
 
     //Create the location for the trees spawned on the island
-    public void MakeTrees(float treeCount)
+    public void MakeTrees(float treeCount, int islandScale)
     {
         FindObjectOfType<TreeColor>().UpdateLeafTexture(leafTexture);
         treeTray.transform.position = new Vector3(25500, 0, 25500);
-        int islandScale = FindObjectOfType<IslandsMgr>().islandSizeMenu;
         switch(islandScale)
         {
             case 2:
@@ -119,5 +146,21 @@ public class TreeMaker : MonoBehaviour
             }
         } 
         treeList.Clear();
+        islandTrees2.Clear();
+        totalClusters = 0;
+    }
+
+    public void DeleteMainTrees()
+    {
+        for (var i = treeTray.transform.childCount - 1; i >= 1; i--)
+        {
+            if (Application.isPlaying)
+                Destroy(treeTray.transform.GetChild(i).gameObject);
+            else
+            {
+                DestroyImmediate(treeTray.transform.GetChild(i).gameObject); 
+            }
+        }
+
     }
 }

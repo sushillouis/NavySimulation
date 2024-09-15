@@ -25,12 +25,12 @@ public class SliderMgr : MonoBehaviour
     public void GetDensityValue()
     {
         float sliderVal = treeSlider.value;
-        TreeCluster.treeCount = sliderVal;
+        TreeCluster.islandTrees[TreeCluster.islandChoice].treeCount = sliderVal;
     }
 
     public void SetSizeValues()
     {
-        int sizeValue = islandMgr.islandSizeMenu;
+        int sizeValue = FindObjectOfType<IslandsMgr>().islandParameters[TreeCluster.islandChoice].islandSizeMenu;
         switch(sizeValue)
         {
             case 0:

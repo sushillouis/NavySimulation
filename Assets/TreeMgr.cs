@@ -26,25 +26,34 @@ public class TreeMgr : MonoBehaviour
         List<GameObject> islands = islandMgr.islands;
         GameObject[] clusterCounter = GameObject.FindGameObjectsWithTag("TreeCluster"); 
         List<GameObject> islandClusters = new List<GameObject>();
-        int currentCluster = 0;
-        int totalClusters = TreeTray.GetComponent<TreeMaker>().clusterNum - 1;
+        int currentCluster = 1;
+        int islandScale;
+        int j = 0;
+        int totalClusters = TreeTray.GetComponent<TreeMaker>().islandTrees2[j].clusterNum;
         foreach(GameObject i in islands)
         {
+            // totalClusters = TreeTray.GetComponent<TreeMaker>().islandTrees2[j].clusterNum;
             for(; currentCluster <= totalClusters; currentCluster++)
             {
                 islandClusters.Add(clusterCounter[currentCluster]); 
             }
-            clusterMover(i, islandClusters);
+            islandScale = islandMgr.islandParameters[j].islandSizeMenu;
+            clusterMover(i, islandClusters, islandScale);
             islandClusters.Clear();
-            totalClusters = totalClusters + TreeTray.GetComponent<TreeMaker>().clusterNum;
+            if(islandMgr.formation != IslandFormation.Single)
+            {
+                if(j < 2)
+                    totalClusters += TreeTray.GetComponent<TreeMaker>().islandTrees2[j + 1].clusterNum;
+            }
+            j++;
         }
 
     }
 
     //Find the random point on which to move the prefab to
-    public void clusterMover(GameObject island, List<GameObject> clusterCount)
+    public void clusterMover(GameObject island, List<GameObject> clusterCount, int islandScale)
     {
-        int islandScale = islandMgr.islandSizeMenu;
+        // int islandScale = islandMgr.islandSizeMenu;
         switch(islandScale)
         {
             case 2:
