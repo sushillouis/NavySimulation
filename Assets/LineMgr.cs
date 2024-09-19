@@ -67,15 +67,15 @@ public class LineMgr : MonoBehaviour
         return lr;
     }
 
-    public LineRenderer tmp;
+    public GameObject tmp;
     public void DestroyLR(LineRenderer lr)
     {
         tmp = null;
         if (lines.Contains(lr)) {
-            tmp = lr;
+            tmp = lr.gameObject;
             lines.Remove(lr);
         }
-        Destroy(lr);
+        Destroy(lr.gameObject);
 
     }
 }
