@@ -41,6 +41,7 @@ public class SaveTest : MonoBehaviour, IDataPersistence
                 if (commandsIndex[i] != -1)
                 {
                     uais[i].AddCommand(commands[i]);
+                    uais[i].DecorateAll();
                 }
                 if (commands[i].startCommand)
                     uais[i].HandleStartCommand(commands[i]);
@@ -63,7 +64,7 @@ public class SaveTest : MonoBehaviour, IDataPersistence
 
         for(int i = 0; i < data.entityIndex.Count; i++)
         {
-            Entity381 ent = EntityMgr.inst.CreateEntity((EntityType) data.entityType[i], data.position[i], Vector3.zero);
+            Entity381 ent = EntityMgr.inst.CreateEntity((EntityType) data.entityType[i], data.position[i], new Vector3(0, data.heading[i], 0));
             ent.velocity = data.velocity[i];
             ent.speed = data.speed[i];
             ent.desiredSpeed = data.ds[i];

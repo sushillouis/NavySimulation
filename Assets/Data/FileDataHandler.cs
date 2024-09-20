@@ -21,7 +21,7 @@ public class FileDataHandler
 
     public GameData Load(string profileID)
     {
-        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileID);
         GameData loadedData = null;
         if (File.Exists(fullPath))
         {
@@ -49,14 +49,14 @@ public class FileDataHandler
                 Debug.LogError("Error occured when trying to load file: " + fullPath + "\n" + e);
             }
         }
-        else
-            Debug.Log(fullPath + " doesn't haave a file");
+        
         return loadedData;
     }
 
     public void Save(GameData data, string profileID)
     {
-        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileID);
+
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

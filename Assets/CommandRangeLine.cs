@@ -65,7 +65,7 @@ public class CommandRangeLine : MonoBehaviour
                 command.distanceThreshold += 10;
             }
 
-            if(command.isRunning && ownship.GetComponent<UnitAI>().commands[0] != command)
+            if(command.isRunning && !ownship.GetComponent<UnitAI>().commands.Contains(command))
             {
                 Destroy(this.gameObject);
             }

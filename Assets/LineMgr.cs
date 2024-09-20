@@ -103,7 +103,6 @@ public class LineMgr : MonoBehaviour
     {
         foreach(Transform child in this.transform)
         {
-            Debug.Log("Destroy called");
             Destroy(child.gameObject);
         }
 

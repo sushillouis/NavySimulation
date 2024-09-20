@@ -49,6 +49,8 @@ public class Entity381 : MonoBehaviour
 
     public GameObject cameraRig;
     public GameObject selectionCircle;
+    public AudioSource audioSource;
+    bool toggleAudio = true;
 
     // Start is called before the first frame update
     void Start()
@@ -59,36 +61,20 @@ public class Entity381 : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void LoadData(GameData data)
+    public void Update()
     {
-        /*
-        entityIndex = data.entityIndex[0];
-        entityType = (EntityType) data.entityType[0];
-        position = data.position[0];
-        velocity = data.velocity[0];
-        speed = data.speed[0];
-        desiredSpeed = data.ds[0];
-        heading = data.heading[0];
-        desiredHeading = data.dh[0];
-        */
+        if(audioSource != null)
+        {
+            if (speed > 0 && toggleAudio)
+            {
+                audioSource.Play();
+                toggleAudio = false;
+            }
+            else if(speed == 0)
+            {
+                audioSource.Stop();
+                toggleAudio = true;
+            }
+        }
     }
-
-    public void SaveData(GameData data)
-    {
-        Debug.Log("save test");
-        EntityMgr.inst.entities.IndexOf(this);
-
-
-
-        data.entityIndex.Add(EntityMgr.inst.entities.IndexOf(this));
-        data.entityType.Add((int) entityType);
-        data.position.Add(position);
-        data.velocity.Add(velocity);
-        data.speed.Add(speed);
-        data.ds.Add(desiredSpeed);
-        data.heading.Add(heading);
-        data.dh.Add(desiredHeading);
-    }
-
-
 }

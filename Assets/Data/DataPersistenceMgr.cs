@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.IO;
+using UnityEngine.UI;
 
 public class DataPersistenceMgr : MonoBehaviour
 {
@@ -21,11 +22,19 @@ public class DataPersistenceMgr : MonoBehaviour
     public int maxStateID;
     public string selectedProfileID = "test";
 
+    public bool record;
+
+    public Slider rewindSlider;
+
     private void Awake()
     {
         inst = this;
         stateID = 0;
         maxStateID = 0;
+
+        rewindSlider.maxValue = maxStateID;
+        rewindSlider.value = stateID;
+        //record = true;
     }
 
     private void Start()
@@ -36,10 +45,12 @@ public class DataPersistenceMgr : MonoBehaviour
 
         string path = Path.Combine(Application.persistentDataPath, "saves");
 
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        this.dataHandler = new FileDataHandler(path, fileName, useEncryption);
         this.dataPersistenceObjects = FindAllPersistenceObjects();
 
     }
+
+    float frame = 0;
 
     private void Update()
     {
@@ -51,6 +62,16 @@ public class DataPersistenceMgr : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.LeftBracket))
         {
             LoadBackward();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        frame++;
+        if (frame > 60 && record)
+        {
+            HandleSaveState();
+            frame = 0;
         }
     }
 
@@ -89,12 +110,15 @@ public class DataPersistenceMgr : MonoBehaviour
 
     public void HandleSaveState()
     {
-        selectedProfileID = "state" + (stateID + 1);
+        selectedProfileID = "state" + (stateID + 1) + ".game";
 
         SaveGame();
 
         stateID++;
         maxStateID = stateID;
+
+        rewindSlider.maxValue = maxStateID;
+        rewindSlider.value = stateID;
 
     }
 
@@ -107,7 +131,7 @@ public class DataPersistenceMgr : MonoBehaviour
         }
 
         stateID++;
-        selectedProfileID = "state" + stateID;
+        selectedProfileID = "state" + stateID + ".game";
         LoadGame();
         
     }
@@ -121,10 +145,22 @@ public class DataPersistenceMgr : MonoBehaviour
         else
         {
             stateID--;
-            selectedProfileID = "state" + stateID;
+            selectedProfileID = "state" + stateID + ".game";
         }
 
         LoadGame();
+    }
+
+    public void LoadState(float stateID)
+    {
+        selectedProfileID = "state" + (int) stateID + ".game";
+        
+        if(stateID != this.stateID)
+        {
+            LoadGame();
+            this.stateID = (int)stateID;
+        }
+            
     }
 
     private List<IDataPersistence> FindAllPersistenceObjects()
