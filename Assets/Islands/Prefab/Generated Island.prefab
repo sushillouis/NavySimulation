@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 1
-  terrainMaterial: {fileID: 0}
+  terrainMaterial: {fileID: 2100000, guid: 5812983df90f28f44823a510c04fb443, type: 2}
   editorPreviewLOD: 0
   autoUpdate: 0
 --- !u!114 &2454523697786320435

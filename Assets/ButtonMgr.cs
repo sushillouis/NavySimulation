@@ -16,9 +16,8 @@ public class ButtonMgr : MonoBehaviour
 
     [SerializeField] private TMP_Dropdown dropdownClusters;
     [SerializeField] private TMP_Dropdown dropdownSize;
-
-    bool treeActive = false;
-    bool islandActive = false;
+    [SerializeField] private TMP_Dropdown dropdownFormation;
+    [SerializeField] private TMP_Dropdown dropdownIslandChoice;
 
 
     [ContextMenu("TestIsland")]
@@ -42,10 +41,6 @@ public class ButtonMgr : MonoBehaviour
     private void Start()
     {
         DeleteIslands();
-        dropdownClusters.gameObject.SetActive(false);
-        sliderTree.gameObject.SetActive(false);
-        dropdownSize.gameObject.SetActive(false);
-        dropdownTexture.gameObject.SetActive(false);
     }
 
     public void GenerateIslands()
@@ -73,42 +68,6 @@ public class ButtonMgr : MonoBehaviour
         treeMaker.DeleteAllTrees();
     }
 
-    public void TreeDropdowns()
-    {
-        if(treeActive == true)
-        {
-            dropdownClusters.gameObject.SetActive(false);
-            sliderTree.gameObject.SetActive(false);
-            treeActive = false;
-        }
-        else if(treeActive == false || islandActive == true){
-            dropdownClusters.gameObject.SetActive(true);
-            sliderTree.gameObject.SetActive(true);
-            dropdownSize.gameObject.SetActive(false);
-            dropdownTexture.gameObject.SetActive(false);
-            treeActive = true;
-            islandActive = false;
-        }
-    }
-
-    public void IslandDropdowns()
-    {
-        if(islandActive == true)
-        {
-            dropdownSize.gameObject.SetActive(false);
-            dropdownTexture.gameObject.SetActive(false);
-            islandActive = false;
-        }
-        else if(treeActive == true || islandActive == false){
-            dropdownClusters.gameObject.SetActive(false);
-            sliderTree.gameObject.SetActive(false);
-            dropdownSize.gameObject.SetActive(true);
-            dropdownTexture.gameObject.SetActive(true);
-            islandActive = true;
-            treeActive = false;
-        }
-    }
-
     public IEnumerator RandomIslandGenerate()
     {
         DeleteIslands();
@@ -120,27 +79,70 @@ public class ButtonMgr : MonoBehaviour
         int randomTreeNum;
         int randomformation = Random.Range(0, 2);
         int randomTexture;
+        IslandSize randomizedSize = IslandSize.Small;
+
 
         if (randomformation == 0){
+            treeMaker.islandChoice = 0;
+            dropdownIslandChoice.value = 0;
             islandMgr.formation = IslandFormation.Single;
+            dropdownFormation.value = 0;
             randomSize = Random.Range(0, 2);
-            islandMgr.islandParameters[0].islandSizeMenu = randomSize;
+            switch (randomSize)
+            {
+                case 0:
+                    randomizedSize = IslandSize.Small;
+                break;
+                case 1:
+                    randomizedSize = IslandSize.Medium;
+                break;
+                case 2:
+                    randomizedSize = IslandSize.Large;
+                break;
+            }
+            islandMgr.islandParameters[0].size = randomizedSize;
+            dropdownSize.value = randomSize;
             randomCluster = Random.Range(0, 10);
             treeMaker.islandTrees[0].clusterNum = randomCluster;
+            dropdownClusters.value = randomCluster;
             sizeSwitch(randomSize, ref maxValue, ref minValue);
             randomTreeNum = Random.Range(minValue, maxValue);
             treeMaker.islandTrees[0].treeCount = randomTreeNum;
+            sliderTree.value = randomTreeNum;
             randomTexture = Random.Range(0, 4);
             islandMgr.islandParameters[0].textureChoice = randomTexture;
+            dropdownTexture.value = randomTexture;
             treeMaker.leafTexture = randomTexture;
         }
 
+
         else if(randomformation == 1 || randomformation == 2){
-            islandMgr.formation = IslandFormation.Line;
+            if(randomformation == 1){
+                islandMgr.formation = IslandFormation.Line;
+                dropdownFormation.value = 1;}
+            else{
+                islandMgr.formation = IslandFormation.Triangle;
+                dropdownFormation.value = 2;}
+            
             for(int i = 0; i <= 2; i++)
             {
                 randomSize = Random.Range(0, 2);
-                islandMgr.islandParameters[i].islandSizeMenu = randomSize;
+                switch (randomSize)
+                {
+                    case 0:
+                        randomizedSize = IslandSize.Small;
+                        dropdownSize.value = randomSize;
+                    break;
+                    case 1:
+                        randomizedSize = IslandSize.Medium;
+                        dropdownSize.value = randomSize;
+                    break;
+                    case 2:
+                        randomizedSize = IslandSize.Large;
+                        dropdownSize.value = randomSize;
+                    break;
+                }
+                islandMgr.islandParameters[i].size = randomizedSize;
                 randomCluster = Random.Range(0, 10);
                 treeMaker.islandTrees[i].clusterNum = randomCluster;
                 sizeSwitch(randomSize, ref maxValue, ref minValue);
@@ -150,6 +152,13 @@ public class ButtonMgr : MonoBehaviour
                 islandMgr.islandParameters[i].textureChoice = randomTexture;
                 treeMaker.leafTexture = randomTexture;
             }
+
+            treeMaker.islandChoice = 3;
+            dropdownIslandChoice.value = 3;
+            dropdownClusters.value = treeMaker.islandTrees[2].clusterNum;
+            sliderTree.value = treeMaker.islandTrees[2].treeCount;
+            dropdownTexture.value = islandMgr.islandParameters[2].textureChoice;
+
         }
         islandMgr.RedrawIslands();
         treeMaker.CreateClusters();

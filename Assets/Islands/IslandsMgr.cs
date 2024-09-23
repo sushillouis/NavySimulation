@@ -21,9 +21,7 @@ public enum IslandFormation
 public struct Island
 {
     public IslandSize size;
-    public int islandSizeMenu;
     public int textureChoice;
-    // public  position;
 }
 
 public class IslandsMgr : MonoBehaviour
@@ -33,16 +31,16 @@ public class IslandsMgr : MonoBehaviour
     public AnimationCurve largeIslandCurve;
 
     public GameObject islandPrefab;
+    public GameObject islandPrefab2;
+    public GameObject islandPrefab3;
+
+    GameObject declaredPrefab;
     public Transform islandsParent;
     
     public Island[] islandParameters;
 
     public List<GameObject> islands;
     public int islandCount = 0;
-
-    // public int islandSizeMenu = 2;
-
-    // public int textureChoice = 0;
 
     public TextureChanger textureChanger;
     public IslandFormation formation;
@@ -57,14 +55,14 @@ public class IslandsMgr : MonoBehaviour
         RedrawIslands();
     }
 
-    GameObject CreateIsland(int size, Vector3 position, int texture)
+    GameObject CreateIsland(IslandSize size, Vector3 position, int texture, int islandIndex)
     {
-        textureChanger.UpdateTexture(texture);
-        GameObject island = Instantiate(islandPrefab, position, Quaternion.identity, islandsParent);
+        textureChanger.UpdateTexture(texture, islandIndex);
+        GameObject island = Instantiate(declaredPrefab, position, Quaternion.identity, islandsParent);
         MapGenerator islandGenerator = island.GetComponent<MapGenerator>();
-        if(size == 0)
+        if(size == IslandSize.Small)
             islandGenerator.terrainData = GenerateTerrainData(IslandSize.Small, smallIslandCurve);
-        else if(size == 1)
+        else if(size == IslandSize.Medium)
             islandGenerator.terrainData = GenerateTerrainData(IslandSize.Medium, mediumIslandCurve);
         else
             islandGenerator.terrainData = GenerateTerrainData(IslandSize.Large, largeIslandCurve);
@@ -75,6 +73,22 @@ public class IslandsMgr : MonoBehaviour
         islands.Add(island);
 
         return island;
+    }
+
+    public void DeclaredPrefab(int currentIsland)
+    {
+        switch(currentIsland)
+        {
+            case 0:
+                declaredPrefab = islandPrefab;
+            break;
+            case 1:
+                declaredPrefab = islandPrefab2;
+            break;
+            case 2:
+                declaredPrefab = islandPrefab3;
+            break;
+        }
     }
 
     public void DeleteAllIslands()
@@ -101,7 +115,8 @@ public class IslandsMgr : MonoBehaviour
         int index = 0;
         foreach (Vector3 pos in position)
         {
-            CreateIsland(islandParameters[index].islandSizeMenu, pos, islandParameters[index].textureChoice);
+            DeclaredPrefab(index);
+            CreateIsland(islandParameters[index].size, pos, islandParameters[index].textureChoice, index);
             index++;
         }
     }

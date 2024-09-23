@@ -6,7 +6,7 @@ using TMPro;
 
 public class SliderMgr : MonoBehaviour
 {
-    [SerializeField] private Slider treeSlider;
+    public Slider treeSlider;
     [SerializeField] private TextMeshProUGUI sliderText;
     public TreeMaker TreeCluster;
     public IslandsMgr islandMgr;
@@ -19,8 +19,14 @@ public class SliderMgr : MonoBehaviour
             sliderText.text = v.ToString("0");
         });
 
-        SetSizeValues();
-        GetDensityValue();    
+        // for(int i = 0; i <= islandMgr.islandCount - 1; i++)
+        // {
+        //     TreeCluster.islandTrees[i].treeCount = 25;
+        //     TreeCluster.islandTrees[i].clusterNum = 0;
+        // }
+
+        findSlider();
+        // GetDensityValue();    
     }
     public void GetDensityValue()
     {
@@ -28,27 +34,32 @@ public class SliderMgr : MonoBehaviour
         TreeCluster.islandTrees[TreeCluster.islandChoice].treeCount = sliderVal;
     }
 
+    public void findSlider()
+    {
+        int treesFound = TreeCluster.islandTrees[TreeCluster.islandChoice].clusterNum;
+        treeSlider.value = treesFound;
+    }
+
     public void SetSizeValues()
     {
-        int sizeValue = FindObjectOfType<IslandsMgr>().islandParameters[TreeCluster.islandChoice].islandSizeMenu;
+        IslandSize sizeValue = FindObjectOfType<IslandsMgr>().islandParameters[TreeCluster.islandChoice].size;
         switch(sizeValue)
         {
-            case 0:
+            case IslandSize.Small:
                 treeSlider.maxValue = 50;
                 treeSlider.minValue = 1;
                 treeSlider.value = 25;
             break;
-            case 1:
+            case IslandSize.Medium:
                 treeSlider.maxValue = 75;
                 treeSlider.minValue = 20;
                 treeSlider.value = 50;
             break;
-            case 2:
+            case IslandSize.Large:
                 treeSlider.maxValue = 200;
                 treeSlider.minValue = 50;
                 treeSlider.value = 125;
             break;
         }
-        GetDensityValue();
     }
 }

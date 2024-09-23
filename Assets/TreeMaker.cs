@@ -51,6 +51,8 @@ public class TreeMaker : MonoBehaviour
         // Trees newTree = new Trees();
         for(int i = 0; i <= 2; i++){
             Trees newTree = new Trees();
+            newTree.treeCount = 25;
+            newTree.clusterNum = 0;
             islandTrees.Add(newTree);}
     }
 
@@ -69,7 +71,7 @@ public class TreeMaker : MonoBehaviour
                 // MakeTrees(treeCount);
                 for(int i = 0; i < t.clusterNum; i++)
                 {
-                    int islandScale = islandMgr.islandParameters[j].islandSizeMenu;
+                    IslandSize islandScale = islandMgr.islandParameters[j].size;
                     MakeTrees(t.treeCount, islandScale);
                     GameObject cluster = Instantiate(treeTray, new Vector3(25500, 0, 25500), Quaternion.identity, clusterParent);
                     duplicateClusterList.Add(cluster);
@@ -82,19 +84,19 @@ public class TreeMaker : MonoBehaviour
     }
 
     //Create the location for the trees spawned on the island
-    public void MakeTrees(float treeCount, int islandScale)
+    public void MakeTrees(float treeCount, IslandSize islandScale)
     {
         FindObjectOfType<TreeColor>().UpdateLeafTexture(leafTexture);
         treeTray.transform.position = new Vector3(25500, 0, 25500);
         switch(islandScale)
         {
-            case 2:
+            case IslandSize.Large:
                 scale = 0;
             break;
-            case 1:
+            case IslandSize.Medium:
                 scale = 250;
             break;
-            case 0:
+            case IslandSize.Small:
                 scale = 350;
             break;
         }
